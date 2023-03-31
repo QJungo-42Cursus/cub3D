@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:52:59 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 01:19:52 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/01 01:38:53 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static int	is_texture_path_valid(char *path)
 	{
 		one_invalid = TRUE;
 		error_print("texture path is not valid");
-		return (ERROR);
+		return (FALSE);
 	}
-	return (SUCCESS);
+	return (TRUE);
 }
 
 static int	path_not_found(t_map *map, int i)

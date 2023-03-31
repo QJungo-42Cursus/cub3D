@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:23:14 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 00:52:38 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/01 01:46:46 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ typedef struct s_color {
 	char	b;
 }	t_rgb_color;
 
-typedef enum e_tile {
+enum e_tile {
 	VOID,
 	WALL,
 	FLOOR,
-}	t_tile;
+};
 
 typedef struct s_map {
 	char			*no_path;
@@ -41,7 +41,7 @@ typedef struct s_map {
 	char			*we_path;
 	t_rgb_color		floor_color;
 	t_rgb_color		ceiling_color;
-	t_tile			**tiles;
+	char			**tiles;
 	t_vec2			size;
 }	t_map;
 
@@ -50,6 +50,7 @@ typedef struct s_map {
 /******	./ ******/
 // utils.c
 void			error_print(char *msg);
+void			free_map(t_map *map);
 
 /******	./parsing ******/
 //	parsing.c
@@ -58,7 +59,9 @@ int				parse(char *filename, t_map *map);
 char			*get_all_file(char *filename);
 // get_info_by_id.c
 char			*get_info_by_id(char *id, char **lines, int map_first_line);
-// set_textures_path
+// set_textures_path.c
 int				set_textures_path(char **lines, t_map *map, int first_line);
+// set_colors.c
+int				set_colors(char **lines, t_map *map, int first_line);
 
 #endif /* CUBE3D_H */

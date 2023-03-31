@@ -8,6 +8,7 @@ SRCS =		main.c \
 			parsing/parsing.c \
 			parsing/get_info_by_id.c \
 			parsing/set_textures_path.c \
+			parsing/set_colors.c \
 			parsing/get_all_file.c
 
 OBJS =		$(SRCS:.c=.o)
@@ -48,7 +49,11 @@ re: fclean all
 
 ###
 
-test: all
+test: san
+	./$(NAME) tests/failing_maps/invalide_name.cu || true
+	@echo
+	./$(NAME) tests/failing_maps/unexisting.cub || true
+	@echo
 	./$(NAME) tests/failing_maps/empty.cub || true
 	@echo
 	./$(NAME) tests/failing_maps/texture_after_map.cub || true
@@ -58,6 +63,11 @@ test: all
 	./$(NAME) tests/failing_maps/wrong_texture_path.cub || true
 	@echo
 	./$(NAME) tests/failing_maps/missing_texture.cub || true
+	@echo
+	./$(NAME) tests/failing_maps/wrong_color.cub || true
+
+	@echo
+	./$(NAME) tests/basic.cub || true
 
 SAN =	-fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all \
 		-fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow \

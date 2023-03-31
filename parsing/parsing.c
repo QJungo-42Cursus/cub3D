@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:27:55 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 00:53:56 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/01 01:44:27 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,23 @@ int	find_map_first_line(char **lines)
 	return (-1);
 }
 
-
 int	parse_lines(char **lines, t_map *map)
 {
 	int		first_line;
 
 	first_line = find_map_first_line(lines);
 	if (set_textures_path(lines, map, first_line) == ERROR)
+	{
+		split_free(lines);
 		return (ERROR);
+	}
+	if (set_colors(lines, map, first_line) == ERROR)
+	{
+		split_free(lines);
+		free_map(map);
+		return (ERROR);
+	}
+	split_free(lines);
 	// TODO
 	return (SUCCESS);
 }

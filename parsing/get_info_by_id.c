@@ -6,15 +6,15 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:50:34 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 01:20:39 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/01 01:47:58 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube3D.h"
 
-static char *return_value(char *id, char **lines, int found_i)
+static char	*return_value(char *id, char **lines, int found_i)
 {
-	char    *value;
+	char	*value;
 
 	value = ft_strdup(&lines[found_i][ft_strlen(id)]);
 	if (value == NULL)
@@ -37,7 +37,7 @@ char	*get_info_by_id(char *id, char **lines, int map_first_line)
 		if (ft_strncmp(lines[i], id, ft_strlen(id)) == 0)
 		{
 			if (found_i != -1)
-				error_print("multiple definition for the same texture or color");
+				error_print("multiple definition for same texture or color");
 			if (i > map_first_line)
 				error_print("map is not at the end of the file");
 			if (i > map_first_line || found_i != -1)
