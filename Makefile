@@ -4,7 +4,11 @@ CFLAGS =	-Wall -Wextra -Werror
 RM =		rm -f
 LIBFT =		-L./libft -lft
 SRCS =		main.c \
-			parsing/parsing.c
+			utils.c \
+			parsing/parsing.c \
+			parsing/get_info_by_id.c \
+			parsing/set_textures_path.c \
+			parsing/get_all_file.c
 
 OBJS =		$(SRCS:.c=.o)
 
@@ -44,13 +48,16 @@ re: fclean all
 
 ###
 
-test: $(OBJS)
-	@make -C libft
-	@make -C $(MLX_REP)
-	$(CC) $(CFLAGS) -g $(OBJS) $(LIBFT) $(MLX) -o $(NAME)
-	clear
-	./fdf test_maps/42.fdf
-
+test: all
+	./$(NAME) tests/failing_maps/empty.cub || true
+	@echo
+	./$(NAME) tests/failing_maps/texture_after_map.cub || true
+	@echo
+	./$(NAME) tests/failing_maps/duplicate_texture.cub || true
+	@echo
+	./$(NAME) tests/failing_maps/wrong_texture_path.cub || true
+	@echo
+	./$(NAME) tests/failing_maps/missing_texture.cub || true
 
 SAN =	-fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all \
 		-fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow \

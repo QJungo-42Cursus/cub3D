@@ -1,4 +1,15 @@
-#include "libft/libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/01 00:22:39 by qjungo            #+#    #+#             */
+/*   Updated: 2023/04/01 00:22:41 by qjungo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube3D.h"
 
 static int	is_arg_name_valid(int argc, char **argv)
@@ -17,11 +28,14 @@ static int	is_arg_name_valid(int argc, char **argv)
 
 int	main(int argc, char **argv)
 {
+	t_map	map;
+
 	if (!is_arg_name_valid(argc, argv))
 	{
-		ft_printf("error\n", argv[0]);
+		error_print("usage: ./cub3D [map_file].cub");
 		return (1);
 	}
-	parse(argv[1]);
+	if (parse(argv[1], &map) == ERROR)
+		return (1);
 	return (0);
 }
