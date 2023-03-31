@@ -1,4 +1,5 @@
 #include "libft/libft.h"
+#include "cube3D.h"
 
 static int	is_arg_name_valid(int argc, char **argv)
 {
@@ -21,5 +22,6 @@ int	main(int argc, char **argv)
 		ft_printf("error\n", argv[0]);
 		return (1);
 	}
+	parse(argv[1]);
 	return (0);
 }

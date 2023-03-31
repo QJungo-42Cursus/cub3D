@@ -26,4 +26,10 @@ typedef struct s_map {
 	t_vec2			size;
 }	t_map;
 
+//	functions
+
+//	parsing/
+//	parsing.c
+void	parse(char *filename);
+
 #endif /* CUBE3D_H */

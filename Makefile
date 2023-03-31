@@ -3,7 +3,8 @@ CC =		gcc
 CFLAGS =	-Wall -Wextra -Werror
 RM =		rm -f
 LIBFT =		-L./libft -lft
-SRCS =		main.c
+SRCS =		main.c \
+			parsing/parsing.c
 
 OBJS =		$(SRCS:.c=.o)
 
@@ -59,15 +60,8 @@ san:
 	@make -C libft
 	@make -C $(MLX_REP)
 	$(CC) $(CFLAGS) $(SAN) $(SRCS) $(LIBFT) $(MLX) -o $(NAME) 
-	./fdf test_maps/tq3.fdf
-#./fdf test_maps/42.fdf
-
 
 leaks: all
-	clear
-	@#@echo "with bad map";
-	@#$(LEAKS) ./fdf test_maps/tq3.fdf
-	@#@echo "...";
-	@#$(LEAKS) ./fdf test_maps/42.fdf
+	$(LEAKS) ./$(NAME) a.cub
 
 .PHONY: all clean fclean re libft test
