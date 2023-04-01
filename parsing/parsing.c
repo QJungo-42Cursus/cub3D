@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:27:55 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 01:44:27 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/01 02:07:03 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "../libft/libft.h"
 #include "../cube3D.h"
 
-int	find_map_first_line(char **lines)
+static int	find_map_first_line(char **lines)
 {
 	int	i;
 
@@ -28,6 +28,8 @@ int	find_map_first_line(char **lines)
 			return (i);
 		i++;
 	}
+	error_print("map not found");
+	split_free(lines);
 	return (-1);
 }
 
@@ -36,6 +38,8 @@ int	parse_lines(char **lines, t_map *map)
 	int		first_line;
 
 	first_line = find_map_first_line(lines);
+	if (first_line == -1)
+		return (ERROR);
 	if (set_textures_path(lines, map, first_line) == ERROR)
 	{
 		split_free(lines);
@@ -47,8 +51,13 @@ int	parse_lines(char **lines, t_map *map)
 		free_map(map);
 		return (ERROR);
 	}
+	if (set_tiles(&lines[first_line], map) == ERROR)
+	{
+		split_free(lines);
+		free_map(map);
+		return (ERROR);
+	}
 	split_free(lines);
-	// TODO
 	return (SUCCESS);
 }
 
@@ -60,8 +69,7 @@ int	parse(char *filename, t_map *map)
 	file_content = get_all_file(filename);
 	if (file_content == NULL || ft_strlen(file_content) == 0)
 		return (ERROR);
-	// TODO check si la map n'est pas separee en 2 block
-	// -> le split va effacer la separation entre les 2 (donc on ne vera pas l'erreur)
+	// TODO check si la map n'est pas separee en 2 -> split efface la sep
 	lines = ft_split(file_content, '\n');
 	free(file_content);
 	if (lines == NULL)
@@ -71,16 +79,3 @@ int	parse(char *filename, t_map *map)
 	}
 	return (parse_lines(lines, map));
 }
-
-/*
-typedef struct s_map {
-	char			*no_path;
-	char			*so_path;
-	char			*ea_path;
-	char			*we_path;
-	t_rgb_color		floor_color;
-	t_rgb_color		ceiling_color;
-	t_tile			**tiles;
-	t_vec2			size;
-}	t_map;
-*/

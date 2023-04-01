@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:23:14 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 01:46:46 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/01 02:05:08 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,9 @@ char			*get_info_by_id(char *id, char **lines, int map_first_line);
 int				set_textures_path(char **lines, t_map *map, int first_line);
 // set_colors.c
 int				set_colors(char **lines, t_map *map, int first_line);
+// set_tiles.c
+int				set_tiles(char **lines, t_map *map);
+// check_tiles.c
+int				check_tiles(char **lines, t_map *map);
 
 #endif /* CUBE3D_H */
