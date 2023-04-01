@@ -39,11 +39,13 @@ $(NAME): $(OBJS)
 
 clean:
 	@make clean -C libft
+	@make clean -C tests
 	@make clean -C $(MLX_REP) 
 	$(RM) $(OBJS)
 
 fclean: clean
 	$(MLX_RM)
+	@make fclean -C tests
 	rm -f libft/libft.a
 	$(RM) $(NAME)
 
@@ -51,7 +53,7 @@ re: fclean all
 
 ###
 
-test: san
+test:
 	make -C tests
 
 SAN =	-fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all \

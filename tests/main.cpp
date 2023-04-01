@@ -25,6 +25,7 @@ TEST(Example, EmptyTest) {
 #./$(NAME) tests/basic.cub || true
 */
 
+
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

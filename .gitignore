@@ -2,3 +2,4 @@
 **/*.a
 **/*.so
 cube3D
+tests/test
