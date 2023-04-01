@@ -69,4 +69,8 @@ san:
 leaks: all
 	$(LEAKS) ./$(NAME) tests/test_files/basic.cub
 
+img:
+	$(CC) image_draw/image_draw.c $(LIBFT) $(MLX)
+	./a.out
+
 .PHONY: all clean fclean re libft test

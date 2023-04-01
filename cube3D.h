@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:23:14 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 04:07:22 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/01 19:06:47 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdio.h>
+# ifdef __APPLE__
+#  include <mlx.h>
+# else
+#  include "minilibx-linux/mlx.h"
+# endif
 
 # define BUFF_SIZE 2048
 
