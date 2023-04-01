@@ -6,13 +6,13 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:50:34 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 01:47:58 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/01 02:43:36 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube3D.h"
 
-static char	*return_value(char *id, char **lines, int found_i)
+static char	*return_value(const char *id, char **lines, int found_i)
 {
 	char	*value;
 
@@ -25,7 +25,7 @@ static char	*return_value(char *id, char **lines, int found_i)
 	return (value);
 }
 
-char	*get_info_by_id(char *id, char **lines, int map_first_line)
+char	*get_info_by_id(const char *id, char **lines, int map_first_line)
 {
 	int		i;
 	int		found_i;

@@ -53,8 +53,8 @@ re: fclean all
 
 ###
 
-test:
-	make -C tests
+run_tests:
+	make run_tests -C tests
 
 SAN =	-fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all \
 		-fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow \

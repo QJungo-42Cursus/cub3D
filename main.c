@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:22:39 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 01:47:15 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/01 02:59:08 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ static void	init_map(t_map *map)
 	map->tiles = NULL;
 }
 
+#ifdef TEST
+int	main_(int argc, char **argv)
+#else
 int	main(int argc, char **argv)
+#endif
 {
 	t_map	map;
 

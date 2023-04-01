@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:23:14 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 02:05:08 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/01 02:42:28 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_map {
 
 /******	./ ******/
 // utils.c
-void			error_print(char *msg);
+void			error_print(const char *msg);
 void			free_map(t_map *map);
 
 /******	./parsing ******/
@@ -58,7 +58,7 @@ int				parse(char *filename, t_map *map);
 //	get_all_file.c
 char			*get_all_file(char *filename);
 // get_info_by_id.c
-char			*get_info_by_id(char *id, char **lines, int map_first_line);
+char			*get_info_by_id(const char *id, char **lines, int map_first_line);
 // set_textures_path.c
 int				set_textures_path(char **lines, t_map *map, int first_line);
 // set_colors.c

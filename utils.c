@@ -6,13 +6,13 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:16:25 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 01:46:25 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/01 02:30:00 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3D.h"
 
-void	error_print(char *msg)
+void	error_print(const char *msg)
 {
 	static int	first = TRUE;
 
