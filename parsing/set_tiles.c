@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:53:46 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 04:00:44 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/01 04:44:02 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	set_map_size(char **lines, t_map *map)
 	int		largest_x;
 	int		i;
 
+	map->size.y = 0;
 	while (lines[map->size.y] != NULL)
 		map->size.y++;
 	largest_x = 0;

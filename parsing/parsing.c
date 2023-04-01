@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:27:55 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 02:07:03 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/01 04:30:27 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	find_map_first_line(char **lines)
 	return (-1);
 }
 
-int	parse_lines(char **lines, t_map *map)
+static int	parse_lines(char **lines, t_map *map)
 {
 	int		first_line;
 

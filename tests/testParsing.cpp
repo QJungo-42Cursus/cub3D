@@ -1,5 +1,8 @@
 #include "gtest/gtest.h"
+#include <filesystem>
 #include <fstream>
+#include <iostream>
+#include <string>
 
 extern "C" {
 #include "../cube3D.h"
@@ -22,11 +25,19 @@ static void parsing_integration_test(std::string filename,
     testing::internal::CaptureStdout();
     parse((char *)filename.c_str(), &map);
     std::string output = testing::internal::GetCapturedStdout();
-    EXPECT_EQ(output, expected);
+    if (expected != "-") {
+      EXPECT_EQ(output, expected);
+    } else {
+      // std::cout << output;
+    }
     exit(0);
   } else {
     waitpid(pid, NULL, 0);
   }
+}
+
+static void parsing_integration_test(std::string filename) {
+  parsing_integration_test(filename, "-");
 }
 
 static void parsing_integration_test(std::vector<std::string> content,
@@ -140,4 +151,11 @@ TEST(ParsingIntegrationTest, EmptyLine) {
   content.push_back("          1111111111111          ");
   content.push_back("                                               ");
   parsing_integration_test(content, "Error\nmap has an empty line\n");
+}
+
+TEST(ParsingIntegrationTest, TestAllInvalidMap) {
+  std::string path = "./test_files/invalid_maps/";
+  for (const auto &entry : std::filesystem::directory_iterator(path)) {
+    parsing_integration_test(entry.path());
+  }
 }
