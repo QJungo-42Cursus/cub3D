@@ -17,3 +17,5 @@ TEST(MainTest, InvalidExtension) {
   test_main_("test_files/failing_maps/invalid_name.cu",
              "Error\nusage: ./cub3D [map_file].cub\n");
 }
+
+TEST(MainTest, basic) { test_main_("test_files/basic.cub", ""); }

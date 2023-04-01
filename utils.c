@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:16:25 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 02:30:00 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/01 03:59:24 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	error_print(const char *msg)
 
 void	free_map(t_map *map)
 {
+	int		i;
+
 	if (map->no_path)
 		free(map->no_path);
 	if (map->so_path)
@@ -32,6 +34,13 @@ void	free_map(t_map *map)
 		free(map->we_path);
 	if (map->ea_path)
 		free(map->ea_path);
-	if (map->tiles)
-		split_free(map->tiles);
+	if (!map->tiles)
+		return ;
+	i = 0;
+	while (i < map->size.y)
+	{
+		free(map->tiles[i]);
+		i++;
+	}
+	free(map->tiles);
 }

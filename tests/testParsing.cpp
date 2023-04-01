@@ -1,4 +1,5 @@
 #include "gtest/gtest.h"
+#include <fstream>
 
 extern "C" {
 #include "../cube3D.h"
@@ -27,6 +28,28 @@ static void parsing_integration_test(std::string filename,
     waitpid(pid, NULL, 0);
   }
 }
+
+static void parsing_integration_test(std::vector<std::string> content,
+                                     std::string expected) {
+  // write content to a file and call parsing_integration_test
+  std::string filename = "test_files/tmp.cub";
+  std::ofstream file(filename);
+  for (std::string line : content) {
+    file << line << std::endl;
+  }
+  file.close();
+  parsing_integration_test(filename, expected);
+  remove(filename.c_str());
+}
+
+static std::vector<std::string> working_infos = {"NO ./textures/stone.xpm",
+                                                 "SO ./textures/stone.xpm",
+                                                 "WE ./textures/stone.xpm",
+                                                 "EA ./textures/stone.xpm",
+                                                 "F 0,0,0",
+                                                 "C 0,0,0"};
+
+/*************** TESTS ***************/
 
 TEST(ParsingIntegrationTest, UnexistingFile) {
   parsing_integration_test("test_files/unexisting.cub",
@@ -66,4 +89,55 @@ TEST(ParsingIntegrationTest, WrongColor) {
 
 TEST(ParsingIntegrationTest, Basic) {
   parsing_integration_test("test_files/basic.cub", "");
+}
+
+TEST(ParsingIntegrationTest, UnclosedMap) {
+  std::vector<std::string> content = working_infos;
+  content.push_back("111N111111111");
+  parsing_integration_test(content, "Error\nMap is not closed\n");
+}
+
+TEST(ParsingIntegrationTest, UnclosedMap2) {
+  std::vector<std::string> content = working_infos;
+  content.push_back("1111111111111");
+  content.push_back("1N00000000000");
+  content.push_back("1000000000001");
+  content.push_back("1111111111111");
+  parsing_integration_test(content, "Error\nMap is not closed\n");
+}
+
+TEST(ParsingIntegrationTest, UnclosedMap3) {
+  std::vector<std::string> content = working_infos;
+  content.push_back("          1111111111111          ");
+  content.push_back("1000000000001          ");
+  content.push_back("100000000E001          ");
+  content.push_back("1111111111111          ");
+  parsing_integration_test(content, "Error\nMap is not closed\n");
+}
+
+TEST(ParsingIntegrationTest, TrickyMap) {
+  std::vector<std::string> content = working_infos;
+  content.push_back("");
+  content.push_back("                    111111111111           ");
+  content.push_back("          1111111111100000000001   ");
+  content.push_back("          100000000E001111111111 ");
+  content.push_back("          1111111111111          ");
+  content.push_back("");
+  content.push_back("");
+  content.push_back("");
+  content.push_back("");
+  content.push_back("");
+  content.push_back("");
+  parsing_integration_test(content, "");
+}
+
+TEST(ParsingIntegrationTest, EmptyLine) {
+  std::vector<std::string> content = working_infos;
+  content.push_back("                                               ");
+  content.push_back("                    111111111111           ");
+  content.push_back("          1111111111100000000001   ");
+  content.push_back("          100000000E001111111111 ");
+  content.push_back("          1111111111111          ");
+  content.push_back("                                               ");
+  parsing_integration_test(content, "Error\nmap has an empty line\n");
 }

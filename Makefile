@@ -10,6 +10,7 @@ SRCS =		main.c \
 			parsing/set_textures_path.c \
 			parsing/set_tiles.c \
 			parsing/check_tiles.c \
+			parsing/check_tiles_after.c \
 			parsing/set_colors.c \
 			parsing/get_all_file.c
 
@@ -66,6 +67,6 @@ san:
 	$(CC) $(CFLAGS) $(SAN) $(SRCS) $(LIBFT) $(MLX) -o $(NAME) 
 
 leaks: all
-	$(LEAKS) ./$(NAME) a.cub
+	$(LEAKS) ./$(NAME) tests/test_files/basic.cub
 
 .PHONY: all clean fclean re libft test

@@ -12,5 +12,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: All
+    - name: Integration Tests
       run: make run_tests
+    - names: Norminette
+      run: echo norminette # TODO
+    - name: Unit Tests
+      run: echo unit tests # TODO

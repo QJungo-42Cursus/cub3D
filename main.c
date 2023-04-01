@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:22:39 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 02:59:08 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/01 04:08:13 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,31 @@ static void	init_map(t_map *map)
 	map->we_path = NULL;
 	map->ea_path = NULL;
 	map->tiles = NULL;
+	map->size.x = 0;
+	map->size.y = 0;
+	map->ceiling_color.r = 0;
+	map->ceiling_color.g = 0;
+	map->ceiling_color.b = 0;
+	map->floor_color.r = 0;
+	map->floor_color.g = 0;
+	map->floor_color.b = 0;
+	map->player_pos.x = 0;
+	map->player_pos.y = 0;
+	map->player_dir = 0;
 }
 
+#include "tests/debug_helper.hpp"
+
 #ifdef TEST
+
 int	main_(int argc, char **argv)
+
 #else
+
 int	main(int argc, char **argv)
+
 #endif
+
 {
 	t_map	map;
 
@@ -51,6 +69,7 @@ int	main(int argc, char **argv)
 	}
 	if (parse(argv[1], &map) == ERROR)
 		return (1);
+	//LOG_TILES(map);
 	free_map(&map);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:23:14 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 02:42:28 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/01 04:07:22 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,29 @@ enum e_tile {
 	FLOOR,
 };
 
+enum e_direction {
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST,
+};
+
+typedef struct s_vec2i {
+	int	x;
+	int	y;
+}	t_vec2i;
+
 typedef struct s_map {
 	char			*no_path;
 	char			*so_path;
 	char			*ea_path;
 	char			*we_path;
+	char			player_dir;
+	char			**tiles;
+	t_vec2i			player_pos;
 	t_rgb_color		floor_color;
 	t_rgb_color		ceiling_color;
-	char			**tiles;
-	t_vec2			size;
+	t_vec2i			size;
 }	t_map;
 
 //	functions
@@ -58,7 +72,8 @@ int				parse(char *filename, t_map *map);
 //	get_all_file.c
 char			*get_all_file(char *filename);
 // get_info_by_id.c
-char			*get_info_by_id(const char *id, char **lines, int map_first_line);
+char			*get_info_by_id(const char *id,
+					char **lines, int map_first_line);
 // set_textures_path.c
 int				set_textures_path(char **lines, t_map *map, int first_line);
 // set_colors.c
@@ -67,5 +82,7 @@ int				set_colors(char **lines, t_map *map, int first_line);
 int				set_tiles(char **lines, t_map *map);
 // check_tiles.c
 int				check_tiles(char **lines, t_map *map);
+// check_tiles_after.c
+int				check_tiles_after(t_map *map);
 
 #endif /* CUBE3D_H */

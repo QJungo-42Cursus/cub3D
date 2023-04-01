@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 02:04:41 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 02:09:02 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/01 03:46:53 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,14 @@ static int	has_invalid_char(char **lines)
 	}
 	return (FALSE);
 }
+
+/*
+static int	last_in_file(void)
+{
+	// TODO dernier element du fichier
+	return (TRUE);
+};
+*/
 
 int	check_tiles(char **lines, t_map *map)
 {

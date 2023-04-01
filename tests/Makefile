@@ -27,4 +27,5 @@ fclean: clean
 re: fclean all
 
 run_tests: all
+	$(RM) all_.o
 	./$(NAME)
