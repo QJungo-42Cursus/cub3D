@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:23:14 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 19:06:47 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/02 11:03:58 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,6 @@ enum e_direction {
 	EAST,
 	WEST,
 };
-
-typedef struct s_vec2i {
-	int	x;
-	int	y;
-}	t_vec2i;
 
 typedef struct s_map {
 	char			*no_path;

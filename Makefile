@@ -19,13 +19,9 @@ OBJS =		$(SRCS:.c=.o)
 ## MLX ##
 ifeq ($(shell uname), Linux)
 MLX =		-L./minilibx-linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
-MLX_REP =	minilibx-linux
-MLX_RM =	rm -f minilibx-linux/libmlx_Linux.a
 LEAKS =		valgrind -q --leak-check=full --track-origins=yes
 else
 MLX =		-L./minilibx_macos -lmlx -framework OpenGL -framework AppKit
-MLX_REP =	minilibx_macos
-MLX_RM =	rm -f minilibx_macos/libmlx.a
 LEAKS =		leaks --atExit --
 endif
 
@@ -35,17 +31,14 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C libft
-	make -C $(MLX_REP)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX) -o $(NAME)
 
 clean:
 	@make clean -C libft
 	@make clean -C tests
-	@make clean -C $(MLX_REP) 
 	$(RM) $(OBJS)
 
 fclean: clean
-	$(MLX_RM)
 	@make fclean -C tests
 	rm -f libft/libft.a
 	$(RM) $(NAME)

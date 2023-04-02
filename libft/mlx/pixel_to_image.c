@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 13:48:53 by qjungo            #+#    #+#             */
-/*   Updated: 2022/11/09 10:12:08 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/02 10:59:06 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	pixel_to_image(t_img_data *img, t_vec2 point, int color)
 	int		offset;
 
 	offset = (int)point.y * img->line_length;
-	offset += (int)point.x * (img->bits_per_pixel / 8);
+	offset += (int)point.x * (img->bpp / 8);
 	pixel = img->addr + offset;
 	*(unsigned int *)pixel = color;
 }
