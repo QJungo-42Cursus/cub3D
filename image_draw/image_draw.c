@@ -4,14 +4,37 @@
 
 int	pixel_index(int x, int y, t_img_data img_data)
 {
-	return (y * img_data.line_length + x * (img_data.bpp / 8));
+	int		i;
+
+	i = y * img_data.line_length;
+	i += x * (img_data.bpp / 8);
+	return (i);
 }
 
 unsigned int	*pixel_addr(int x, int y, t_img_data img_data)
 {
-	return ((unsigned int*)&img_data.addr[pixel_index(x, y, img_data)]);
+	int		i;
+
+	i = pixel_index(x, y, img_data);
+	return ((unsigned int*)&img_data.addr[i]);
 }
 
+// texture (ou juste la ligne en question...)
+// img_data
+// position de la ligne dans l'image (en x, en y tout part du milieu)
+// position en x de la texture ou pourcentage
+// hauteur de la ligne
+
+typedef struct s_texture_line {
+	// alternative a cette struct
+	//		-> t_texture a un **int, avec les column dans le 2eme pointeurs
+	//		-> comme ca on peut passer juste le bon pointeur
+	t_texture	texture;
+	char		poucentage; // de 0 a 100, la position
+	int			line;		// valeur en x de la ligne, equivalent au pourcentage
+}	t_texture_line;
+
+/// texture column to image
 void	text_column_to_img(
 			t_texture texture,
 			t_img_data img_data,
@@ -36,64 +59,22 @@ void	text_column_to_img(
 	}
 }
 
-void	texture_to_image(t_texture texture, void *mlx, void *img, float scale, t_vec2i img_size, t_vec2 position)
-{
-	t_vec2		img_index;
-	t_vec2		text_index;
-	t_img_data	img_data;
-
-	img_index.x = position.x;
-	float shift = position.y;
-	img_data = img_data_from(img);
-
-
-	text_index.x = 0;
-	float y_scale = scale * 0.5;
-	while (img_index.x < texture.size.x * scale)
-	{
-		text_column_to_img(texture, img_data, img_index.x, text_index.x, y_scale, shift);
-		img_index.x += 1.f;
-		text_index.x += 1.f / scale;
-		y_scale += 0.005;
-		shift -= 0.1;
-		if (shift < 0)
-			shift = 0;
-	}
-}
-
-
 /// to test image_draw
 int main()
 {
-	void	*mlx;
-	void	*win;
-	t_vec2i	size = { 1920, 1080 };
-
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, size.x, size.y, "cc");
-
-	t_texture texture = new_text(mlx, "./textures/wood.xpm");
-	void	*img = mlx_new_image(mlx, size.x, size.y);
-	void	*blank_img = mlx_new_image(mlx, size.x, size.y);
-
-	float scale = 8;
-	float add = 0.1;
-	t_vec2 position = { 100, 100 };
-	t_vec2 position2 = { 0, 0 };
-	texture_to_image(texture, mlx, img, scale, size, position2);
-	texture_to_image(texture, mlx, img, scale, size, position);
+	void		*mlx =		mlx_init();
+	t_vec2i		size =		{ 1920, 1080 };
+	void		*win =		mlx_new_window(mlx, size.x, size.y, "cc");
+	t_texture	texture =	new_text(mlx, "./textures/wood.xpm");
+	void		*img =		mlx_new_image(mlx, size.x, size.y);
+	t_img_data	img_data =	img_data_from(img);
+	if (texture.pixels == NULL)
+		return (0);
+	text_column_to_img(texture, img_data, 0, 0, 5, 50);
+	text_column_to_img(texture, img_data, 1, 3, 5.5, 40);
+	text_column_to_img(texture, img_data, 2, 6, 6, 30);
 	mlx_put_image_to_window(mlx, win, img, 0, 0);
-	while (1);
-	/*
 	while (1)
 	{
-		usleep(1000);
-		if (scale > 8.5)
-			continue;
-		texture_to_image(texture, mlx, img, scale, size, position);
-		mlx_put_image_to_window(mlx, win, img, 0, 0);
-		scale += 0.001 * add;
-		add += 0.05;
 	}
-	*/
 }
