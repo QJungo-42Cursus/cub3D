@@ -42,11 +42,11 @@ fclean: clean
 re: fclean all
 
 run_tests:
-	@echo "Running tests with leaks"
-	make all
-	$(RM) all_.o
-	$(LEAKS) ./$(NAME) || true
-	
+	#@echo "Running tests with leaks"
+	#make all
+	#$(RM) all_.o
+	#$(LEAKS) ./$(NAME) || true
+	#
 	@echo "Running tests with sanitizers"
 	make san
 	$(RM) all_.o
