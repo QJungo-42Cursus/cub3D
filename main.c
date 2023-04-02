@@ -6,10 +6,11 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:22:39 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 04:08:13 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/02 18:46:56 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "tests/debug_helper.hpp"
 #include "cube3D.h"
 
 static int	is_arg_name_valid(int argc, char **argv)
@@ -46,18 +47,7 @@ static void	init_map(t_map *map)
 	map->player_dir = 0;
 }
 
-#include "tests/debug_helper.hpp"
-
-#ifdef TEST
-
 int	main_(int argc, char **argv)
-
-#else
-
-int	main(int argc, char **argv)
-
-#endif
-
 {
 	t_map	map;
 
@@ -69,7 +59,16 @@ int	main(int argc, char **argv)
 	}
 	if (parse(argv[1], &map) == ERROR)
 		return (1);
-	//LOG_TILES(map);
 	free_map(&map);
 	return (0);
 }
+//LOG_TILES(map);
+
+#ifndef TEST
+
+int	main(int argc, char **argv)
+{
+	main_(argc, argv);
+}
+
+#endif

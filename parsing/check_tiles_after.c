@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 04:01:02 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 04:07:01 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/02 18:46:24 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,13 @@ static int	is_map_closed(t_map *map)
 		{
 			if (map->tiles[y][x] == FLOOR)
 			{
-				if (x == 0 || x == map->size.x - 1 || y == 0 || y == map->size.y - 1)
+				if (x == 0 || x == map->size.x - 1
+					|| y == 0 || y == map->size.y - 1)
 					return (FALSE);
-				if (map->tiles[y][x - 1] == VOID || map->tiles[y][x + 1] == VOID
-					|| map->tiles[y - 1][x] == VOID || map->tiles[y + 1][x] == VOID)
+				if (map->tiles[y][x - 1] == VOID
+					|| map->tiles[y][x + 1] == VOID
+					|| map->tiles[y - 1][x] == VOID
+					|| map->tiles[y + 1][x] == VOID)
 					return (FALSE);
 			}
 			x++;
