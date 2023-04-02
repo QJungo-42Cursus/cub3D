@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:23:14 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/02 11:03:58 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/02 11:52:13 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,11 @@
 # define CUBE3D_H
 
 # include "libft/libft.h"
+# include "libft/mlx/mlx.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdio.h>
-# ifdef __APPLE__
-#  include <mlx.h>
-# else
-#  include "minilibx-linux/mlx.h"
-# endif
 
 # define BUFF_SIZE 2048
 

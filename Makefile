@@ -18,10 +18,10 @@ OBJS =		$(SRCS:.c=.o)
 
 ## MLX ##
 ifeq ($(shell uname), Linux)
-MLX =		-L./minilibx-linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
+MLX =		-L./mlx -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
 LEAKS =		valgrind -q --leak-check=full --track-origins=yes
 else
-MLX =		-L./minilibx_macos -lmlx -framework OpenGL -framework AppKit
+MLX =		-L./mlx -lmlx -framework OpenGL -framework AppKit
 LEAKS =		leaks --atExit --
 endif
 
@@ -66,4 +66,4 @@ img:
 	$(CC) image_draw/image_draw.c $(LIBFT) $(MLX)
 	./a.out
 
-.PHONY: all clean fclean re libft test
+.PHONY: all clean fclean re
