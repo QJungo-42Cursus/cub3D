@@ -47,7 +47,7 @@ int main()
 	// printf("%x\n", color_from_rgb(1, 2, 3));
 	// color_to_rgb(0xFF01020A, &r, &g, &b);
 	
-	t_vec2i		size =		{ 1920, 1080 };
+	t_vec2i		size =		{ 1600, 900 };
 	void		*mlx =		mlx_init();
 	void		*win =		mlx_new_window(mlx, size.x, size.y, "cc");
 	t_img_data	img_data =	new_img_data(mlx, size);
