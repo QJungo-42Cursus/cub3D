@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:27:55 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 04:30:27 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 11:42:34 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 // 2. separer la map du reste
 // 3. verifier s'il y a des mauvais character dans la map
 
-#include "../libft/libft.h"
 #include "../cube3D.h"
 
 static int	find_map_first_line(char **lines)

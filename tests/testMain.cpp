@@ -1,7 +1,7 @@
 #include "./gtest/gtest.h"
 
 extern "C" {
-#include "../cube3D.h"
+#include "../src/cube3D.h"
 int main_(int argc, char **argv);
 }
 

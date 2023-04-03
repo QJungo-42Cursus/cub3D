@@ -1,5 +1,4 @@
 #include "../cube3D.h"
-#include "../libft/libft.h"
 #include <math.h>
 
 int	pixel_index(int x, int y, t_img_data img_data)

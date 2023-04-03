@@ -6,11 +6,10 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:22:39 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/02 18:46:56 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 11:43:01 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests/debug_helper.hpp"
 #include "cube3D.h"
 
 static int	is_arg_name_valid(int argc, char **argv)
