@@ -32,37 +32,18 @@ int key_hook(int k, void *c)
 }
 
 void	test1();
+
 /// to test image_draw
 int main()
 {
-	//test1();
-	// printf("%x\n", color_from_rgb(1, 2, 3));
-	// color_to_rgb(0xFF01020A, &r, &g, &b);
-	
 	t_vec2i		size =		{ 720, 480 };
 	void		*mlx =		mlx_init();
 	void		*win =		mlx_new_window(mlx, size.x, size.y, "cc");
 	t_img_data	img_data =	new_img_data(mlx, size);
 
-	for (int y = 5; y < 100; y++)
-	{
-		for (int x = 5; x < 105; x++)
-		{
-			if (x > 50)
-				pixel_to_image(&img_data, new_vec2(x, y), 0xff22ff22);
-		}
-	}
-
-	printf("normal %x \n", color_from_rgb(200, 200, 200));
-	printf("value  %x \n", mlx_get_color_value(mlx, color_from_rgb(200, 200, 200)));
-	//fillscreen(&img_data, color_from_rgb(200, 200, 200), color_from_rgb(0, 255, 255));
-	//fillscreen(&img_data, color_from_rgb(200, 200, 200), color_from_rgb(0, 255, 255));
-
-	mlx_put_image_to_window(mlx, win, img_data.img, 100, 100);
-
+	fillscreen(&img_data, color_from_rgb(200, 200, 200), color_from_rgb(0, 255, 255));
+	mlx_put_image_to_window(mlx, win, img_data.img, 0, 0);
 	mlx_hook(win, ON_DESTROY, 0, close_window, NULL);
 	mlx_hook(win, ON_KEYDOWN, 0, key_hook, NULL);
-
-
 	mlx_loop(mlx);
 }
