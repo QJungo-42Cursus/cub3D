@@ -3,20 +3,25 @@ CC =		gcc
 CFLAGS =	-Wall -Wextra -Werror
 RM =		rm -f
 LIBFT =		-L./libft -lft
-SRCS =		main.c
+SRCS =		main.c \
+			utils.c \
+			parsing/parsing.c \
+			parsing/get_info_by_id.c \
+			parsing/set_textures_path.c \
+			parsing/set_tiles.c \
+			parsing/check_tiles.c \
+			parsing/check_tiles_after.c \
+			parsing/set_colors.c \
+			parsing/get_all_file.c
 
 OBJS =		$(SRCS:.c=.o)
 
 ## MLX ##
 ifeq ($(shell uname), Linux)
-MLX =		-L./minilibx-linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
-MLX_REP =	minilibx-linux
-MLX_RM =	rm -f minilibx-linux/libmlx_Linux.a
+MLX =		-L./mlx -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
 LEAKS =		valgrind -q --leak-check=full --track-origins=yes
 else
-MLX =		-L./minilibx_macos -lmlx -framework OpenGL -framework AppKit
-MLX_REP =	minilibx_macos
-MLX_RM =	rm -f minilibx_macos/libmlx.a
+MLX =		-L./mlx -lmlx -framework OpenGL -framework AppKit
 LEAKS =		leaks --atExit --
 endif
 
@@ -26,16 +31,15 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C libft
-	make -C $(MLX_REP)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX) -o $(NAME)
 
 clean:
 	@make clean -C libft
-	@make clean -C $(MLX_REP) 
+	@make clean -C tests
 	$(RM) $(OBJS)
 
 fclean: clean
-	$(MLX_RM)
+	@make fclean -C tests
 	rm -f libft/libft.a
 	$(RM) $(NAME)
 
@@ -43,13 +47,8 @@ re: fclean all
 
 ###
 
-test: $(OBJS)
-	@make -C libft
-	@make -C $(MLX_REP)
-	$(CC) $(CFLAGS) -g $(OBJS) $(LIBFT) $(MLX) -o $(NAME)
-	clear
-	./fdf test_maps/42.fdf
-
+run_tests:
+	make run_tests -C tests
 
 SAN =	-fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all \
 		-fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow \
@@ -59,15 +58,12 @@ san:
 	@make -C libft
 	@make -C $(MLX_REP)
 	$(CC) $(CFLAGS) $(SAN) $(SRCS) $(LIBFT) $(MLX) -o $(NAME) 
-	./fdf test_maps/tq3.fdf
-#./fdf test_maps/42.fdf
-
 
 leaks: all
-	clear
-	@#@echo "with bad map";
-	@#$(LEAKS) ./fdf test_maps/tq3.fdf
-	@#@echo "...";
-	@#$(LEAKS) ./fdf test_maps/42.fdf
+	$(LEAKS) ./$(NAME) tests/test_files/basic.cub
 
-.PHONY: all clean fclean re libft test
+img:
+	$(CC) image_draw/image_draw.c $(LIBFT) $(MLX)
+	./a.out
+
+.PHONY: all clean fclean re

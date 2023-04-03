@@ -1,0 +1,20 @@
+name: TESTS
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  ALL_TESTS:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Integration Tests
+      run: make run_tests
+    - names: Norminette
+      run: echo norminette # TODO
+    - name: Unit Tests
+      run: echo unit tests # TODO

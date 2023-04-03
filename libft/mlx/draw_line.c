@@ -6,13 +6,16 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 08:40:53 by qjungo            #+#    #+#             */
-/*   Updated: 2022/11/10 15:19:48 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/02 10:29:49 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "ft_mlx.h"
 #include "../libft.h"
+
+// TODO this is not an implementation of Bresenham's line algorithm
+// dont use it...
 
 static void	move(t_vec2 *moving_pixel,
 	t_line line, t_bool little, t_bool y_dist_greater)

@@ -6,14 +6,11 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 08:40:53 by qjungo            #+#    #+#             */
-/*   Updated: 2022/11/09 10:59:32 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/02 11:01:08 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
-#include <stdlib.h>
 #include "ft_mlx.h"
-#include "../libft.h"
 
 int	check_max(float x, float y, t_img_data img)
 {
