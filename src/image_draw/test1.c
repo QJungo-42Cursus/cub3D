@@ -17,12 +17,9 @@ void	text_column_to_img(
 	img_index.x = img_x;
 	img_index.y = 0;
 	text_index.y = 0;
-	static unsigned int rand = 0xfffff101;
 	while (img_index.y < (texture.size.y - 1) * scale) // le -1 pour eviter les vieux pixels multi color en bas...
 	{
-		//*(pixel_addr(img_index.x, img_index.y + shift, &img_data)) = texture.pixels[(int)roundf(text_index.x) + (int)roundf(text_index.y) * texture.size.y];
-		*(pixel_addr(img_index.x, img_index.y + shift, &img_data)) = rand;
-		rand += 1;
+		*(pixel_addr(img_index.x, img_index.y + shift, &img_data)) = texture.pixels[(int)roundf(text_index.x) + (int)roundf(text_index.y) * texture.size.y];
 		img_index.y++;
 		text_index.y += 1.f / scale;
 	}

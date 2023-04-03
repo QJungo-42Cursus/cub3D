@@ -64,7 +64,6 @@ SAN =	-fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all \
 
 san:
 	@make -C ../libft
-	@make -C $(MLX_REP)
 	$(CC) $(CFLAGS) $(SAN) $(SRCS) $(LIBFT) $(MLX) -o $(NAME) 
 
 leaks: all

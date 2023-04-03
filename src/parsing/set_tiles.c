@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:53:46 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 04:44:02 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 15:33:24 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,19 @@ static void	allocate_tiles(t_map *map)
 	}
 }
 
+/*
 static int	set_player_spawn(char c, t_map *map, int x, int y)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
-		map->player_pos.x = x;
-		map->player_pos.y = y;
-		map->player_dir = c;
+		//map->player_pos.x = x + 0.5;
+		//map->player_pos.y = y + 0.5;
+		//map->player_dir = c;
 		return (SUCCESS);
 	}
 	return (ERROR);
 }
+*/
 
 static int	file_tiles(char **lines, t_map *map)
 {
@@ -86,7 +88,7 @@ static int	file_tiles(char **lines, t_map *map)
 			else
 			{
 				map->tiles[i][j] = FLOOR;
-				set_player_spawn(lines[i][j], map, j, i);
+				//set_player_spawn(lines[i][j], map, j, i);
 			}
 			j++;
 		}

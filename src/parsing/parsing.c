@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:27:55 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 11:42:34 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 16:01:03 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,35 +32,37 @@ static int	find_map_first_line(char **lines)
 	return (-1);
 }
 
-static int	parse_lines(char **lines, t_map *map)
+static int	parse_lines(char **lines, t_program *program)
 {
 	int		first_line;
 
 	first_line = find_map_first_line(lines);
 	if (first_line == -1)
 		return (ERROR);
-	if (set_textures_path(lines, map, first_line) == ERROR)
+	if (set_textures(lines, program, first_line) == ERROR)
 	{
 		split_free(lines);
 		return (ERROR);
 	}
-	if (set_colors(lines, map, first_line) == ERROR)
+	if (set_colors(lines, program->map, first_line) == ERROR)
 	{
 		split_free(lines);
-		free_map(map);
+		// TODO free all program
+		free_map(program->map);
 		return (ERROR);
 	}
-	if (set_tiles(&lines[first_line], map) == ERROR)
+	if (set_tiles(&lines[first_line], program->map) == ERROR)
 	{
 		split_free(lines);
-		free_map(map);
+		// TODO free all program
+		free_map(program->map);
 		return (ERROR);
 	}
 	split_free(lines);
 	return (SUCCESS);
 }
 
-int	parse(char *filename, t_map *map)
+int	parse(char *filename, t_program *program)
 {
 	char	*file_content;
 	char	**lines;
@@ -76,5 +78,5 @@ int	parse(char *filename, t_map *map)
 		error_print("malloc error");
 		exit(1);
 	}
-	return (parse_lines(lines, map));
+	return (parse_lines(lines, program));
 }

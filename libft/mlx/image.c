@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 10:41:00 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 13:46:21 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 12:53:51 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,19 @@ t_img_data	img_data_from(void *img)
 	return (img_data);
 }
 
-int	pixel_index(int x, int y, t_img_data *img_data)
+int	pixel_index(int x, int y, t_img_data img_data)
 {
 	int		i;
 
-	i = y * img_data->line_length;
-	i += x * (img_data->bpp / 8);
+	i = y * img_data.line_length;
+	i += x * (img_data.bpp / 8);
 	return (i);
 }
 
-unsigned int	*pixel_addr(int x, int y, t_img_data *img_data)
+unsigned int	*pixel_addr(int x, int y, t_img_data img_data)
 {
 	int		i;
 
 	i = pixel_index(x, y, img_data);
-	return ((unsigned int *)&(img_data->addr)[i]);
+	return ((unsigned int *)&img_data.addr[i]);
 }
