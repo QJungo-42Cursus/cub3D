@@ -58,23 +58,6 @@ static std::vector<std::string> working_infos = {"NO ../textures/wood.xpm",
 
 /*************** TESTS ***************/
 
-TEST(ParsingIntegrationTest, Basic) {
-  parsing_integration_test("../maps/basic.cub", "");
-}
-
-/*
-TEST(ParsingIntegrationTest, TestAllInvalidMap) {
-  std::string path = "./../maps/invalid_maps/";
-#ifdef __APPLE__
-  for (const auto &entry : std::__fs::filesystem::directory_iterator(path)) {
-#else
-  for (const auto &entry : std::filesystem::directory_iterator(path)) {
-#endif
-    parsing_integration_test(entry.path(), true);
-  }
-}
-*/
-
 TEST(ParsingIntegrationTest, UnexistingFile) {
   parsing_integration_test("../maps/unexisting.cub",
                            "Error\ncould not open file\n", true);
@@ -161,3 +144,21 @@ TEST(ParsingIntegrationTest, EmptyLine) {
   content.push_back("                                               ");
   parsing_integration_test(content, "Error\nmap has an empty line\n", true);
 }
+
+TEST(ParsingIntegrationTest, Basic) {
+  parsing_integration_test("../maps/basic.cub", "");
+}
+
+/*
+TEST(ParsingIntegrationTest, TestAllInvalidMap) {
+  std::string path = "./../maps/invalid_maps/";
+#ifdef __APPLE__
+  for (const auto &entry : std::__fs::filesystem::directory_iterator(path)) {
+#else
+  for (const auto &entry : std::filesystem::directory_iterator(path)) {
+#endif
+    parsing_integration_test(entry.path(), true);
+  }
+}
+*/
+

@@ -27,6 +27,7 @@ int close_window(void *c)
 int key_hook(int k, void *c)
 {
 	printf("%d\n", k);
+	mlx_destroy_window(c, c);
 	(void)c;
 	return 0;
 }
