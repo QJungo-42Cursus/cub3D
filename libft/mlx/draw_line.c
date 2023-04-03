@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 08:40:53 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/02 10:29:49 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 22:58:45 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,104 +14,72 @@
 #include "ft_mlx.h"
 #include "../libft.h"
 
-// TODO this is not an implementation of Bresenham's line algorithm
-// dont use it...
-
-static void	move(t_vec2 *moving_pixel,
-	t_line line, t_bool little, t_bool y_dist_greater)
+static void	case_x_to_y(t_line line, t_vec2 e, t_img_data *img_data)
 {
-	int		xm;
-	int		ym;
+	t_vec2	del;
+	t_vec2	d;
+	t_vec2	inc;
+	int		i;
 
-	xm = 1;
-	ym = 1;
-	if (line.a.x > line.b.x)
-		xm = -1;
-	if (line.a.y > line.b.y)
-		ym = -1;
-	if (little)
+	d = new_vec2(2 * e.x, 2 * e.y);
+	del = e;
+	inc = new_vec2(1, 1);
+	if (line.p1.x > line.p2.x)
+		inc.x = -1;
+	if (line.p1.y > line.p2.y)
+		inc.y = -1;
+	i = 0;
+	while (i <= del.y)
 	{
-		if (y_dist_greater)
-			moving_pixel->x += xm;
-		else
-			moving_pixel->y += ym;
-	}
-	else
-	{
-		if (y_dist_greater)
-			moving_pixel->y += ym;
-		else
-			moving_pixel->x += xm;
-	}
-}
-
-// TODO add gradient
-static void	loop(t_line line, t_img_data *img, t_vec2 dist, float speed)
-{
-	float	cursor;
-	float	color_speed;
-
-	color_speed = ft_fabs(ft_fabs(line.color.start) - ft_fabs(line.color.end));
-	(void)color_speed;
-	cursor = 0;
-	while (1)
-	{
-		if (check_max(line.a.x, line.a.y, *img))
-			break ;
-		pixel_to_image(img, line.a, line.color.start);
-		move(&line.a, line, FALSE, dist.y > dist.x);
-		cursor += 1;
-		if (cursor >= speed)
+		pixel_to_image(img_data, line.p1, line.color);
+		i++;
+		line.p1.y += inc.y;
+		e.y -= d.x;
+		if (e.y < 0)
 		{
-			move(&line.a, line, TRUE, dist.y > dist.x);
-			cursor -= speed;
+			line.p1.x += inc.x;
+			e.y += d.y;
 		}
-		if (assert_rounded_vec2(line.a, line.b))
-			break ;
 	}
 }
 
-static void	straight_loop(t_vec2 moving_pixel, t_line line, t_img_data *img)
+static void	case_y_to_x(t_line line, t_vec2 e, t_img_data *img_data)
 {
-	int		move_factor;
+	t_vec2	del;
+	t_vec2	d;
+	t_vec2	inc;
+	int		i;
 
-	move_factor = 1;
-	if (round(line.a.y) == round(line.b.y) && (line.a.x > line.b.x))
-		move_factor = -1;
-	if (round(line.a.x) == round(line.b.x) && (line.a.y > line.b.y))
-		move_factor = -1;
-	while (1)
+	d = new_vec2(2 * e.x, 2 * e.y);
+	del = e;
+	inc = new_vec2(1, 1);
+	if (line.p1.x > line.p2.x)
+		inc.x = -1;
+	if (line.p1.y > line.p2.y)
+		inc.y = -1;
+	i = 0;
+	while (i <= del.y)
 	{
-		if (round(line.a.y) == round(line.b.y))
-			moving_pixel.x += move_factor;
-		else
-			moving_pixel.y += move_factor;
-		if (round(moving_pixel.x) == round(line.b.x)
-			&& round(moving_pixel.y) == round(line.b.y))
-			break ;
-		if (check_max(moving_pixel.x, moving_pixel.y, *img))
-			break ;
-		pixel_to_image(img, moving_pixel, line.color.start);
+		pixel_to_image(img_data, line.p1, line.color);
+		i++;
+		line.p1.y += inc.y;
+		e.y -= d.x;
+		if (e.y < 0)
+		{
+			line.p1.x += inc.x;
+			e.y += d.y;
+		}
 	}
 }
 
-void	draw_line(t_img_data *img, t_line line)
+void	draw_line(t_line line, t_img_data *img_data)
 {
-	t_droite	droite;
-	float		speed;
-	t_vec2		dist;
+	t_vec2	e;
 
-	if (round(line.a.x) == round(line.b.x)
-		|| round(line.a.y) == round(line.b.y))
-		return (straight_loop(new_vec2(line.a.x, line.a.y), line, img));
-	droite.m = slope(line.a, line.b);
-	droite.b = ordonnate_to_origin(line.a.x, line.a.y, droite.m);
-	offset(new_vec2(img->size.x, img->size.y), &line.a, droite);
-	offset(new_vec2(img->size.x, img->size.y), &line.b, droite);
-	dist = new_vec2(ft_fabs(ft_fabs(line.a.x) - ft_fabs(line.b.x)),
-			ft_fabs(ft_fabs(line.a.y) - ft_fabs(line.b.y)));
-	speed = dist.y / dist.x;
-	if (dist.x > dist.y)
-		speed = dist.x / dist.y;
-	loop(line, img, dist, speed);
+	e.x = abs((int) line.p2.x - (int) line.p1.x);
+	e.y = abs((int) line.p2.y - (int) line.p1.y);
+	if (e.x > e.y)
+		case_x_to_y(line, e, img_data);
+	else
+		case_y_to_x(line, e, img_data);
 }

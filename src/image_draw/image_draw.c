@@ -26,7 +26,9 @@ int close_window(void *c)
 
 int key_hook(int k, void *c)
 {
-	printf("%d\n", k);
+	void	**p;
+	p = c;
+	printf("%d %p %p \n", k, p[0], p[1]);
 	mlx_destroy_window(c, c);
 	(void)c;
 	return 0;
@@ -51,10 +53,12 @@ int main()
 	void		*win =		mlx_new_window(mlx, size.x, size.y, "cc");
 	t_img_data	img_data =	new_img_data(mlx, size);
 
+	void	*ptr[2] = { mlx, win };
+
 	fillscreen(&img_data, color_from_rgb(200, 200, 200), color_from_rgb(0, 255, 255));
 	mlx_put_image_to_window(mlx, win, img_data.img, 0, 0);
+	mlx_key_hook(win, key_hook, ptr);
 	mlx_hook(win, ON_DESTROY, 0, close_window, NULL);
-	mlx_key_hook(win, key_hook, NULL);
 	//mlx_loop_hook(mlx, loop_hook, NULL);
 	mlx_loop(mlx);
 }

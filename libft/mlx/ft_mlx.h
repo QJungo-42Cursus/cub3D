@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 11:35:26 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 13:25:24 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 22:59:34 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 # include "../math/ft_math.h"
 
-/// MLX
+typedef unsigned int	t_rgb;
 
+/// MLX
 typedef struct s_mlx {
 	void	*self;
 	void	*win;
@@ -38,10 +39,9 @@ typedef struct s_color_gradient {
 }	t_color_gradient;
 
 typedef struct s_line {
-	t_vec2				a;
-	t_vec2				b;
-	t_color_gradient	color;
-	int					thickness;
+	t_vec2				p1;
+	t_vec2				p2;
+	t_rgb				color;
 }	t_line;
 
 typedef struct s_texture {
@@ -49,17 +49,11 @@ typedef struct s_texture {
 	unsigned int	*pixels;
 }	t_texture;
 
-typedef unsigned int	t_rgb;
+/// PROTOTYPE
 
-/// PROTOTYPES
-
-void			draw_line(t_img_data *img, t_line line);
+void			draw_line(t_line line, t_img_data *img_data);
 void			pixel_to_image(t_img_data *img, t_vec2 point, int color);
-t_line			new_line(t_vec2 a, t_vec2 b,
-					t_color_gradient color, int thickness);
-//
-void			offset(t_vec2 img_size, t_vec2 *point, t_droite droite);
-int				check_max(float x, float y, t_img_data img);
+t_line			new_line(t_vec2 a, t_vec2 b, t_rgb color);
 // image.c
 t_img_data		new_img_data(void *mlx, t_vec2i size);
 t_img_data		img_data_from(void *img);

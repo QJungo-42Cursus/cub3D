@@ -91,7 +91,6 @@ SRCS_MATH = 	geometrie/line.c \
 SRCS_MLX = 		line.c \
 				line.c \
 				draw_line.c \
-				draw_line_utils.c \
 				pixel_to_image.c \
 				image.c \
 				texture.c \
