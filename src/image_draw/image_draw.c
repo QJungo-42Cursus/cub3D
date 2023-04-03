@@ -41,6 +41,18 @@ void	text_column_to_img(
 	}
 }
 
+void close_window(void *c)
+{
+	exit(1);
+	(void)c;
+}
+
+void key_hook(int k, void *c)
+{
+	printf("%d\n", k);
+	(void)c;
+}
+
 /// to test image_draw
 int main()
 {
@@ -52,9 +64,15 @@ int main()
 	void		*win =		mlx_new_window(mlx, size.x, size.y, "cc");
 	t_img_data	img_data =	new_img_data(mlx, size);
 
-	//fillscreen(&img_data, 0xff010333, 0xffffffff);
-	fillscreen(&img_data, color_from_rgb(10, 10, 10), color_from_rgb(100, 100, 100));
 	mlx_put_image_to_window(mlx, win, img_data.img, 0, 0);
+
+	fillscreen(&img_data, color_from_rgb(10, 10, 10), color_from_rgb(100, 100, 100));
+
+	mlx_put_image_to_window(mlx, win, img_data.img, 0, 0);
+
+	mlx_hook(win, ON_DESTROY, 0, close_window, NULL);
+	mlx_hook(win, ON_KEYDOWN, 0, key_hook, NULL);
+
 
 	mlx_loop(mlx);
 }
