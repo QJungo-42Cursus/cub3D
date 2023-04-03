@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:22:39 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 11:43:01 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 13:01:48 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,8 @@ static void	init_map(t_map *map)
 	map->tiles = NULL;
 	map->size.x = 0;
 	map->size.y = 0;
-	map->ceiling_color.r = 0;
-	map->ceiling_color.g = 0;
-	map->ceiling_color.b = 0;
-	map->floor_color.r = 0;
-	map->floor_color.g = 0;
-	map->floor_color.b = 0;
+	map->ceiling_color = 0xFF000000;
+	map->floor_color = 0xFF000000;
 	map->player_pos.x = 0;
 	map->player_pos.y = 0;
 	map->player_dir = 0;

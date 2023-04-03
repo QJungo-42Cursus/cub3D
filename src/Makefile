@@ -3,7 +3,8 @@ CC =		gcc
 CFLAGS =	-Wall -Wextra -Werror
 RM =		rm -f
 LIBFT =		-L./../libft -lft
-SRCS =		main.c \
+SRCS =		\
+			main.c \
 			utils.c \
 			parsing/parsing.c \
 			parsing/get_info_by_id.c \
@@ -12,7 +13,8 @@ SRCS =		main.c \
 			parsing/check_tiles.c \
 			parsing/check_tiles_after.c \
 			parsing/set_colors.c \
-			parsing/get_all_file.c
+			parsing/get_all_file.c \
+			fillscreen/fillscreen.c \
 
 OBJS =		$(SRCS:.c=.o)
 
@@ -47,6 +49,12 @@ re: fclean all
 
 ###
 
+ulibft:
+	$(RM) -r ../libft/.git
+	cp -r ../../libft ../
+	$(RM) -r ../libft/.git
+	make re
+
 run_tests: all
 	make run_tests -C ../tests
 
@@ -63,7 +71,7 @@ leaks: all
 	$(LEAKS) ./$(NAME) tests/test_files/basic.cub
 
 img:
-	$(CC) image_draw/image_draw.c $(LIBFT) $(MLX)
+	$(CC) fillscreen/fillscreen.c image_draw/image_draw.c $(LIBFT) $(MLX)
 	./a.out
 
 .PHONY: all clean fclean re

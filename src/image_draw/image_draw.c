@@ -1,23 +1,6 @@
 #include "../cube3D.h"
 #include <math.h>
 
-int	pixel_index(int x, int y, t_img_data img_data)
-{
-	int		i;
-
-	i = y * img_data.line_length;
-	i += x * (img_data.bpp / 8);
-	return (i);
-}
-
-unsigned int	*pixel_addr(int x, int y, t_img_data img_data)
-{
-	int		i;
-
-	i = pixel_index(x, y, img_data);
-	return ((unsigned int*)&img_data.addr[i]);
-}
-
 // texture (ou juste la ligne en question...)
 // img_data
 // position de la ligne dans l'image (en x, en y tout part du milieu)
@@ -52,7 +35,7 @@ void	text_column_to_img(
 	text_index.y = 0;
 	while (img_index.y < (texture.size.y - 1) * scale) // le -1 pour eviter les vieux pixels multi color en bas...
 	{
-		*(pixel_addr(img_index.x, img_index.y + shift, img_data)) = texture.pixels[(int)roundf(text_index.x) + (int)roundf(text_index.y) * texture.size.y];
+		*(pixel_addr(img_index.x, img_index.y + shift, &img_data)) = texture.pixels[(int)roundf(text_index.x) + (int)roundf(text_index.y) * texture.size.y];
 		img_index.y++;
 		text_index.y += 1.f / scale;
 	}
@@ -61,19 +44,17 @@ void	text_column_to_img(
 /// to test image_draw
 int main()
 {
-	void		*mlx =		mlx_init();
+	// printf("%x\n", color_from_rgb(1, 2, 3));
+	// color_to_rgb(0xFF01020A, &r, &g, &b);
+	
 	t_vec2i		size =		{ 1920, 1080 };
+	void		*mlx =		mlx_init();
 	void		*win =		mlx_new_window(mlx, size.x, size.y, "cc");
-	t_texture	texture =	new_text(mlx, "../textures/wood.xpm");
-	void		*img =		mlx_new_image(mlx, size.x, size.y);
-	t_img_data	img_data =	img_data_from(img);
-	if (texture.pixels == NULL)
-		return (0);
-	text_column_to_img(texture, img_data, 0, 0, 5, 50);
-	text_column_to_img(texture, img_data, 1, 3, 5.5, 40);
-	text_column_to_img(texture, img_data, 2, 6, 6, 30);
-	mlx_put_image_to_window(mlx, win, img, 0, 0);
-	while (1)
-	{
-	}
+	t_img_data	img_data =	new_img_data(mlx, size);
+
+	//fillscreen(&img_data, 0xff010333, 0xffffffff);
+	fillscreen(&img_data, color_from_rgb(10, 10, 10), color_from_rgb(100, 100, 100));
+	mlx_put_image_to_window(mlx, win, img_data.img, 0, 0);
+
+	mlx_loop(mlx);
 }

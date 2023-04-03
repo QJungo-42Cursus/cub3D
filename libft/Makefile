@@ -94,7 +94,8 @@ SRCS_MLX = 		line.c \
 				draw_line_utils.c \
 				pixel_to_image.c \
 				image.c \
-				texture.c
+				texture.c \
+				pixel.c \
 
 
 SRCS = 			$(addprefix char/,	$(SRCS_CHAR)) \

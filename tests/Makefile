@@ -54,3 +54,4 @@ run_tests:
 	make san
 	$(RM) all_.o
 	./$(NAME)
+	$(RM) $(NAME).dSYM

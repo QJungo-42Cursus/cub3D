@@ -6,17 +6,17 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:28:14 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 01:48:06 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 13:14:27 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube3D.h"
 
-static int	set_into_color(char *color, t_rgb_color *rgb_color)
+static int	set_into_color(char *color_str, unsigned int *rgb)
 {
 	char		**split;
 
-	split = ft_split(color, ',');
+	split = ft_split(color_str, ',');
 	if (split == NULL)
 	{
 		error_print("malloc error");
@@ -29,9 +29,9 @@ static int	set_into_color(char *color, t_rgb_color *rgb_color)
 		split_free(split);
 		return (ERROR);
 	}
-	rgb_color->r = ft_atoi(split[0]);
-	rgb_color->g = ft_atoi(split[1]);
-	rgb_color->b = ft_atoi(split[2]);
+	*rgb = color_from_rgb(ft_atoi(split[0]),
+			ft_atoi(split[1]),
+			ft_atoi(split[2]));
 	split_free(split);
 	return (SUCCESS);
 }

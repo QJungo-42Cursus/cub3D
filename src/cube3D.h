@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:23:14 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 11:43:36 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 13:47:00 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@
 # define BUFF_SIZE 2048
 
 // TODO juste avoir un int avec du type puning ?
+/*
 typedef struct s_color {
 	char	r;
 	char	g;
 	char	b;
 }	t_rgb_color;
+*/
 
 enum e_tile {
 	VOID,
@@ -52,8 +54,8 @@ typedef struct s_map {
 	char			player_dir;
 	char			**tiles;
 	t_vec2i			player_pos;
-	t_rgb_color		floor_color;
-	t_rgb_color		ceiling_color;
+	t_rgb			floor_color;
+	t_rgb			ceiling_color;
 	t_vec2i			size;
 }	t_map;
 
@@ -82,5 +84,10 @@ int				set_tiles(char **lines, t_map *map);
 int				check_tiles(char **lines, t_map *map);
 // check_tiles_after.c
 int				check_tiles_after(t_map *map);
+
+
+/******** ./fillscreen ******/
+// fillscreen.c
+void	fillscreen(t_img_data *img_data, t_rgb ceiling_color, t_rgb floor_color);
 
 #endif /* CUBE3D_H */
