@@ -64,7 +64,7 @@ int main()
 	void		*mlx =		mlx_init();
 	t_vec2i		size =		{ 1920, 1080 };
 	void		*win =		mlx_new_window(mlx, size.x, size.y, "cc");
-	t_texture	texture =	new_text(mlx, "./textures/wood.xpm");
+	t_texture	texture =	new_text(mlx, "../textures/wood.xpm");
 	void		*img =		mlx_new_image(mlx, size.x, size.y);
 	t_img_data	img_data =	img_data_from(img);
 	if (texture.pixels == NULL)

@@ -34,7 +34,7 @@ void	test1()
 	mlx = mlx_init();
 	win = mlx_new_window(mlx, size.x, size.y, "cc");
 
-	t_texture texture = new_text(mlx, "./textures/wood.xpm");
+	t_texture texture = new_text(mlx, "../textures/wood.xpm");
 	void	*img = mlx_new_image(mlx, size.x, size.y);
 	void	*blank_img = mlx_new_image(mlx, size.x, size.y);
 
