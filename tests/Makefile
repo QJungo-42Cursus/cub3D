@@ -7,10 +7,9 @@ LIBFT_A = ../libft/libft.a
 
 SRCS =		\
 			all_.cpp \
-
+			testParsing.cpp \
+			testMain.cpp \
 			#main.cpp \
-			#testParsing.cpp \
-			#testMain.cpp \
 
 OBJS =		$(SRCS:.cpp=.o)
 
