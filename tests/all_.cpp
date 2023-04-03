@@ -12,3 +12,8 @@ extern "C" {
 #include "../parsing/set_tiles.c"
 #include "../utils.c"
 }
+#ifndef MAIN___
+int main ( void ) {
+	return 0;
+}
+#endif

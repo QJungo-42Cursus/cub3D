@@ -5,9 +5,12 @@ RM =		rm -f
 GTEST =		./libgtest.a
 LIBFT_A = ../libft/libft.a
 
-SRCS =		main.cpp all_.cpp \
-			testParsing.cpp \
-			testMain.cpp \
+SRCS =		\
+			all_.cpp \
+
+			#main.cpp \
+			#testParsing.cpp \
+			#testMain.cpp \
 
 OBJS =		$(SRCS:.cpp=.o)
 
