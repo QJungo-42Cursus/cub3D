@@ -29,7 +29,6 @@ MLX =		-L./../mlx -lmlx -framework OpenGL -framework AppKit -lz
 endif
 
 san:
-	@make -C ../libft
 	$(CC) $(CFLAGS) $(SAN) $(SRCS) $(GTEST) $(LIBFT_A) $(MLX) -o $(NAME)
 
 $(NAME): $(OBJS)
@@ -47,12 +46,12 @@ fclean: clean
 re: fclean all
 
 run_tests:
-	@echo "Compiling tests with fsanitize"
-	@echo "============================"
+	@printf "\nCompiling tests with fsanitize\n"
+	@printf "==================================================================================================\n"
 	make san
-	@echo "Running tests with sanitizers"
-	@echo "============================"
+	@printf "\nRunning tests with sanitizers\n"
+	@printf "==================================================================================================\n"
 	@$(RM) all_.o
 	./$(NAME)
-	#@#cd ../src && ../tests/$(NAME)
 	@$(RM) -r $(NAME).dSYM
+	@printf "\n==================================================================================================\n\n"

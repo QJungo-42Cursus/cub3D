@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:22:39 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 18:17:33 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 22:03:05 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ int	main_(int argc, char **argv)
 		return (1);
 	}
 	if (parse(argv[1], &program) == ERROR)
+	{
+		free_program(&program);
 		return (1);
+	}
 	main_loop(&program);
 	free_program(&program);
 	return (0);

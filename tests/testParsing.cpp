@@ -8,8 +8,8 @@ extern "C" {
 #include "../src/cube3D.h"
 }
 
-static void parsing_integration_test(std::string filename,
-                                     std::string expected) {
+static void parsing_integration_test(std::string filename, std::string expected,
+                                     bool free_prog = false) {
   testing::internal::CaptureStdout();
 
   t_program program;
@@ -17,6 +17,9 @@ static void parsing_integration_test(std::string filename,
   program.map = &map;
   init_program(&program);
   parse((char *)filename.c_str(), &program);
+  if (free_prog) {
+    free_program(&program);
+  }
 
   std::string output = testing::internal::GetCapturedStdout();
 
@@ -27,12 +30,14 @@ static void parsing_integration_test(std::string filename,
   }
 }
 
-static void parsing_integration_test(std::string filename) {
-  parsing_integration_test(filename, "-");
+static void parsing_integration_test(std::string filename,
+                                     bool free_prog = false) {
+  parsing_integration_test(filename, "-", free_prog);
 }
 
 static void parsing_integration_test(std::vector<std::string> content,
-                                     std::string expected) {
+                                     std::string expected,
+                                     bool free_prog = false) {
   // write content to a file and call parsing_integration_test
   std::string filename = "tmp.cub";
   std::ofstream file(filename);
@@ -40,7 +45,7 @@ static void parsing_integration_test(std::vector<std::string> content,
     file << line << std::endl;
   }
   file.close();
-  parsing_integration_test(filename, expected);
+  parsing_integration_test(filename, expected, free_prog);
   remove(filename.c_str());
 }
 
@@ -53,12 +58,28 @@ static std::vector<std::string> working_infos = {"NO ../textures/wood.xpm",
 
 /*************** TESTS ***************/
 
-TEST(ParsingIntegrationTest, UnexistingFile) {
-  parsing_integration_test("../maps/unexisting.cub",
-                           "Error\ncould not open file\n");
+TEST(ParsingIntegrationTest, Basic) {
+  parsing_integration_test("../maps/basic.cub", "");
 }
 
 /*
+TEST(ParsingIntegrationTest, TestAllInvalidMap) {
+  std::string path = "./../maps/invalid_maps/";
+#ifdef __APPLE__
+  for (const auto &entry : std::__fs::filesystem::directory_iterator(path)) {
+#else
+  for (const auto &entry : std::filesystem::directory_iterator(path)) {
+#endif
+    parsing_integration_test(entry.path(), true);
+  }
+}
+*/
+
+TEST(ParsingIntegrationTest, UnexistingFile) {
+  parsing_integration_test("../maps/unexisting.cub",
+                           "Error\ncould not open file\n", true);
+}
+
 TEST(ParsingIntegrationTest, EmptyFile) {
   parsing_integration_test("../maps/failing_maps/empty.cub",
                            "Error\nfile is empty\n");
@@ -90,11 +111,10 @@ TEST(ParsingIntegrationTest, WrongColor) {
                            "Error\ncolor format error\n");
 }
 
-
 TEST(ParsingIntegrationTest, UnclosedMap) {
   std::vector<std::string> content = working_infos;
   content.push_back("111N111111111");
-  parsing_integration_test(content, "Error\nMap is not closed\n");
+  parsing_integration_test(content, "Error\nMap is not closed\n", true);
 }
 
 TEST(ParsingIntegrationTest, UnclosedMap2) {
@@ -103,7 +123,7 @@ TEST(ParsingIntegrationTest, UnclosedMap2) {
   content.push_back("1N00000000000");
   content.push_back("1000000000001");
   content.push_back("1111111111111");
-  parsing_integration_test(content, "Error\nMap is not closed\n");
+  parsing_integration_test(content, "Error\nMap is not closed\n", true);
 }
 
 TEST(ParsingIntegrationTest, UnclosedMap3) {
@@ -112,7 +132,7 @@ TEST(ParsingIntegrationTest, UnclosedMap3) {
   content.push_back("1000000000001          ");
   content.push_back("100000000E001          ");
   content.push_back("1111111111111          ");
-  parsing_integration_test(content, "Error\nMap is not closed\n");
+  parsing_integration_test(content, "Error\nMap is not closed\n", true);
 }
 
 TEST(ParsingIntegrationTest, TrickyMap) {
@@ -128,7 +148,7 @@ TEST(ParsingIntegrationTest, TrickyMap) {
   content.push_back("");
   content.push_back("");
   content.push_back("");
-  parsing_integration_test(content, "");
+  parsing_integration_test(content, "", true);
 }
 
 TEST(ParsingIntegrationTest, EmptyLine) {
@@ -139,23 +159,5 @@ TEST(ParsingIntegrationTest, EmptyLine) {
   content.push_back("          100000000E001111111111 ");
   content.push_back("          1111111111111          ");
   content.push_back("                                               ");
-  parsing_integration_test(content, "Error\nmap has an empty line\n");
+  parsing_integration_test(content, "Error\nmap has an empty line\n", true);
 }
-*/
-
-/*
-TEST(ParsingIntegrationTest, TestAllInvalidMap) {
-  std::string path = "./../maps/invalid_maps/";
-#ifdef __APPLE__
-  for (const auto &entry : std::__fs::filesystem::directory_iterator(path)) {
-#else
-  for (const auto &entry : std::filesystem::directory_iterator(path)) {
-#endif
-    parsing_integration_test(entry.path());
-  }
-}
-
-TEST(ParsingIntegrationTest, Basic) {
-  parsing_integration_test("../maps/basic.cub", "");
-}
-*/

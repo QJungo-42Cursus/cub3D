@@ -31,11 +31,20 @@ int key_hook(int k, void *c)
 	return 0;
 }
 
+int loop_hook(void *c)
+{
+	static int i = 0;
+	(void)c;
+	printf("loop %d\n", i++);
+	return 0;
+}
+
 void	test1();
 
 /// to test image_draw
 int main()
 {
+	//test1();
 	t_vec2i		size =		{ 720, 480 };
 	void		*mlx =		mlx_init();
 	void		*win =		mlx_new_window(mlx, size.x, size.y, "cc");
@@ -44,6 +53,7 @@ int main()
 	fillscreen(&img_data, color_from_rgb(200, 200, 200), color_from_rgb(0, 255, 255));
 	mlx_put_image_to_window(mlx, win, img_data.img, 0, 0);
 	mlx_hook(win, ON_DESTROY, 0, close_window, NULL);
-	mlx_hook(win, ON_KEYDOWN, 0, key_hook, NULL);
+	mlx_key_hook(win, key_hook, NULL);
+	//mlx_loop_hook(mlx, loop_hook, NULL);
 	mlx_loop(mlx);
 }

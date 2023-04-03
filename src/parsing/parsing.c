@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:27:55 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 18:21:20 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 22:21:19 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static int	find_map_first_line(char **lines)
 		i++;
 	}
 	error_print("map not found");
-	split_free(lines);
 	return (-1);
 }
 
@@ -45,11 +44,7 @@ static int	parse_lines(char **lines, t_program *program)
 	if (set_textures(lines, program, first_line) == ERROR)
 		return (ERROR);
 	if (set_tiles(&lines[first_line], program->map) == ERROR)
-	{
-		free_program(program);
 		return (ERROR);
-	}
-	split_free(lines);
 	return (SUCCESS);
 }
 
@@ -57,6 +52,7 @@ int	parse(char *filename, t_program *program)
 {
 	char	*file_content;
 	char	**lines;
+	int		status;
 
 	file_content = get_all_file(filename);
 	if (file_content == NULL || ft_strlen(file_content) == 0)
@@ -66,9 +62,10 @@ int	parse(char *filename, t_program *program)
 	free(file_content);
 	if (lines == NULL)
 	{
-		free_program(program);
 		error_print("malloc error");
 		exit(1);
 	}
-	return (parse_lines(lines, program));
+	status = parse_lines(lines, program);
+	split_free(lines);
+	return (status);
 }

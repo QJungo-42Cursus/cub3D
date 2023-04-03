@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:16:25 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 18:19:00 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 22:06:25 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	free_map(t_map *map)
 void	free_program(t_program *program)
 {
 	free_map(program->map);
-	return ;
 	if (program->mlx != NULL)
 	{
 		if (program->win != NULL)

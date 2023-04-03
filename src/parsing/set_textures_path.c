@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:52:59 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 17:58:57 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 22:16:43 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,6 @@ int	set_textures(char **lines, t_program *program, int first_line)
 
 	if (set_textures_path(lines, first_line, &t) == ERROR)
 		return (ERROR);
-
-	//printf("n: %d, s: %d, w: %d, e: %d\n", NORTH, SOUTH, WEST, EAST);
-	//exit(1);
 	program->map->textures[NORTH] = new_text(program->mlx, t.no_path);
 	if (program->map->textures[NORTH].pixels == NULL)
 	{
