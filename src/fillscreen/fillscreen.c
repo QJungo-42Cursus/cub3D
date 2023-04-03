@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 12:58:18 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 13:53:06 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 14:33:46 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,17 @@ void	fillscreen(t_img_data *img_data, t_rgb ceiling_color, t_rgb floor_color)
 	int		x;
 	int		y;
 
-	y = 0;
-	while (y < img_data->size.y)
+	x = 10;
+	while (x < img_data->size.x)
 	{
-		x = 0;
-		while (x < img_data->size.x)
+		y = 10;
+		while (y < img_data->size.y)
 		{
+			*(pixel_addr(x, y, img_data)) = floor_color;
 			if (y < img_data->size.y / 2)
 				*(pixel_addr(x, y, img_data)) = ceiling_color;
-			else
-				*(pixel_addr(x, y, img_data)) = floor_color;
-			x++;
+			y++;
 		}
-		y++;
+		x++;
 	}
 }

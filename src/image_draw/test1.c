@@ -1,4 +1,32 @@
 #include "../cube3D.h"
+#include <math.h>
+/// texture column to image
+void	text_column_to_img(
+			t_texture texture,
+			t_img_data img_data,
+			int img_x,
+			int text_x,
+			float scale,
+			float shift
+)
+{
+	t_vec2i		img_index;
+	t_vec2		text_index;
+
+	text_index.x = text_x;
+	img_index.x = img_x;
+	img_index.y = 0;
+	text_index.y = 0;
+	static unsigned int rand = 0xfffff101;
+	while (img_index.y < (texture.size.y - 1) * scale) // le -1 pour eviter les vieux pixels multi color en bas...
+	{
+		//*(pixel_addr(img_index.x, img_index.y + shift, &img_data)) = texture.pixels[(int)roundf(text_index.x) + (int)roundf(text_index.y) * texture.size.y];
+		*(pixel_addr(img_index.x, img_index.y + shift, &img_data)) = rand;
+		rand += 1;
+		img_index.y++;
+		text_index.y += 1.f / scale;
+	}
+}
 
 void	texture_to_image_with_shift(t_texture texture, void *mlx, void *img, float scale, t_vec2i img_size, t_vec2 position)
 {
@@ -45,7 +73,8 @@ void	test1()
 	texture_to_image_with_shift(texture, mlx, img, scale, size, position2);
 	texture_to_image_with_shift(texture, mlx, img, scale, size, position);
 	mlx_put_image_to_window(mlx, win, img, 0, 0);
-	while (1);
+	mlx_loop(mlx);
+	//while (1);
 	/*
 	while (1)
 	{
