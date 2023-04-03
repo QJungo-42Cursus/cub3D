@@ -1,6 +1,6 @@
 NAME =		tests
 CC =		c++
-CFLAGS = -std=c++14
+CFLAGS = -std=c++17
 RM =		rm -f
 GTEST =		./libgtest.a
 LIBFT_A = ../libft/libft.a
