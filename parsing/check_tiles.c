@@ -52,6 +52,8 @@ static int	has_only_one_spawn_point(char **lines)
 			if (is_in_charset(lines[i][j], "NSEW"))
 				spawn_points++;
 			j++;
+			if (spawn_points > 1)
+				return (FALSE);
 		}
 		i++;
 	}
@@ -96,6 +98,7 @@ int	check_tiles(char **lines, t_map *map)
 		error_print("map has invalid char");
 		return (ERROR);
 	}
+	// TODO ce qu'on veut ?
 	if (has_an_empty_line(lines))
 	{
 		error_print("map has an empty line");
