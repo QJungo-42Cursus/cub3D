@@ -2,14 +2,13 @@ NAME =		tests
 CC =		c++
 CFLAGS = -std=c++17
 RM =		rm -f
-GTEST =		./libgtest.a
 LIBFT_A = ../libft/libft.a
 
 SRCS =		\
 			all_.cpp \
 			testParsing.cpp \
 			testMain.cpp \
-			#main.cpp \
+			main.cpp \
 
 OBJS =		$(SRCS:.cpp=.o)
 
@@ -20,8 +19,10 @@ SAN =	-fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all \
 		-g
 
 ifeq ($(shell uname), Linux)
+GTEST =		./libgtest_Linux.a
 LEAKS =		valgrind -q --leak-check=full --track-origins=yes
 else
+GTEST =		./libgtest.a
 LEAKS =		leaks --atExit --
 endif
 

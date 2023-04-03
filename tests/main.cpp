@@ -1,5 +1,4 @@
 #include "./gtest/gtest.h"
-#define MAIN___
 
 extern "C" {
 #include "../cube3D.h"
