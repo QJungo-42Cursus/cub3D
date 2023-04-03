@@ -1,6 +1,6 @@
 NAME =		tests
 CC =		c++
-CFLAGS =	-Wall -Wextra -Werror
+CFLAGS =	-Wall -Wextra -Werror -std=c++14
 RM =		rm -f
 GTEST =		./libgtest.a
 LIBFT_A = ../libft/libft.a

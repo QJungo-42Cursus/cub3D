@@ -1,5 +1,5 @@
 **/*.o
-**/*.a
+**/*.out
 **/*.so
 cube3D
 tests/tests
