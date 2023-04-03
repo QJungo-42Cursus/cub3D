@@ -47,7 +47,7 @@ re: fclean all
 
 ###
 
-run_tests:
+run_tests: all
 	make run_tests -C tests
 
 SAN =	-fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all \
