@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:22:39 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 16:08:21 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 18:17:33 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,37 +26,23 @@ static int	is_arg_name_valid(int argc, char **argv)
 	return (TRUE);
 }
 
-static void	init_map(t_map *map)
+int close_window()
 {
-	map->textures[NORTH].pixels = NULL;
-	map->textures[SOUTH].pixels = NULL;
-	map->textures[WEST].pixels = NULL;
-	map->textures[EAST].pixels = NULL;
-	map->tiles = NULL;
-	map->size.x = 0;
-	map->size.y = 0;
-	map->ceiling_color = 0xFF000000;
-	map->floor_color = 0xFF000000;
+	exit(0);
+	return 0;
 }
 
-static int	init_mlx(t_program *program)
+int key_hook()
 {
-	program->mlx = mlx_init();
-	if (program->mlx == NULL)
-	{
-		error_print("mlx_init error");
-		return (FALSE);
-	}
-	// TODO set size
-	program->win = mlx_new_window(program->mlx, 1600, 900, (char *)"cube3D");
-	if (program->win == NULL)
-	{
-		error_print("mlx_new_window error");
-		mlx_destroy_display(program->mlx);
-		free(program->mlx);
-		return (FALSE);
-	}
-	return (SUCCESS);
+	return 0;
+}
+
+void	main_loop(t_program *program)
+{
+
+	mlx_hook(program->win, ON_DESTROY, 0, close_window, NULL);
+	mlx_hook(program->win, ON_KEYDOWN, 0, key_hook, NULL);
+	mlx_loop(program->mlx);
 }
 
 int	main_(int argc, char **argv)
@@ -66,8 +52,7 @@ int	main_(int argc, char **argv)
 
 	program.map = &map;
 
-	init_map(&map);
-	init_mlx(&program);
+	init_program(&program);
 	if (!is_arg_name_valid(argc, argv))
 	{
 		error_print("usage: ./cub3D [map_file].cub");
@@ -76,6 +61,7 @@ int	main_(int argc, char **argv)
 	}
 	if (parse(argv[1], &program) == ERROR)
 		return (1);
+	main_loop(&program);
 	free_program(&program);
 	return (0);
 }

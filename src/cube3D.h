@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:23:14 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 16:07:49 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 18:19:18 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ typedef struct s_program {
 /******	./ ******/
 // utils.c
 void			error_print(const char *msg);
-void			free_map(t_map *map);
 void			free_program(t_program *program);
+int				init_win(t_program *program);
+void			init_program(t_program *program);
 
 /******	./parsing ******/
 //	parsing.c

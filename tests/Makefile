@@ -21,18 +21,20 @@ SAN =	-fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all \
 ifeq ($(shell uname), Linux)
 GTEST =		./libgtest_Linux.a
 LEAKS =		valgrind -q --leak-check=full --track-origins=yes
+MLX =		-L./../mlx -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
 else
 GTEST =		./libgtest.a
 LEAKS =		leaks --atExit --
+MLX =		-L./../mlx -lmlx -framework OpenGL -framework AppKit -lz
 endif
 
 san:
 	@make -C ../libft
-	$(CC) $(CFLAGS) $(SAN) $(SRCS) $(GTEST) $(LIBFT_A) -o $(NAME)
+	$(CC) $(CFLAGS) $(SAN) $(SRCS) $(GTEST) $(LIBFT_A) $(MLX) -o $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C ../libft
-	$(CC) $(CFLAGS) $(SAN) $(OBJS) $(GTEST) $(LIBFT_A) -o $(NAME)
+	$(CC) $(CFLAGS) $(SAN) $(OBJS) $(GTEST) $(LIBFT_A) $(MLX) -o $(NAME)
 
 all: $(NAME)
 
@@ -45,13 +47,12 @@ fclean: clean
 re: fclean all
 
 run_tests:
-	#@echo "Running tests with leaks"
-	#make all
-	#$(RM) all_.o
-	#$(LEAKS) ./$(NAME) || true
-	#
-	@echo "Running tests with sanitizers"
+	@echo "Compiling tests with fsanitize"
+	@echo "============================"
 	make san
-	$(RM) all_.o
+	@echo "Running tests with sanitizers"
+	@echo "============================"
+	@$(RM) all_.o
 	./$(NAME)
-	$(RM) $(NAME).dSYM
+	#@#cd ../src && ../tests/$(NAME)
+	@$(RM) -r $(NAME).dSYM

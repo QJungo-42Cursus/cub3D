@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:50:34 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/01 02:43:36 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 17:55:42 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static char	*return_value(const char *id, char **lines, int found_i)
 {
 	char	*value;
 
+	if (found_i == -1)
+		return (NULL);
 	value = ft_strdup(&lines[found_i][ft_strlen(id)]);
 	if (value == NULL)
 	{
@@ -38,7 +40,7 @@ char	*get_info_by_id(const char *id, char **lines, int map_first_line)
 		{
 			if (found_i != -1)
 				error_print("multiple definition for same texture or color");
-			if (i > map_first_line)
+			else if (i > map_first_line)
 				error_print("map is not at the end of the file");
 			if (i > map_first_line || found_i != -1)
 				return (NULL);
@@ -47,6 +49,6 @@ char	*get_info_by_id(const char *id, char **lines, int map_first_line)
 		i++;
 	}
 	if (found_i == -1)
-		return (NULL);
+		error_print("texture path or color not found");
 	return (return_value(id, lines, found_i));
 }

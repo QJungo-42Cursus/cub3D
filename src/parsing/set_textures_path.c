@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:52:59 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 16:10:02 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 17:58:57 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,19 @@ typedef struct texture_path {
 
 static int	is_texture_path_valid(char *path)
 {
-	static int	one_invalid = FALSE;
 	int			fd;
 
-	if (one_invalid)
-		return (FALSE);
 	if (ft_strnstr(path, ".xpm", ft_strlen(path) + 1) == NULL)
 	{
-		one_invalid = TRUE;
 		error_print("texture path is not valid");
 		return (FALSE);
 	}
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 	{
-		one_invalid = TRUE;
-		error_print("texture path is not valid");
+		perror("open\n");
+		printf("\n\nfor file %s\n", path);
+		error_print("texture file could not be opened");
 		return (FALSE);
 	}
 	close(fd);
@@ -45,8 +42,6 @@ static int	is_texture_path_valid(char *path)
 
 static int	path_not_found(t_texture_path t, int i)
 {
-	if (i < 4)
-		error_print("path not found");
 	free(t.no_path);
 	if (i > 1)
 		free(t.so_path);
@@ -83,8 +78,11 @@ int	set_textures(char **lines, t_program *program, int first_line)
 {
 	t_texture_path	t;
 
-	set_textures_path(lines, first_line, &t);
+	if (set_textures_path(lines, first_line, &t) == ERROR)
+		return (ERROR);
 
+	//printf("n: %d, s: %d, w: %d, e: %d\n", NORTH, SOUTH, WEST, EAST);
+	//exit(1);
 	program->map->textures[NORTH] = new_text(program->mlx, t.no_path);
 	if (program->map->textures[NORTH].pixels == NULL)
 	{
