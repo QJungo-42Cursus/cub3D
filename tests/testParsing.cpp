@@ -155,7 +155,11 @@ TEST(ParsingIntegrationTest, EmptyLine) {
 
 TEST(ParsingIntegrationTest, TestAllInvalidMap) {
   std::string path = "./test_files/invalid_maps/";
+#ifdef __APPLE__
   for (const auto &entry : std::__fs::filesystem::directory_iterator(path)) {
+#else
+  for (const auto &entry : std::filesystem::directory_iterator(path)) {
+#endif
     parsing_integration_test(entry.path());
   }
 }
