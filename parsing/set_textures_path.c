@@ -16,6 +16,7 @@ static int	is_texture_path_valid(char *path)
 {
 	static int	one_invalid = FALSE;
 
+	// TODO check access() with open()
 	if (one_invalid)
 		return (FALSE);
 	if (ft_strnstr(path, ".xpm", ft_strlen(path) + 1) == NULL)
