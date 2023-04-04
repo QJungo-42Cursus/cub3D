@@ -17,6 +17,7 @@ static void parsing_integration_test(std::string filename, std::string expected,
   t_program program;
   t_map map;
   program.map = &map;
+  std::cerr << "salut maman 07" << std::endl;
   init_program(&program);
   std::cerr << "salut maman 04" << std::endl;
   parse((char *)filename.c_str(), &program);
