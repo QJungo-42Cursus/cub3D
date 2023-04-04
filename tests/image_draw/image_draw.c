@@ -1,4 +1,4 @@
-#include "../cube3D.h"
+#include "../../src/cube3D.h"
 #include <math.h>
 
 // texture (ou juste la ligne en question...)

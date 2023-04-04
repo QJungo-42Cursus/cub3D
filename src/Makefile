@@ -69,12 +69,4 @@ san:
 leaks: all
 	$(LEAKS) ./$(NAME) tests/test_files/basic.cub
 
-img:
-	$(CC) fillscreen/fillscreen.c image_draw/test1.c image_draw/image_draw.c $(LIBFT) $(MLX)
-	./a.out
-
-min: 
-	$(CC) fillscreen/fillscreen.c image_draw/minimap.c $(LIBFT) $(MLX)
-	./a.out
-
 .PHONY: all clean fclean re

@@ -55,3 +55,12 @@ run_tests:
 	./$(NAME)
 	@$(RM) -r $(NAME).dSYM
 	@printf "\n==================================================================================================\n\n"
+
+FS = ../src/fillscreen/fillscreen.c
+img:
+	gcc $(FS) image_draw/test1.c image_draw/image_draw.c $(LIBFT_A) $(MLX)
+	./a.out
+
+min: 
+	gcc $(FS) image_draw/minimap.c $(LIBFT_A) $(MLX)
+	./a.out

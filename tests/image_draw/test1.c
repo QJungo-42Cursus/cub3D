@@ -1,5 +1,7 @@
-#include "../cube3D.h"
+#include "../../src/cube3D.h"
+
 #include <math.h>
+
 /// texture column to image
 void	text_column_to_img(
 			t_texture texture,

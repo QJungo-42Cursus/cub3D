@@ -1,6 +1,6 @@
 
 
-#include "../cube3D.h"
+#include "../../src/cube3D.h"
 #define C_RED 0xffFF0000
 #define C_GREEN 0xff00FF00
 #define C_BLUE 0xff0000FF

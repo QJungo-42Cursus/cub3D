@@ -6,11 +6,11 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:14:19 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 16:32:18 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/04 08:17:13 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube3D.h"
+#include "../../src/cube3D.h"
 
 void	draw_column(t_program *program, t_direction dir, float tex_pourcentage, float distance)
 {
