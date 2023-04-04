@@ -12,6 +12,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - nmae: install mlx
+      run: sudo apt-get update && sudo apt-get install xorg libxext-dev zlib1g-dev libbsd-dev
     - name: make
       run: make -C src/
     - name: Unit Tests
