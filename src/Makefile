@@ -69,6 +69,4 @@ san:
 leaks: all
 	$(LEAKS) ./$(NAME) tests/test_files/basic.cub
 
-<<<<<<< HEAD:src/Makefile
-=======
 .PHONY: all clean fclean re
