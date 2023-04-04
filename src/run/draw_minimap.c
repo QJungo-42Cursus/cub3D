@@ -34,9 +34,9 @@ static void	draw_rayons(t_program *prog, t_img_data *img_data, t_vec2i start, t_
 		get_impact(&ray, &prog->map);
 		draw_line(new_line(
 					new_vec2(prog->player.pos.x * size.x + start.x,	prog->player.pos.y * size.y + start.y),
+					//new_vec2(ray.pos_tile.x * size.x + start.x, ray.pos_tile.y * size.y + start.y),
 					new_vec2((ray.side_dist.x + prog->player.pos.x) * size.x + start.x, (ray.side_dist.y + prog->player.pos.y) * size.y + start.y),
 					C_BLUE), img_data);
-		/* draw */
 		x++;
 	}
 }

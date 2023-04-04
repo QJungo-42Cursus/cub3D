@@ -90,6 +90,7 @@ void			init_program(t_program *program);
 t_vec2	vec2_from_angle(double angle);
 void	set_player_cam(t_player *player, char c);
 void	rotate_cam(t_player *player, double angle);
+void	set_player_cam(t_player *player, char c);
 
 /******	./raycast ******/
 // ray_cast.c
