@@ -6,7 +6,6 @@ LIBFT =		-L./../libft -lft
 SRCS =		\
 			main.c \
 			utils.c \
-			run.c \
 			parsing/parsing.c \
 			parsing/get_info_by_id.c \
 			parsing/set_textures_path.c \
@@ -16,6 +15,9 @@ SRCS =		\
 			parsing/set_colors.c \
 			parsing/get_all_file.c \
 			fillscreen/fillscreen.c \
+			run/run.c \
+			run/draw_minimap.c \
+			run/move_toward.c \
 
 OBJS =		$(SRCS:.c=.o)
 
