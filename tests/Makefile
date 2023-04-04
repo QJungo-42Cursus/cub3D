@@ -28,13 +28,17 @@ LEAKS =		leaks --atExit --
 MLX =		-L./../mlx -lmlx -framework OpenGL -framework AppKit -lz
 endif
 
-san:
-	$(CC) $(CFLAGS) $(SAN) $(SRCS) $(GTEST) $(LIBFT_A) $(MLX) -o $(NAME)
+all: $(NAME)
 
 $(NAME): $(OBJS)
+	@printf "\nCompiling tests\n"
+	@printf "==================================================================================================\n"
 	$(CC) $(CFLAGS) $(OBJS) $(GTEST) $(LIBFT_A) $(MLX) -o $(NAME)
 
-all: $(NAME)
+san:
+	@printf "\nCompiling tests with fsanitize\n"
+	@printf "==================================================================================================\n"
+	$(CC) $(CFLAGS) $(SAN) $(SRCS) $(GTEST) $(LIBFT_A) $(MLX) -o $(NAME)
 
 clean:
 	$(RM) $(OBJS)
@@ -45,10 +49,8 @@ fclean: clean
 re: fclean all
 
 run_tests:
-	@printf "\nCompiling tests with fsanitize\n"
-	@printf "==================================================================================================\n"
-	make #san
-	@printf "\nRunning tests with sanitizers\n"
+	make all
+	@printf "\nRunning tests\n"
 	@printf "==================================================================================================\n"
 	@$(RM) all_.o
 	./$(NAME)
