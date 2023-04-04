@@ -32,8 +32,7 @@ san:
 	$(CC) $(CFLAGS) $(SAN) $(SRCS) $(GTEST) $(LIBFT_A) $(MLX) -o $(NAME)
 
 $(NAME): $(OBJS)
-	@make -C ../libft
-	$(CC) $(CFLAGS) $(SAN) $(OBJS) $(GTEST) $(LIBFT_A) $(MLX) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(GTEST) $(LIBFT_A) $(MLX) -o $(NAME)
 
 all: $(NAME)
 
