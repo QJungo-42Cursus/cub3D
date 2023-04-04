@@ -6,6 +6,7 @@ extern "C" {
 
 int main(int argc, char **argv) {
   void *mlx = mlx_init();
+  printf("mlx: %p\n", mlx);
   mlx = NULL;
   //::testing::InitGoogleTest(&argc, argv);
   // return RUN_ALL_TESTS();
