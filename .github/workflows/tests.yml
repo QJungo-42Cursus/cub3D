@@ -14,10 +14,8 @@ jobs:
     - uses: actions/checkout@v3
     - name: make all
       run: make -C src/
-    - name: make test
-      run: make -C tests/
     - name: Unit Tests
-      run: tests/tests
+      run: make run_tests -C src/
 
 #- uses: alexandregv/norminette-action@v3
 # with:

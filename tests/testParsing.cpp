@@ -32,17 +32,19 @@ static int init_program_(t_program *program) {
 
 static void parsing_integration_test(std::string filename, std::string expected,
                                      bool free_prog = false) {
-  // testing::internal::CaptureStdout();
+  testing::internal::CaptureStdout();
 
   t_program program;
   t_map map;
   program.map = &map;
   if (init_program_(&program) == EXIT_FAILURE) {
+    std::string output = testing::internal::GetCapturedStdout();
 	FAIL() << "mlx_init error";
   }
 
   {
-    // free_program(&program);
+    free_program(&program);
+	std::string output = testing::internal::GetCapturedStdout();
     return;
   }
 
@@ -50,9 +52,9 @@ static void parsing_integration_test(std::string filename, std::string expected,
   if (free_prog) {
     free_program(&program);
   }
-  // std::string output = testing::internal::GetCapturedStdout();
+  std::string output = testing::internal::GetCapturedStdout();
   if (expected != "-") {
-    // EXPECT_EQ(output, expected);
+    EXPECT_EQ(output, expected);
   } else {
   }
 }
@@ -86,14 +88,11 @@ static std::vector<std::string> working_infos = {"NO ../textures/wood.xpm",
 /*************** TESTS ***************/
 
 TEST(ParsingIntegrationTest, UnexistingFile) {
-  std::cout << "salut maman 01" << std::endl;
   parsing_integration_test("../maps/unexisting.cub",
                            "Error\ncould not open file\n");
-  std::cout << "salut maman 02" << std::endl;
 }
 
 TEST(ParsingIntegrationTest, EmptyFile) {
-  std::cout << "salut maman" << std::endl;
   parsing_integration_test("../maps/failing_maps/empty.cub",
                            "Error\nfile is empty\n");
 }
