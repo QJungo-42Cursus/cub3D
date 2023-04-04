@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:52:59 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 22:16:43 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/04 09:39:31 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ static int	is_texture_path_valid(char *path)
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 	{
-		perror("open\n");
-		printf("\n\nfor file %s\n", path);
 		error_print("texture file could not be opened");
 		return (FALSE);
 	}
