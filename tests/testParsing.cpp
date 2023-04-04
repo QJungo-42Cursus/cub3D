@@ -39,6 +39,8 @@ static void parsing_integration_test(std::string filename, std::string expected,
   program.map = &map;
   if (init_program_(&program) == EXIT_FAILURE) {
     std::string output = testing::internal::GetCapturedStdout();
+    std::cout << output << "  errno: " << errno << std::endl;
+    perror("mlx_init error");
 	FAIL() << "mlx_init error";
   }
 
