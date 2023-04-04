@@ -15,4 +15,6 @@ extern "C" {
 #include "../src/parsing/set_textures_path.c"
 #include "../src/parsing/set_tiles.c"
 #include "../src/fillscreen/fillscreen.c"
+#include "../src/raycasting/ray_cast.c"
+#include "../src/raycasting/player_action.c"
 }

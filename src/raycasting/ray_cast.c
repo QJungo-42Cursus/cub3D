@@ -6,7 +6,7 @@
 /*   By: agonelle <agonelle@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 13:11:13 by agonelle          #+#    #+#             */
-/*   Updated: 2023/04/04 17:36:56 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/04 17:54:48 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 static int	is_a_wall(t_vec2i coor, char **tiles)
 {
-	printf("coor: %d %d", coor.x, coor.y);
-	printf(" %c\n", tiles[coor.y][coor.x]);
 	return (tiles[coor.y][coor.x] == WALL);
 }
 
@@ -27,7 +25,6 @@ void	get_impact(t_ray *ray, t_map *map)
 	int		hit;
 	int		side;
 
-	//printf("perpWallDist: %f\n", ray->perpWalldist);
 	hit = FALSE;
 	while (hit == FALSE)
 	{
@@ -56,7 +53,7 @@ void	get_impact(t_ray *ray, t_map *map)
 		ray->perpWalldist = (ray->side_dist.y - ray->delta_dist.y);
 }
 
-void	init_ray(t_player player, t_ray *ray)
+static void	init_ray(t_player player, t_ray *ray)
 {
 	ray->pos_tile.x = (int)player.pos.x;
 	ray->pos_tile.y = (int)player.pos.y;
@@ -65,7 +62,6 @@ void	init_ray(t_player player, t_ray *ray)
 void	set_ray(t_player play, t_ray *ray, t_vec2 cam)
 {
 	init_ray(play, ray);
-
 	ray->dir.x = play.dir_cam.x + play.cam_plan.x * cam.x;
 	ray->dir.y = play.dir_cam.y + play.cam_plan.y * cam.x;
 	ray->delta_dist.x
