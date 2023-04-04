@@ -6,7 +6,7 @@
 /*   By: agonelle <agonelle@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 13:11:13 by agonelle          #+#    #+#             */
-/*   Updated: 2023/04/03 19:56:01 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/04 16:20:25 by agonelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@ typedef struct s_player {
 	t_vec2	dir_cam;
 	t_vec2	cam_plan;
 }	t_player;
+
+typedef struct s_ray {
+	t_vec2i	pos_tile;
+	t_vec2	dir;
+	t_vec2	delta_dir;
+	t_vec2	delta_dist;
+	t_vec2	side_dist;
+	t_vec2	step;
+	double	perpWalldist;
+}	t_ray;
 
 static int	is_a_wall(t_vec2i coor, char **tiles)
 {
@@ -36,104 +46,91 @@ void	set_player(t_player *player)
 
 // TODO
 // - le faire sans les steps (avec round ?)
-void	get_impact(t_player *player, t_vec2 *ray_dir, t_vec2 *delta_dist, t_map *map, int s_x, t_img_data *img)
+void	get_impact(t_player *player, t_ray *ray, t_map *map, int s_x, t_img_data *img)
 {
-	t_vec2i	map_c;
-	t_vec2	side_dist;
-	t_vec2	step;
-	double	perpWalldist;
 	int		hit;
 	int		side;
 
-	map_c.x = (int)player->pos.x;
-	map_c.y = (int)player->pos.y;
-	if (ray_dir->x < 0)
-	{
-		step.x = -1;
-		side_dist.x = (player->pos.x - map_c.x) * delta_dist->x;
-	}
-	else
-	{
-		step.x = 1;
-		side_dist.x = (map_c.x + 1 - player->pos.x) * delta_dist->x;
-	}
-	if (ray_dir->y < 0)
-	{
-		step.y = -1;
-		side_dist.y = (player->pos.y - map_c.y) * delta_dist->y;
-	}
-	else
-	{
-		step.y = 1;
-		side_dist.x = (map_c.y + 1 - player->pos.y) * delta_dist->y;
-	}
+	ray->pos_tile.x = (int)player->pos.x;
+	ray->pos_tile.y = (int)player->pos.y;
 	while (hit == 0)
 	{
-		if (side_dist.x < side_dist.y)
+		if (ray->side_dist.x < ray->side_dist.y)
 		{
-			side_dist.x += delta_dist->x;
-			map_c.x += step.x;
+			ray->side_dist.x += ray->delta_dist.x;
+			ray->pos_tile.x += ray->step.x;
 			side = 0;
 		}
 		else
 		{
-			side_dist.x += delta_dist->x;
-			map_c.y += step.y;
+			ray->side_dist.x += ray->delta_dist.x;
+			ray->pos_tile.y += ray->step.y;
 			side = 1;
 		}
-		if (is_a_wall(map_c, map->tiles))
+		if (is_a_wall(ray->pos_tile, map->tiles))
 			hit = 1;
 	}
 	if (side == 0)
-		perpWalldist = (side_dist.x - delta_dist->x);
+		ray->perpWalldist = (ray->side_dist.x - ray->delta_dist.x);
 	else
-		perpWalldist = (side_dist.y - delta_dist->y);
-	int h = 500;
-	int lineHeight = (int)(h / perpWalldist);
+		ray->perpWalldist = (ray->side_dist.y - ray->delta_dist.y);
 
+	int h = 500;
+	int lineHeight = (int)(h / ray->perpWalldist);
 	static t_vec2i last_impact = {0, 0};
 
 	t_color_gradient lll;
-	if (last_impact.x != map_c.x || last_impact.y != map_c.y)
+	if (last_impact.x != ray->pos_tile.x || last_impact.y != ray->pos_tile.y)
 	{
-		printf("impact: %d, %d\n", map_c.x, map_c.y);
-		last_impact.x = map_c.x;
-		last_impact.y = map_c.y;
+		printf("impact: %d, %d\n", ray->pos_tile.x, ray->pos_tile.y);
+		last_impact.x = ray->pos_tile.x;
+		last_impact.y = ray->pos_tile.y;
 	}
+}
 
-	lll.start = 0xff22ff22;
+void	init_ray(t_player *player, t_ray *ray)
+{
+	ray->pos_tile.x = (int)player->pos.x;
+	ray->pos_tile.y = (int)player->pos.y;
+}
 
-	//printf("impact: %d, %d\n", map_c.x, map_c.y);
-	t_line line = new_line(new_vec2(s_x, img->size.y / 2. - lineHeight / 2.), new_vec2(s_x, img->size.y / 2. + lineHeight / 2.), lll, 1);
-	//printf("line: %f %f %f %f\n", line.a.x, line.a.y, line.b.x, line.b.y);
-	draw_line(img, line);
-
+void	set_ray(t_player *play, t_ray *ray, t_vec2 cam, int x)
+{
+	ray->dir.x = play->dir_cam.x + play->cam_plan.x * cam.x;
+	ray->dir.y = play->dir_cam.y + play->cam_plan.y * cam.x;
+	ray->delta_dist.x
+		= sqrt(1 + (ray->dir.y * ray->dir.y) / (ray->dir.x * ray->dir.x));
+	ray->delta_dist.y
+		= sqrt(1 + (ray->dir.x * ray->dir.x) / (ray->dir.y * ray->dir.y));
+	new_vec2(&ray->step, 1, 1);
+	ray->side_dist.x = (ray->pos_tile.x + 1 - play->pos.x) * ray->delta_dist.x;
+	ray->side_dist.y = (ray->pos_tile.y + 1 - play->pos.y) * ray->delta_dist.y;
+	if (ray->dir.x < 0)
+	{
+		ray->step.x = -1;
+		ray->side_dist.x = (play->pos.x - ray->pos_tile.x) * ray->delta_dist.x;
+	}
+	if (ray->dir.y < 0)
+	{
+		ray->step.y = -1;
+		ray->side_dist.y = (play->pos.y - ray->pos_tile.y) * ray->delta_dist.y;
+	}
+	ray->perpWalldist = 0;
 }
 
 void	ray_casting_loop(t_player *player, t_map *map, t_img_data *img)
 {
 	int		x;
-	t_vec2	ray_dir;
-	t_vec2	delta_dir;
+	t_ray	ray;
 	t_vec2	cam;
 
 	x = 0;
-	printf("img size: %d %d\n", img->size.x, img->size.y);
-	printf("player pos: %f %f\n", player->pos.x, player->pos.y);
-	printf("map size: %d %d\n", map->size.x, map->size.y);
+	init_ray(player, &ray);
 	while (x < img->size.x)
 	{
 		cam.x = 2 * x / (double) img->size.x + 1;
-		ray_dir.x = player->dir_cam.x + player->cam_plan.x * cam.x;
-		ray_dir.y = player->dir_cam.y + player->cam_plan.y * cam.x;
-		delta_dir.x
-			= sqrt(1 + (ray_dir.x * ray_dir.x) / (ray_dir.y * ray_dir.y));
-		delta_dir.y
-			= sqrt(1 + (ray_dir.y * ray_dir.y) / (ray_dir.x * ray_dir.x));
-		//printf("ray_dir: %f %f\n", ray_dir.x, ray_dir.y);
-		//printf("x: %d\n", x);
-
-		get_impact(player, &ray_dir, &delta_dir, map, x, img);
+		set_ray(player, &ray, cam, x);
+		get_impact(player, &ray, map, x, img);
 		x++;
 	}
 }
