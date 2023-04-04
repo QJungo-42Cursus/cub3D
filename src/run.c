@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 11:12:22 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/04 11:12:26 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/04 11:25:37 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,42 @@ int	key_hook(int key, void *data)
 		program->refresh = FALSE;
 		mlx_loop_end(program->mlx);
 	}
+	/*
+	else if (key == KEY_W)
+	{
+		program->player->pos.x += 0.1;
+		program->player->pos.y += 0.1;
+		program->refresh = TRUE;
+	}
+	else if (key == KEY_S)
+	{
+		program->player->pos.x -= 0.1;
+		program->player->pos.y -= 0.1;
+		program->refresh = TRUE;
+	}
+	else if (key == KEY_A)
+	{
+		program->player->pos.x -= 0.1;
+		program->player->pos.y += 0.1;
+		program->refresh = TRUE;
+	}
+	else if (key == KEY_D)
+	{
+		program->player->pos.x += 0.1;
+		program->player->pos.y -= 0.1;
+		program->refresh = TRUE;
+	}
+	else if (key == KEY_RIGHT)
+	{
+		program->player->angle += 0.1;
+		program->refresh = TRUE;
+	}
+	else if (key == KEY_LEFT)
+	{
+		program->player->angle -= 0.1;
+		program->refresh = TRUE;
+	}
+	*/
 	return 0;
 }
 
