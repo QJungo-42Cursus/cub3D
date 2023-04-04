@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 11:12:22 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/04 11:25:37 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/04 11:30:16 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,10 @@ int	key_hook(int key, void *data)
 void	run(t_program *program)
 {
 	mlx_do_key_autorepeaton(program->mlx);
-	mlx_hook(program->win, ON_DESTROY, 0, close_window, program);
-	mlx_hook(program->win, ON_KEYDOWN, 1L<<0, key_hook, program);
+	mlx_hook(program->win, ON_DESTROY, 0, (int (*)())close_window, program);
+	mlx_hook(program->win, ON_KEYDOWN, 1L<<0, (int (*)())key_hook, program);
 
-	mlx_loop_hook(program->mlx, loop_hook, program);
+	mlx_loop_hook(program->mlx, (int (*)())loop_hook, program);
 	mlx_loop(program->mlx);
 	printf("close window\n");
 }
