@@ -19,13 +19,15 @@ static void init_map_(t_map *map) {
   map->ceiling_color = 0xFF000000;
   map->floor_color = 0xFF000000;
 }
-static void init_program_(t_program *program) {
+
+static int init_program_(t_program *program) {
   program->mlx = mlx_init();
   if (program->mlx == NULL) {
-    FAIL() << "mlx_init error";
+    return (EXIT_FAILURE);
   }
   program->win = NULL;
   init_map_(program->map);
+  return (EXIT_SUCCESS);
 }
 
 static void parsing_integration_test(std::string filename, std::string expected,
@@ -35,10 +37,12 @@ static void parsing_integration_test(std::string filename, std::string expected,
   t_program program;
   t_map map;
   program.map = &map;
-  init_program_(&program);
+  if (init_program_(&program) == EXIT_FAILURE) {
+	FAIL() << "mlx_init error";
+  }
 
   {
-    free_program(&program);
+    // free_program(&program);
     return;
   }
 
