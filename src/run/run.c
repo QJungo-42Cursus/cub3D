@@ -6,45 +6,45 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 11:12:22 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/04 17:28:50 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/04 23:52:17 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube3D.h"
-
-t_img_data img_data;
+#define MINIMAP_SCALE 15
 
 int	loop_hook(void *data)
 {
-	t_program *program = (t_program *)data;
+	t_program	*program;
 
+	program = (t_program *)data;
 	if (!program->refresh)
-	{
-		return 0;
-	}
-	fillscreen(&img_data, program->map.ceiling_color, program->map.floor_color);
-	ray_casting_loop(program, &img_data);
-	draw_minimap(program, &img_data, new_vec2i(10, 10), new_vec2(15, 15));
-	mlx_put_image_to_window(program->mlx, program->win, img_data.img, 0, 0);
-	printf("loop hook refresh\n");
-
+		return (0);
+	fillscreen(&program->img_data,
+		program->map.ceiling_color, program->map.floor_color);
+	ray_casting_loop(program, &program->img_data);
+	draw_minimap(program, &program->img_data, new_vec2i(10, 10), MINIMAP_SCALE);
+	mlx_put_image_to_window(program->mlx,
+		program->win, program->img_data.img, 0, 0);
 	program->refresh = FALSE;
-	return 0;
+	return (0);
 }
 
 int	close_window(void *data)
 {
-	t_program *program = (t_program *)data;
+	t_program	*program;
 
+	program = (t_program *)data;
 	program->refresh = FALSE;
 	mlx_loop_end(program->mlx);
-	return 0;
+	return (0);
 }
 
 int	key_hook(int key, void *data)
 {
-	t_program *program = (t_program *)data;
+	t_program	*program;
 
+	program = (t_program *)data;
 	program->refresh = TRUE;
 	if (key == KEY_ESC)
 	{
@@ -64,21 +64,17 @@ int	key_hook(int key, void *data)
 	else if (key == KEY_LEFT)
 		rotate_cam(&program->player, -0.1);
 	else
-	{
 		program->refresh = FALSE;
-	}
-	return 0;
+	return (0);
 }
 
 void	run(t_program *program)
 {
 	mlx_do_key_autorepeaton(program->mlx);
-	img_data = new_img_data(program->mlx, new_vec2i(1600, 900));
+	program->img_data = new_img_data(program->mlx, new_vec2i(1600, 900));
 	mlx_hook(program->win, ON_DESTROY, 0, (int (*)())close_window, program);
 	mlx_hook(program->win, ON_KEYDOWN, 1, (int (*)())key_hook, program);
 	mlx_loop_hook(program->mlx, (int (*)())loop_hook, program);
 	mlx_loop(program->mlx);
+	mlx_destroy_image(program->mlx, program->img_data.img);
 }
-
-//LOG_TILES(program->map);
-//printf("player pos : %f, %f dir : %c \n", program->player.pos.x, program->player.pos.y, program->player.dir);

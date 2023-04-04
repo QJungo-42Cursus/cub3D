@@ -35,7 +35,6 @@ static int	parse_lines(char **lines, t_program *program)
 {
 	int		first_line;
 
-	// TODO free all program when fail
 	first_line = find_map_first_line(lines);
 	if (first_line == -1)
 		return (ERROR);

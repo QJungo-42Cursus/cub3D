@@ -16,10 +16,10 @@ jobs:
       run: make -C src/
     - name: Unit Tests
       run: make run_tests -C src/
-
-        #- name: install mlx
-        #run: sudo apt-get update && sudo apt-get install xorg libxext-dev zlib1g-dev libbsd-dev
-#- uses: alexandregv/norminette-action@v3
-# with:
-#   flags: 'src'
+    - uses: alexandregv/norminette-action@v3
+      with:
+        flags: 'norminette'
+          #    - uses: alexandregv/norminette-action@v3
+          #      with:
+          #        flags: 'src'
 
