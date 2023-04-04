@@ -6,7 +6,7 @@
 /*   By: agonelle <agonelle@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 15:28:37 by agonelle          #+#    #+#             */
-/*   Updated: 2023/04/04 17:47:03 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/04 18:31:52 by agonelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,37 @@ void	rotate_cam(t_player *player, double angle)
 
 void	set_player_cam(t_player *player, char c)
 {
-	(void)player;
-	(void)c;
-	player->dir_cam.x = 0;
-	player->dir_cam.y = -1;
-	player->cam_plan.x = 0.66;
-	player->cam_plan.y = 0;
-	/*
 	if (c == 'N')
-		program->player.dir = NORTH;
+	{
+		player->dir_cam = new_vec2(-1, 0);
+		player->cam_plan.x = 0;
+		player->cam_plan.y = 2 * atan(0.66 / 1.0);
+	}
 	else if (c == 'S')
-		program->player.dir = SOUTH;
+	{
+		player->dir_cam = new_vec2(-1, 0);
+		player->cam_plan.x = 0;
+		player->cam_plan.y = 2 * atan(0.66 / 1.0);
+	}
 	else if (c == 'E')
-		program->player.dir = EAST;
-	else if (c == 'W')
-		program->player.dir = WEST;
-		*/
+	{
+		player->dir_cam = new_vec2(0, 1);
+		player->cam_plan.x = 2 * atan(0.66 / 1.0);
+		player->cam_plan.y = 0;
+	}
+	else
+	{
+		player->dir_cam = new_vec2(0, -1);
+		player->cam_plan.x = 2 * atan(0.66 / 1.0);
+		player->cam_plan.y = 0;
+	}
 }
 
 t_vec2	vec2_from_angle(double angle)
 {
 	t_vec2	res;
-	res = new_vec2(0,0);
+
+	res = new_vec2(0, 0);
 	(void)angle;
-
-
 	return (res);
 }
