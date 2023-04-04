@@ -26,22 +26,6 @@ static int	is_arg_name_valid(int argc, char **argv)
 	return (TRUE);
 }
 
-/*
-typedef struct s_player {
-	t_direction		dir; // spawn dir
-	t_vec2			pos;
-	t_vec2			dir_cam;
-	t_vec2			cam_plan;
-}	t_player;
-*/
-
-void	set_player(t_program *program)
-{
-	if (program->player.dir == NORTH)
-	{
-	}
-}
-
 int	main_(int argc, char **argv)
 {
 	t_program	program;
@@ -58,7 +42,6 @@ int	main_(int argc, char **argv)
 		free_program(&program);
 		return (1);
 	}
-	set_player(&program);
 	if (init_win(&program) == ERROR)
 	{
 		free_program(&program);

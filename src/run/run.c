@@ -60,13 +60,9 @@ int	key_hook(int key, void *data)
 	else if (key == KEY_D)
 		move_toward(&program->player, program->map, new_vec2i(1, 0));
 	else if (key == KEY_RIGHT)
-	{
-		//program->player.dir += 0.1;
-	}
+		rotate_cam(&program->player, 0.1);
 	else if (key == KEY_LEFT)
-	{
-		//program->player.dir -= 0.1;
-	}
+		rotate_cam(&program->player, -0.1);
 	else
 	{
 		program->refresh = FALSE;
