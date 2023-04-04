@@ -46,13 +46,12 @@ void	set_player(t_player *player)
 
 // TODO
 // - le faire sans les steps (avec round ?)
-void	get_impact(t_player *player, t_ray *ray, t_map *map, int s_x, t_img_data *img)
+void	get_impact(t_ray *ray, t_map *map)
 {
 	int		hit;
 	int		side;
 
-	ray->pos_tile.x = (int)player->pos.x;
-	ray->pos_tile.y = (int)player->pos.y;
+	hit = 0;
 	while (hit == 0)
 	{
 		if (ray->side_dist.x < ray->side_dist.y)
@@ -74,18 +73,6 @@ void	get_impact(t_player *player, t_ray *ray, t_map *map, int s_x, t_img_data *i
 		ray->perpWalldist = (ray->side_dist.x - ray->delta_dist.x);
 	else
 		ray->perpWalldist = (ray->side_dist.y - ray->delta_dist.y);
-
-	int h = 500;
-	int lineHeight = (int)(h / ray->perpWalldist);
-	static t_vec2i last_impact = {0, 0};
-
-	t_color_gradient lll;
-	if (last_impact.x != ray->pos_tile.x || last_impact.y != ray->pos_tile.y)
-	{
-		printf("impact: %d, %d\n", ray->pos_tile.x, ray->pos_tile.y);
-		last_impact.x = ray->pos_tile.x;
-		last_impact.y = ray->pos_tile.y;
-	}
 }
 
 void	init_ray(t_player *player, t_ray *ray)
@@ -94,7 +81,7 @@ void	init_ray(t_player *player, t_ray *ray)
 	ray->pos_tile.y = (int)player->pos.y;
 }
 
-void	set_ray(t_player *play, t_ray *ray, t_vec2 cam, int x)
+void	set_ray(t_player *play, t_ray *ray, t_vec2 cam)
 {
 	ray->dir.x = play->dir_cam.x + play->cam_plan.x * cam.x;
 	ray->dir.y = play->dir_cam.y + play->cam_plan.y * cam.x;
@@ -102,7 +89,7 @@ void	set_ray(t_player *play, t_ray *ray, t_vec2 cam, int x)
 		= sqrt(1 + (ray->dir.y * ray->dir.y) / (ray->dir.x * ray->dir.x));
 	ray->delta_dist.y
 		= sqrt(1 + (ray->dir.x * ray->dir.x) / (ray->dir.y * ray->dir.y));
-	new_vec2(&ray->step, 1, 1);
+	ray->step = new_vec2(1, 1);
 	ray->side_dist.x = (ray->pos_tile.x + 1 - play->pos.x) * ray->delta_dist.x;
 	ray->side_dist.y = (ray->pos_tile.y + 1 - play->pos.y) * ray->delta_dist.y;
 	if (ray->dir.x < 0)
@@ -129,13 +116,16 @@ void	ray_casting_loop(t_player *player, t_map *map, t_img_data *img)
 	while (x < img->size.x)
 	{
 		cam.x = 2 * x / (double) img->size.x + 1;
-		set_ray(player, &ray, cam, x);
-		get_impact(player, &ray, map, x, img);
+		set_ray(player, &ray, cam);
+		get_impact(&ray, map);
+		/* draw */
+		//int h = 500;
+		//int lineHeight = (int)(h / ray->perpWalldist);
 		x++;
 	}
 }
 
-int main()
+int main_test()
 {
 	void		*mlx =		mlx_init();
 	t_vec2i		size =		{ 1920 / 2, 1080 / 2 };
