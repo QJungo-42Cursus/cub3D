@@ -21,7 +21,7 @@ SAN =	-fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all \
 ifeq ($(shell uname), Linux)
 GTEST =		./libgtest_Linux.a
 LEAKS =		valgrind -q --leak-check=full --track-origins=yes
-MLX =		-L./../mlx -lmlx_Linux -L/usr/lib #-lXext -lX11 -lm -lz
+MLX =		-L./../mlx -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
 else
 GTEST =		./libgtest.a
 LEAKS =		leaks --atExit --
