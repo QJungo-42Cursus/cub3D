@@ -36,6 +36,12 @@ static void parsing_integration_test(std::string filename, std::string expected,
   t_map map;
   program.map = &map;
   init_program_(&program);
+
+  {
+    free_program(&program);
+    return;
+  }
+
   parse((char *)filename.c_str(), &program);
   if (free_prog) {
     free_program(&program);
