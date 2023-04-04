@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:22:39 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/04 10:53:36 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/04 12:18:56 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	main_(int argc, char **argv)
 	free_program(&program);
 	return (0);
 }
-	//LOG_TILES(map);
 
 #ifndef TEST
 

@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:53:46 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 15:33:24 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/04 12:57:14 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,26 @@ static void	allocate_tiles(t_map *map)
 	}
 }
 
-/*
-static int	set_player_spawn(char c, t_map *map, int x, int y)
+static int	set_player_spawn(char c, t_program *program, int x, int y)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
-		//map->player_pos.x = x + 0.5;
-		//map->player_pos.y = y + 0.5;
-		//map->player_dir = c;
+		program->player.pos.x = x + 0.5;
+		program->player.pos.y = y + 0.5;
+		if (c == 'N')
+			program->player.dir = NORTH;
+		else if (c == 'S')
+			program->player.dir = SOUTH;
+		else if (c == 'E')
+			program->player.dir = EAST;
+		else if (c == 'W')
+			program->player.dir = WEST;
 		return (SUCCESS);
 	}
 	return (ERROR);
 }
-*/
 
-static int	file_tiles(char **lines, t_map *map)
+static int	file_tiles(char **lines, t_program *program)
 {
 	int		i;
 	int		j;
@@ -80,15 +85,15 @@ static int	file_tiles(char **lines, t_map *map)
 		while (lines[i][j] != '\0')
 		{
 			if (lines[i][j] == ' ')
-				map->tiles[i][j] = VOID;
+				program->map.tiles[i][j] = VOID;
 			else if (lines[i][j] == '0')
-				map->tiles[i][j] = FLOOR;
+				program->map.tiles[i][j] = FLOOR;
 			else if (lines[i][j] == '1')
-				map->tiles[i][j] = WALL;
+				program->map.tiles[i][j] = WALL;
 			else
 			{
-				map->tiles[i][j] = FLOOR;
-				//set_player_spawn(lines[i][j], map, j, i);
+				program->map.tiles[i][j] = FLOOR;
+				set_player_spawn(lines[i][j], program, j, i);
 			}
 			j++;
 		}
@@ -97,15 +102,18 @@ static int	file_tiles(char **lines, t_map *map)
 	return (SUCCESS);
 }
 
-int	set_tiles(char **lines, t_map *map)
+int	set_tiles(char **lines, t_program *program)
 {
+	t_map	*map;
+
+	map = &program->map;
 	if (check_tiles(lines, map) == ERROR)
 		return (ERROR);
 	set_map_size(lines, map);
 	if (map->size.x == 0 || map->size.y == 0)
 		return (ERROR);
 	allocate_tiles(map);
-	file_tiles(lines, map);
+	file_tiles(lines, program);
 	if (check_tiles_after(map) == ERROR)
 		return (ERROR);
 	return (SUCCESS);

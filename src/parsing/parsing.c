@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:27:55 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/04 10:53:23 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/04 11:55:51 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	parse_lines(char **lines, t_program *program)
 	if (set_textures(lines, program, first_line) == ERROR)
 		return (ERROR);
 #endif
-	if (set_tiles(&lines[first_line], &program->map) == ERROR)
+	if (set_tiles(&lines[first_line], program) == ERROR)
 		return (ERROR);
 	return (SUCCESS);
 }
