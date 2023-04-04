@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:23:14 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 18:19:18 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/04 10:51:46 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,16 @@ typedef struct s_map {
 typedef struct s_program {
 	void		*mlx;
 	void		*win;
-	t_map		*map;
+	t_map		map;
+	t_bool		refresh;
 	//t_player	*player;
 }	t_program;
 
 //	functions
 
 /******	./ ******/
+// run.c
+void			run(t_program *program);
 // utils.c
 void			error_print(const char *msg);
 void			free_program(t_program *program);
@@ -83,6 +86,7 @@ int				set_tiles(char **lines, t_map *map);
 int				check_tiles(char **lines, t_map *map);
 // check_tiles_after.c
 int				check_tiles_after(t_map *map);
+
 
 
 /******** ./fillscreen ******/

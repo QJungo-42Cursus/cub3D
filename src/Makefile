@@ -6,6 +6,7 @@ LIBFT =		-L./../libft -lft
 SRCS =		\
 			main.c \
 			utils.c \
+			run.c \
 			parsing/parsing.c \
 			parsing/get_info_by_id.c \
 			parsing/set_textures_path.c \
@@ -68,5 +69,12 @@ san:
 
 leaks: all
 	$(LEAKS) ./$(NAME) tests/test_files/basic.cub
+
+t:
+	make san
+	./$(NAME) ../maps/basic.cub
+
+dt: all
+	lldb ./$(NAME) ../maps/basic.cub
 
 .PHONY: all clean fclean re
