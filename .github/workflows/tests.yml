@@ -12,12 +12,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: install mlx
-      run: sudo apt-get update && sudo apt-get install xorg libxext-dev zlib1g-dev libbsd-dev
     - name: make
       run: make -C src/
     - name: Unit Tests
       run: make run_tests -C src/
-    #- uses: alexandregv/norminette-action@v3
-    # with:
-    #   flags: 'src'
+
+#- uses: alexandregv/norminette-action@v3
+# with:
+#   flags: 'src'
+
+#- name: install mlx
+#run: sudo apt-get update && sudo apt-get install xorg libxext-dev zlib1g-dev libbsd-dev

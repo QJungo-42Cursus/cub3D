@@ -23,10 +23,10 @@ static void parsing_integration_test(std::string filename, std::string expected,
 
   std::string output = testing::internal::GetCapturedStdout();
 
+  std::cout << output << "salut maman" << std::endl;
   if (expected != "-") {
     EXPECT_EQ(output, expected);
   } else {
-    // std::cout << output;
   }
 }
 
@@ -61,9 +61,11 @@ static std::vector<std::string> working_infos = {"NO ../textures/wood.xpm",
 TEST(ParsingIntegrationTest, UnexistingFile) {
   parsing_integration_test("../maps/unexisting.cub",
                            "Error\ncould not open file\n", true);
+  std::cout << "salut maman after" << std::endl;
 }
 
 TEST(ParsingIntegrationTest, EmptyFile) {
+  std::cout << "salut maman" << std::endl;
   parsing_integration_test("../maps/failing_maps/empty.cub",
                            "Error\nfile is empty\n");
 }
@@ -161,4 +163,3 @@ TEST(ParsingIntegrationTest, TestAllInvalidMap) {
   }
 }
 */
-
