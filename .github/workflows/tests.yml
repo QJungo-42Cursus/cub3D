@@ -12,10 +12,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: make
+    - name: make all
       run: make -C src/
+    - name: make test
+      run: make -C tests/
     - name: Unit Tests
-      run: make run_tests -C src/
+      run: tests/tests
 
 #- uses: alexandregv/norminette-action@v3
 # with:
