@@ -6,6 +6,8 @@
 
 extern "C" {
 #include "../src/cube3D.h"
+}
+
 static void init_map_(t_map *map) {
   map->textures[NORTH].pixels = NULL;
   map->textures[SOUTH].pixels = NULL;
@@ -17,14 +19,13 @@ static void init_map_(t_map *map) {
   map->ceiling_color = 0xFF000000;
   map->floor_color = 0xFF000000;
 }
-void init_program_(t_program *program) {
+static void init_program_(t_program *program) {
   program->mlx = mlx_init();
   if (program->mlx == NULL) {
     FAIL() << "mlx_init error";
   }
   program->win = NULL;
   init_map_(program->map);
-}
 }
 
 static void parsing_integration_test(std::string filename, std::string expected,
@@ -77,7 +78,7 @@ static std::vector<std::string> working_infos = {"NO ../textures/wood.xpm",
 TEST(ParsingIntegrationTest, UnexistingFile) {
   std::cout << "salut maman 01" << std::endl;
   parsing_integration_test("../maps/unexisting.cub",
-                           "Error\ncould not open file\n", true);
+                           "Error\ncould not open file\n");
   std::cout << "salut maman 02" << std::endl;
 }
 

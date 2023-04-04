@@ -49,7 +49,7 @@ fclean: clean
 re: fclean all
 
 run_tests:
-	make all
+	make san
 	@printf "\nRunning tests\n"
 	@printf "==================================================================================================\n"
 	@$(RM) all_.o
