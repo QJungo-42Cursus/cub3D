@@ -17,14 +17,13 @@ extern "C" {
 #include <unistd.h>
 
 int main(int argc, char **argv) {
-  Display *display;
-  display = XOpenDisplay("");
+  Display *display = XOpenDisplay("");
   printf("i: %p\n", display);
-  XCloseDisplay(display);
-  void *mlx;
-  // mlx = mlx_init();
-  printf("mlx: %p\n", mlx);
-  mlx = NULL;
+  if (display == NULL) {
+    printf("display is null\n");
+  } else {
+    XCloseDisplay(display);
+  }
   //::testing::InitGoogleTest(&argc, argv);
   // return RUN_ALL_TESTS();
 }
