@@ -12,15 +12,20 @@ static void parsing_integration_test(std::string filename, std::string expected,
                                      bool free_prog = false) {
   testing::internal::CaptureStdout();
 
+  std::cerr << "salut maman 03" << std::endl;
+
   t_program program;
   t_map map;
   program.map = &map;
   init_program(&program);
+  std::cerr << "salut maman 04" << std::endl;
   parse((char *)filename.c_str(), &program);
+  std::cerr << "salut maman 05" << std::endl;
   if (free_prog) {
     free_program(&program);
   }
 
+  std::cerr << "salut maman 06" << std::endl;
   std::string output = testing::internal::GetCapturedStdout();
 
   std::cout << output << "salut maman" << std::endl;
@@ -59,9 +64,10 @@ static std::vector<std::string> working_infos = {"NO ../textures/wood.xpm",
 /*************** TESTS ***************/
 
 TEST(ParsingIntegrationTest, UnexistingFile) {
+  std::cout << "salut maman 01" << std::endl;
   parsing_integration_test("../maps/unexisting.cub",
                            "Error\ncould not open file\n", true);
-  std::cout << "salut maman after" << std::endl;
+  std::cout << "salut maman 02" << std::endl;
 }
 
 TEST(ParsingIntegrationTest, EmptyFile) {
