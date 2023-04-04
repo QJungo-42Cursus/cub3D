@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:27:55 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 11:42:34 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 22:21:19 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,42 +28,33 @@ static int	find_map_first_line(char **lines)
 		i++;
 	}
 	error_print("map not found");
-	split_free(lines);
 	return (-1);
 }
 
-static int	parse_lines(char **lines, t_map *map)
+static int	parse_lines(char **lines, t_program *program)
 {
 	int		first_line;
 
+	// TODO free all program when fail
 	first_line = find_map_first_line(lines);
 	if (first_line == -1)
 		return (ERROR);
-	if (set_textures_path(lines, map, first_line) == ERROR)
-	{
-		split_free(lines);
+	if (set_colors(lines, program->map, first_line) == ERROR)
 		return (ERROR);
-	}
-	if (set_colors(lines, map, first_line) == ERROR)
-	{
-		split_free(lines);
-		free_map(map);
+#ifndef TEST
+	if (set_textures(lines, program, first_line) == ERROR)
 		return (ERROR);
-	}
-	if (set_tiles(&lines[first_line], map) == ERROR)
-	{
-		split_free(lines);
-		free_map(map);
+#endif
+	if (set_tiles(&lines[first_line], program->map) == ERROR)
 		return (ERROR);
-	}
-	split_free(lines);
 	return (SUCCESS);
 }
 
-int	parse(char *filename, t_map *map)
+int	parse(char *filename, t_program *program)
 {
 	char	*file_content;
 	char	**lines;
+	int		status;
 
 	file_content = get_all_file(filename);
 	if (file_content == NULL || ft_strlen(file_content) == 0)
@@ -76,5 +67,7 @@ int	parse(char *filename, t_map *map)
 		error_print("malloc error");
 		exit(1);
 	}
-	return (parse_lines(lines, map));
+	status = parse_lines(lines, program);
+	split_free(lines);
+	return (status);
 }

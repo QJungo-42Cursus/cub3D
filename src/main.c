@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:22:39 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 13:01:48 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 22:03:05 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,35 +26,46 @@ static int	is_arg_name_valid(int argc, char **argv)
 	return (TRUE);
 }
 
-static void	init_map(t_map *map)
+int close_window()
 {
-	map->no_path = NULL;
-	map->so_path = NULL;
-	map->we_path = NULL;
-	map->ea_path = NULL;
-	map->tiles = NULL;
-	map->size.x = 0;
-	map->size.y = 0;
-	map->ceiling_color = 0xFF000000;
-	map->floor_color = 0xFF000000;
-	map->player_pos.x = 0;
-	map->player_pos.y = 0;
-	map->player_dir = 0;
+	exit(0);
+	return 0;
+}
+
+int key_hook()
+{
+	return 0;
+}
+
+void	main_loop(t_program *program)
+{
+
+	mlx_hook(program->win, ON_DESTROY, 0, close_window, NULL);
+	mlx_hook(program->win, ON_KEYDOWN, 0, key_hook, NULL);
+	mlx_loop(program->mlx);
 }
 
 int	main_(int argc, char **argv)
 {
-	t_map	map;
+	t_map		map;
+	t_program	program;
 
-	init_map(&map);
+	program.map = &map;
+
+	init_program(&program);
 	if (!is_arg_name_valid(argc, argv))
 	{
 		error_print("usage: ./cub3D [map_file].cub");
+		free_program(&program);
 		return (1);
 	}
-	if (parse(argv[1], &map) == ERROR)
+	if (parse(argv[1], &program) == ERROR)
+	{
+		free_program(&program);
 		return (1);
-	free_map(&map);
+	}
+	main_loop(&program);
+	free_program(&program);
 	return (0);
 }
 //LOG_TILES(map);

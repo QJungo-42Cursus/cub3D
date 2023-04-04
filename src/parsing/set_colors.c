@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:28:14 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 13:14:27 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 17:55:53 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ int	set_colors(char **lines, t_map *map, int first_line)
 
 	floor_color = get_info_by_id("F ", lines, first_line);
 	if (floor_color == NULL)
-	{
-		error_print("floor color not found");
 		return (ERROR);
-	}
 	ceiling_color = get_info_by_id("C ", lines, first_line);
 	if (ceiling_color == NULL)
 	{

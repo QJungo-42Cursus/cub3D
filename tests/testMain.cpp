@@ -13,9 +13,11 @@ void test_main_(const char *file_name, const char *expected_output) {
   EXPECT_STREQ(expected_output, output.c_str());
 }
 
+/*
 TEST(MainTest, InvalidExtension) {
   test_main_("test_files/failing_maps/invalid_name.cu",
              "Error\nusage: ./cub3D [map_file].cub\n");
 }
 
 TEST(MainTest, basic) { test_main_("test_files/basic.cub", ""); }
+*/

@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 10:32:20 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/02 10:52:03 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/03 15:41:50 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,21 @@
 #include "mlx.h"
 #include <math.h>
 
-static t_img_data	get_img(void *mlx, char *text_path, t_texture *text)
+static int	get_img(void *mlx,
+		char *text_path, t_texture *text, t_img_data *img_data)
 {
-	t_img_data	img_data;
 	void		*img_ptr;
 
 	img_ptr = mlx_xpm_file_to_image(mlx, text_path,
 			&text->size.x, &text->size.y);
-	img_data = img_data_from(img_ptr);
-	return (img_data);
+	if (img_ptr == NULL)
+		return (ERROR);
+	*img_data = img_data_from(img_ptr);
+	text->pixels
+		= malloc(sizeof(unsigned int) * text->size.x * text->size.y);
+	if (text->pixels == NULL)
+		return (ERROR);
+	return (SUCCESS);
 }
 
 t_texture	new_text(void *mlx, char *text_path)
@@ -32,10 +38,8 @@ t_texture	new_text(void *mlx, char *text_path)
 	t_img_data	img_data;
 	int			addr;
 
-	img_data = get_img(mlx, text_path, &text);
-	text.pixels
-		= malloc(sizeof(unsigned int) * text.size.x * text.size.y);
-	if (text.pixels == NULL)
+	text.pixels = NULL;
+	if (get_img(mlx, text_path, &text, &img_data) == ERROR)
 		return (text);
 	i.x = 0;
 	while (i.x < text.size.x)

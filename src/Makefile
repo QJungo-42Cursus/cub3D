@@ -64,14 +64,9 @@ SAN =	-fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all \
 
 san:
 	@make -C ../libft
-	@make -C $(MLX_REP)
 	$(CC) $(CFLAGS) $(SAN) $(SRCS) $(LIBFT) $(MLX) -o $(NAME) 
 
 leaks: all
 	$(LEAKS) ./$(NAME) tests/test_files/basic.cub
-
-img:
-	$(CC) fillscreen/fillscreen.c image_draw/image_draw.c $(LIBFT) $(MLX)
-	./a.out
 
 .PHONY: all clean fclean re
