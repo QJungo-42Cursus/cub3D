@@ -41,8 +41,10 @@ static int	parse_lines(char **lines, t_program *program)
 		return (ERROR);
 	if (set_colors(lines, program->map, first_line) == ERROR)
 		return (ERROR);
+#ifndef TEST
 	if (set_textures(lines, program, first_line) == ERROR)
 		return (ERROR);
+#endif
 	if (set_tiles(&lines[first_line], program->map) == ERROR)
 		return (ERROR);
 	return (SUCCESS);
