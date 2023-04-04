@@ -21,10 +21,7 @@ static void init_map_(t_map *map) {
 }
 
 static int init_program_(t_program *program) {
-  program->mlx = mlx_init();
-  if (program->mlx == NULL) {
-    return (EXIT_FAILURE);
-  }
+  program->mlx = NULL;
   program->win = NULL;
   init_map_(program->map);
   return (EXIT_SUCCESS);

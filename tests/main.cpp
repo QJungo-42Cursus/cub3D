@@ -17,13 +17,6 @@ extern "C" {
 #include <unistd.h>
 
 int main(int argc, char **argv) {
-  Display *display = XOpenDisplay("");
-  printf("i: %p\n", display);
-  if (display == NULL) {
-    printf("display is null\n");
-  } else {
-    XCloseDisplay(display);
-  }
-  //::testing::InitGoogleTest(&argc, argv);
-  // return RUN_ALL_TESTS();
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
 }

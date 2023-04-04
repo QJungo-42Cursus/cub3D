@@ -12,8 +12,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: skldfj
-      run: sudo service lightdm restart
     - name: make all
       run: make -C src/
     - name: Unit Tests
