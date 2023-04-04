@@ -6,30 +6,40 @@
 
 extern "C" {
 #include "../src/cube3D.h"
+static void init_map_(t_map *map) {
+  map->textures[NORTH].pixels = NULL;
+  map->textures[SOUTH].pixels = NULL;
+  map->textures[WEST].pixels = NULL;
+  map->textures[EAST].pixels = NULL;
+  map->tiles = NULL;
+  map->size.x = 0;
+  map->size.y = 0;
+  map->ceiling_color = 0xFF000000;
+  map->floor_color = 0xFF000000;
+}
+void init_program_(t_program *program) {
+  program->mlx = mlx_init();
+  if (program->mlx == NULL) {
+    FAIL() << "mlx_init error";
+  }
+  program->win = NULL;
+  init_map_(program->map);
+}
 }
 
 static void parsing_integration_test(std::string filename, std::string expected,
                                      bool free_prog = false) {
   testing::internal::CaptureStdout();
 
-  std::cerr << "salut maman 03" << std::endl;
-
   t_program program;
   t_map map;
   program.map = &map;
-  std::cerr << "salut maman 07" << std::endl;
-  init_program(&program);
-  std::cerr << "salut maman 04" << std::endl;
+  init_program_(&program);
   parse((char *)filename.c_str(), &program);
-  std::cerr << "salut maman 05" << std::endl;
   if (free_prog) {
     free_program(&program);
   }
-
-  std::cerr << "salut maman 06" << std::endl;
   std::string output = testing::internal::GetCapturedStdout();
-
-  std::cout << output << "salut maman" << std::endl;
   if (expected != "-") {
     EXPECT_EQ(output, expected);
   } else {
