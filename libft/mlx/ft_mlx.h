@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 11:35:26 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 22:59:34 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/04 11:07:33 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ typedef struct s_line {
 	t_rgb				color;
 }	t_line;
 
+typedef struct s_rect {
+	t_vec2				position;
+	t_vec2				size;
+	t_rgb				color;
+}	t_rect;
+
 typedef struct s_texture {
 	t_vec2i			size;
 	unsigned int	*pixels;
@@ -66,6 +72,9 @@ unsigned int	color_from_rgb(unsigned char r,
 					unsigned char g, unsigned char b);
 void			color_to_rgb(t_rgb color,
 					unsigned char *r, unsigned char *g, unsigned char *b);
+// rect
+void			draw_rect(t_rect rect, t_img_data *img_data);
+t_rect			new_rect(t_vec2 position, t_vec2 size, int color);
 
 /// EVENT HANDLING
 
@@ -80,6 +89,8 @@ typedef enum e_event_type {
 	ON_DESTROY = 17,
 	ON_RESIZE = 25,
 }	t_event_type;
+
+# ifdef __APPLE__
 
 typedef enum e_key {
 	KEY_ESC = 53,
@@ -130,5 +141,58 @@ typedef enum e_key {
 	KEY_DOWN	= 125,
 	KEY_UP		= 126,
 }	t_key;
+
+# else
+
+typedef enum e_key {
+	KEY_ESC = 65307,
+	KEY_A = 97,
+	KEY_S = 115,
+	KEY_D = 100,
+	KEY_F = 102,
+	KEY_H = 104,
+	KEY_G = 103,
+	KEY_Z = 122,
+	KEY_X = 120,
+	KEY_C = 99,
+	KEY_V = 118,
+	KEY_B = 98,
+	KEY_Q = 113,
+	KEY_W = 119,
+	KEY_E = 101,
+	KEY_R = 114,
+	KEY_Y = 121,
+	KEY_T = 116,
+	KEY_ONE = 49,
+	KEY_TWO = 50,
+	KEY_THREE	= 51,
+	KEY_FOUR	= 52,
+	KEY_SIX		= 54,
+	KEY_FIVE	= 53,
+	KEY_NINE	= 57,
+	KEY_SEVEN	= 55,
+	KEY_EIGHT	= 56,
+	KEY_ZERO	= 48,
+	KEY_BRACE_R	= 93,
+	KEY_O		= 111,
+	KEY_U		= 117,
+	KEY_BRACE_L	= 91,
+	KEY_I		= 105,
+	KEY_P		= 112,
+	KEY_L		= 108,
+	KEY_J		= 106,
+	KEY_K		= 107,
+	KEY_SEMI	= 59,
+	KEY_N		= 110,
+	KEY_M		= 109,
+	KEY_TAB		= 65289,
+	KEY_PLUS	= 65451,
+	KEY_MINUS	= 65453,
+	KEY_LEFT	= 65361,
+	KEY_RIGHT	= 65363,
+	KEY_DOWN	= 65364,
+}	t_key;
+
+# endif
 
 #endif /* FT_MLX_H */
