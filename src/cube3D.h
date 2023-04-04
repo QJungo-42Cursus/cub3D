@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:23:14 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/04 12:58:54 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/04 17:44:59 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@
 # define BUFF_SIZE 2048
 
 enum e_tile {
-	VOID,
-	WALL,
-	FLOOR,
+	VOID = ' ',
+	FLOOR = '0',
+	WALL = '1',
 };
 
 typedef enum e_direction {
@@ -52,9 +52,21 @@ typedef struct s_map {
 }	t_map;
 
 typedef struct s_player {
+	t_direction		dir; // spawn dir
 	t_vec2			pos;
-	t_direction		dir;
+	t_vec2			dir_cam;
+	t_vec2			cam_plan;
 }	t_player;
+
+typedef struct s_ray {
+	t_vec2i	pos_tile;
+	t_vec2	dir;
+	t_vec2	delta_dir;
+	t_vec2	delta_dist;
+	t_vec2	side_dist;
+	t_vec2	step;
+	double	perpWalldist;
+}	t_ray;
 
 typedef struct s_program {
 	void		*mlx;
@@ -62,6 +74,7 @@ typedef struct s_program {
 	t_player	player;
 	t_map		map;
 	t_bool		refresh;
+	t_img_data	img_data;
 }	t_program;
 
 //	functions
@@ -72,6 +85,15 @@ void			error_print(const char *msg);
 void			free_program(t_program *program);
 int				init_win(t_program *program);
 void			init_program(t_program *program);
+
+// player_action.c
+t_vec2	vec2_from_angle(double angle);
+void	set_player_cam(t_player *player, char c);
+void	rotate_cam(t_player *player, double angle);
+
+/******	./raycast ******/
+// ray_cast.c
+void			ray_casting_loop(t_program *prog, t_img_data *img_data);
 
 /******	./run ******/
 // run.c

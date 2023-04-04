@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 01:53:46 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/04 12:57:14 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/04 17:45:19 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,7 @@ static int	set_player_spawn(char c, t_program *program, int x, int y)
 	{
 		program->player.pos.x = x + 0.5;
 		program->player.pos.y = y + 0.5;
-		if (c == 'N')
-			program->player.dir = NORTH;
-		else if (c == 'S')
-			program->player.dir = SOUTH;
-		else if (c == 'E')
-			program->player.dir = EAST;
-		else if (c == 'W')
-			program->player.dir = WEST;
+		set_player_cam(&program->player, c);
 		return (SUCCESS);
 	}
 	return (ERROR);

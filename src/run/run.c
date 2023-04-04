@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 11:12:22 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/04 12:50:32 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/04 17:28:50 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	loop_hook(void *data)
 		return 0;
 	}
 	fillscreen(&img_data, program->map.ceiling_color, program->map.floor_color);
+	ray_casting_loop(program, &img_data);
 	draw_minimap(program, &img_data, new_vec2i(10, 10), new_vec2(15, 15));
 	mlx_put_image_to_window(program->mlx, program->win, img_data.img, 0, 0);
 	printf("loop hook refresh\n");

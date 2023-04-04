@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:22:39 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/04 12:18:56 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/04 17:40:33 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,22 @@ static int	is_arg_name_valid(int argc, char **argv)
 	return (TRUE);
 }
 
+/*
+typedef struct s_player {
+	t_direction		dir; // spawn dir
+	t_vec2			pos;
+	t_vec2			dir_cam;
+	t_vec2			cam_plan;
+}	t_player;
+*/
+
+void	set_player(t_program *program)
+{
+	if (program->player.dir == NORTH)
+	{
+	}
+}
+
 int	main_(int argc, char **argv)
 {
 	t_program	program;
@@ -42,6 +58,7 @@ int	main_(int argc, char **argv)
 		free_program(&program);
 		return (1);
 	}
+	set_player(&program);
 	if (init_win(&program) == ERROR)
 	{
 		free_program(&program);

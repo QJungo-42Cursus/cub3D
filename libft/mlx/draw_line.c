@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 08:40:53 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 22:58:45 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/04 17:31:51 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static void	case_x_to_y(t_line line, t_vec2 e, t_img_data *img_data)
 	i = 0;
 	while (i <= del.y)
 	{
+		if (line.p1.y > img_data->size.y || line.p1.y < 0 || line.p1.x > img_data->size.x || line.p1.x < 0)
+			break ;
 		pixel_to_image(img_data, line.p1, line.color);
 		i++;
 		line.p1.y += inc.y;
@@ -60,6 +62,8 @@ static void	case_y_to_x(t_line line, t_vec2 e, t_img_data *img_data)
 	i = 0;
 	while (i <= del.y)
 	{
+		if (line.p1.y > img_data->size.y || line.p1.y < 0 || line.p1.x > img_data->size.x || line.p1.x < 0)
+			break ;
 		pixel_to_image(img_data, line.p1, line.color);
 		i++;
 		line.p1.y += inc.y;
