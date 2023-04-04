@@ -15,6 +15,8 @@ SRCS =		\
 			parsing/set_colors.c \
 			parsing/get_all_file.c \
 			fillscreen/fillscreen.c \
+			raycasting/ray_cast.c \
+			raycasting/player_action.c \
 			run/run.c \
 			run/draw_minimap.c \
 			run/move_toward.c \
