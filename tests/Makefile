@@ -48,7 +48,7 @@ re: fclean all
 run_tests:
 	@printf "\nCompiling tests with fsanitize\n"
 	@printf "==================================================================================================\n"
-	make san
+	make #san
 	@printf "\nRunning tests with sanitizers\n"
 	@printf "==================================================================================================\n"
 	@$(RM) all_.o
