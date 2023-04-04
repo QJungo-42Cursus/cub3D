@@ -17,6 +17,9 @@ SRCS =		\
 			fillscreen/fillscreen.c \
 			raycasting/ray_cast.c \
 			raycasting/player_action.c \
+			run/run.c \
+			run/draw_minimap.c \
+			run/move_toward.c \
 
 OBJS =		$(SRCS:.c=.o)
 
@@ -70,5 +73,12 @@ san:
 
 leaks: all
 	$(LEAKS) ./$(NAME) tests/test_files/basic.cub
+
+t:
+	make san
+	./$(NAME) ../maps/basic.cub
+
+dt: all
+	lldb ./$(NAME) ../maps/basic.cub
 
 .PHONY: all clean fclean re

@@ -23,7 +23,7 @@ static void init_map_(t_map *map) {
 static void init_program_(t_program *program) {
   program->mlx = NULL;
   program->win = NULL;
-  init_map_(program->map);
+  init_map_(&program->map);
 }
 
 static void parsing_integration_test(std::string filename, std::string expected,
@@ -31,8 +31,6 @@ static void parsing_integration_test(std::string filename, std::string expected,
   testing::internal::CaptureStdout();
 
   t_program program;
-  t_map map;
-  program.map = &map;
   init_program_(&program);
   parse((char *)filename.c_str(), &program);
   if (free_prog) {

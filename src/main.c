@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:22:39 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 22:03:05 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/04 12:18:56 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,31 +26,9 @@ static int	is_arg_name_valid(int argc, char **argv)
 	return (TRUE);
 }
 
-int close_window()
-{
-	exit(0);
-	return 0;
-}
-
-int key_hook()
-{
-	return 0;
-}
-
-void	main_loop(t_program *program)
-{
-
-	mlx_hook(program->win, ON_DESTROY, 0, close_window, NULL);
-	mlx_hook(program->win, ON_KEYDOWN, 0, key_hook, NULL);
-	mlx_loop(program->mlx);
-}
-
 int	main_(int argc, char **argv)
 {
-	t_map		map;
 	t_program	program;
-
-	program.map = &map;
 
 	init_program(&program);
 	if (!is_arg_name_valid(argc, argv))
@@ -64,11 +42,15 @@ int	main_(int argc, char **argv)
 		free_program(&program);
 		return (1);
 	}
-	main_loop(&program);
+	if (init_win(&program) == ERROR)
+	{
+		free_program(&program);
+		return (1);
+	}
+	run(&program);
 	free_program(&program);
 	return (0);
 }
-//LOG_TILES(map);
 
 #ifndef TEST
 

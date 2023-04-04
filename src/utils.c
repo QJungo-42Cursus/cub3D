@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:16:25 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 22:06:25 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/04 10:56:58 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	init_program(t_program *program)
 		exit(1);
 	}
 	program->win = NULL;
-	init_map(program->map);
+	init_map(&(program->map));
+	program->refresh = TRUE;
 }
 
 int	init_win(t_program *program)
@@ -81,12 +82,11 @@ void	free_map(t_map *map)
 
 void	free_program(t_program *program)
 {
-	free_map(program->map);
-	if (program->mlx != NULL)
-	{
-		if (program->win != NULL)
-			mlx_destroy_window(program->mlx, program->win);
-		mlx_destroy_display(program->mlx);
-		free(program->mlx);
-	}
+	free_map(&program->map);
+	if (program->mlx == NULL)
+		return ;
+	if (program->win != NULL)
+		mlx_destroy_window(program->mlx, program->win);
+	mlx_destroy_display(program->mlx); // TODO segfault
+	free(program->mlx);
 }
