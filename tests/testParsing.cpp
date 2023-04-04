@@ -177,7 +177,6 @@ TEST(ParsingIntegrationTest, Basic) {
   parsing_integration_test("../maps/basic.cub", "");
 }
 
-/*
 TEST(ParsingIntegrationTest, TestAllInvalidMap) {
   std::string path = "./../maps/invalid_maps/";
 #ifdef __APPLE__
@@ -188,4 +187,3 @@ TEST(ParsingIntegrationTest, TestAllInvalidMap) {
     parsing_integration_test(entry.path(), true);
   }
 }
-*/
