@@ -2,6 +2,7 @@
 extern "C" {
 #include "../src/cube3D.h"
 #include "../src/fillscreen/fillscreen.c"
+#include "../src/init.c"
 #include "../src/main.c"
 #include "../src/parsing/check_tiles.c"
 #include "../src/parsing/check_tiles_after.c"
@@ -11,13 +12,12 @@ extern "C" {
 #include "../src/parsing/set_colors.c"
 #include "../src/parsing/set_textures_path.c"
 #include "../src/parsing/set_tiles.c"
-#include "../src/raycasting/player_action.c"
-#include "../src/raycasting/ray_cast_loop.c"
 #include "../src/raycasting/draw_column.c"
 #include "../src/raycasting/get_impact_point.c"
+#include "../src/raycasting/player_action.c"
+#include "../src/raycasting/ray_cast_loop.c"
 #include "../src/run/draw_minimap.c"
 #include "../src/run/move_toward.c"
 #include "../src/run/run.c"
 #include "../src/utils.c"
-#include "../src/init.c"
 }
