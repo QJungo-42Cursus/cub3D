@@ -6,7 +6,7 @@
 /*   By: agonelle <agonelle@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 13:11:13 by agonelle          #+#    #+#             */
-/*   Updated: 2023/04/05 13:37:45 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/05 13:45:41 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ray_casting_loop(t_program *prog)
 	t_direction	text_dir;
 	double		pourcent;
 
-	height = prog->img_data.size.y / 2.;
+	height = prog->img_data.size.y * 1.2;
 	x = 0;
 	while (x < prog->img_data.size.x)
 	{
