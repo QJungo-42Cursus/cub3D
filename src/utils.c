@@ -53,6 +53,6 @@ void	free_program(t_program *program)
 
 t_bool	is_in_map(t_vec2 pos, t_map map)
 {
-	return (t_bool)(pos.x >= 0 && pos.x < map.size.x
-		&& pos.y >= 0 && pos.y < map.size.y);
+	return ((t_bool)(pos.x >= 0 && pos.x < map.size.x
+		&& pos.y >= 0 && pos.y < map.size.y));
 }

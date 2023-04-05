@@ -39,6 +39,21 @@ int	close_window(void *data)
 	return (0);
 }
 
+int	player_move(int key, t_program *program)
+{
+	if (key == KEY_W)
+		move_toward(&program->player, program->map, new_vec2i(0, -1));
+	else if (key == KEY_S)
+		move_toward(&program->player, program->map, new_vec2i(0, 1));
+	else if (key == KEY_A)
+		move_toward(&program->player, program->map, new_vec2i(-1, 0));
+	else if (key == KEY_D)
+		move_toward(&program->player, program->map, new_vec2i(1, 0));
+	else
+		return (FALSE);
+	return (TRUE);
+}
+
 int	key_hook(int key, void *data)
 {
 	t_program	*program;
@@ -50,14 +65,8 @@ int	key_hook(int key, void *data)
 		program->refresh = FALSE;
 		mlx_loop_end(program->mlx);
 	}
-	else if (key == KEY_W)
-		move_toward(&program->player, program->map, new_vec2i(0, -1));
-	else if (key == KEY_S)
-		move_toward(&program->player, program->map, new_vec2i(0, 1));
-	else if (key == KEY_A)
-		move_toward(&program->player, program->map, new_vec2i(-1, 0));
-	else if (key == KEY_D)
-		move_toward(&program->player, program->map, new_vec2i(1, 0));
+	else if (key == KEY_W || key == KEY_S || key == KEY_A || key == KEY_D)
+		player_move(key, program);
 	else if (key == KEY_RIGHT)
 		rotate_cam(&program->player, 0.1);
 	else if (key == KEY_LEFT)

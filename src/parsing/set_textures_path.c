@@ -78,6 +78,7 @@ int	set_textures(char **lines, t_program *program, int first_line)
 
 	if (set_textures_path(lines, first_line, &t) == ERROR)
 		return (ERROR);
+#ifndef TEST // on ne peut pas tester car il faut mlx_init (donc un serveur X)
 	program->map.textures[NORTH] = new_text(program->mlx, t.no_path);
 	if (program->map.textures[NORTH].pixels == NULL)
 	{
@@ -102,6 +103,7 @@ int	set_textures(char **lines, t_program *program, int first_line)
 		error_print("malloc error");
 		return (ERROR);
 	}
+#endif
 	free(t.no_path);
 	free(t.so_path);
 	free(t.we_path);

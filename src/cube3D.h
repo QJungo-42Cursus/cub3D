@@ -20,12 +20,6 @@
 # include <fcntl.h>
 # include <stdio.h>
 
-# define C_RED		(t_rgb)0xffFF0000
-# define C_GREEN	(t_rgb)0xff00FF00
-# define C_BLUE		(t_rgb)0xff0000FF
-# define C_WHITE	(t_rgb)0xffFFFFFF
-# define C_BLACK	(t_rgb)0xff000000
-
 # define FOV 60.
 # define X_SIZE 1920
 # define Y_SIZE 1080
@@ -103,7 +97,9 @@ void			ray_casting_loop(t_program *prog);
 void			set_ray(t_player play, t_ray *ray, t_vec2 cam);
 void			get_impact(t_ray *ray, t_map *map);
 t_vec2			get_impact_point(t_vec2 start, float direction, t_map map);
-void			draw_column(t_program *prog, int x, double text_pourcentage, t_direction text_dir, double height);
+void			draw_column(t_program *prog, int x,
+					double text_pourcentage,
+					t_direction text_dir, double height);
 
 /******	./run ******/
 // run.c

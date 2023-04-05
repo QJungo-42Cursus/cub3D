@@ -82,14 +82,6 @@ static int	has_invalid_char(char **lines)
 	return (FALSE);
 }
 
-/*
-static int	last_in_file(void)
-{
-	// TODO dernier element du fichier
-	return (TRUE);
-};
-*/
-
 int	check_tiles(char **lines, t_map *map)
 {
 	(void)map;
@@ -98,7 +90,6 @@ int	check_tiles(char **lines, t_map *map)
 		error_print("map has invalid char");
 		return (ERROR);
 	}
-	// TODO ce qu'on veut ?
 	if (has_an_empty_line(lines))
 	{
 		error_print("map has an empty line");

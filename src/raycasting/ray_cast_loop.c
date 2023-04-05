@@ -51,7 +51,7 @@ void	ray_casting_loop(t_program *prog)
 	double		pourcent;
 	float		height;
 
-	height = prog->img_data.size.y / prog->fov * 100;
+	height = prog->img_data.size.y / prog->fov * 95;
 	x = 0;
 	while (x < prog->img_data.size.x)
 	{

@@ -107,6 +107,11 @@ TEST(ParsingIntegrationTest, WrongColor) {
                            "Error\ncolor format error\n");
 }
 
+TEST(ParsingIntegrationTest, EmptyLineInMiddle) {
+  parsing_integration_test("../maps/failing_maps/empty_line_in_the_middle.cub",
+                           "Error\nmap has an empty line\n", true);
+}
+
 TEST(ParsingIntegrationTest, UnclosedMap) {
   std::vector<std::string> content = working_infos;
   content.push_back("111N111111111");
@@ -155,6 +160,16 @@ TEST(ParsingIntegrationTest, EmptyLine) {
   content.push_back("          100000000E001111111111 ");
   content.push_back("          1111111111111          ");
   content.push_back("                                               ");
+  parsing_integration_test(content, "Error\nmap has an empty line\n", true);
+}
+
+TEST(ParsingIntegrationTest, EmptyLineInMiddle2) {
+  std::vector<std::string> content = working_infos;
+  content.push_back("                                               ");
+  content.push_back("                    111111111111           ");
+  content.push_back("          1111111111100000000001   ");
+  content.push_back("          100000000E001111111111 \n\n\n");
+  content.push_back("          1111111111111          ");
   parsing_integration_test(content, "Error\nmap has an empty line\n", true);
 }
 

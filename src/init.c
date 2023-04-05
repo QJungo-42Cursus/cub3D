@@ -41,7 +41,8 @@ void	init_program(t_program *program)
 
 int	init_win(t_program *program)
 {
-	program->win = mlx_new_window(program->mlx, X_SIZE, Y_SIZE, (char *)"cube3D");
+	program->win = mlx_new_window(program->mlx,
+			X_SIZE, Y_SIZE, (char *)"cube3D");
 	if (program->win == NULL)
 	{
 		error_print("mlx_new_window error");
