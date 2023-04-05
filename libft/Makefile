@@ -81,6 +81,7 @@ SRCS_MATH = 	geometrie/line.c \
 				matrix/conversions.c \
 				matrix/new.c \
 				vec/new.c \
+				vec/op.c \
 				vec/copy.c \
 				vec/conversions.c \
 				vec/assert.c \

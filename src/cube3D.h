@@ -26,9 +26,13 @@
 # define C_WHITE	(t_rgb)0xffFFFFFF
 # define C_BLACK	(t_rgb)0xff000000
 
-# include "../tests/debug_helper.hpp"
-
+# define FOV 90.
+# define X_SIZE 1920
+# define Y_SIZE 1080
+# define MINIMAP_SCALE 15
 # define BUFF_SIZE 2048
+
+# include "../tests/debug_helper.hpp"
 
 enum e_tile {
 	VOID = ' ',
@@ -52,7 +56,6 @@ typedef struct s_map {
 }	t_map;
 
 typedef struct s_player {
-	t_direction		dir; // spawn dir
 	t_vec2			pos;
 	t_vec2			dir_cam;
 	t_vec2			cam_plan;
@@ -85,25 +88,27 @@ void			error_print(const char *msg);
 void			free_program(t_program *program);
 int				init_win(t_program *program);
 void			init_program(t_program *program);
+t_bool			is_in_map(t_vec2 pos, t_map map);
 
 // player_action.c
-t_vec2	vec2_from_angle(double angle);
-void	set_player_cam(t_player *player, char c);
-void	rotate_cam(t_player *player, double angle);
-void	set_player_cam(t_player *player, char c);
+t_vec2			vec2_from_angle(double angle);
+void			set_player_cam(t_player *player, char c);
+void			rotate_cam(t_player *player, double angle);
+void			set_player_cam(t_player *player, char c);
 
 /******	./raycast ******/
 // ray_cast.c
 void			ray_casting_loop(t_program *prog, t_img_data *img_data);
 void			set_ray(t_player play, t_ray *ray, t_vec2 cam);
 void			get_impact(t_ray *ray, t_map *map);
+t_vec2			get_impact_point(t_vec2 start, float direction, t_map map);
 
 /******	./run ******/
 // run.c
 void			run(t_program *program);
 // draw_minimap.c
 void			draw_minimap(t_program *program,
-					t_img_data *img_data, t_vec2i start, t_vec2 size);
+					t_img_data *img_data, t_vec2i start, int scale);
 // move_toward.c
 void			move_toward(t_player *player, t_map map, t_vec2i dir);
 
@@ -126,10 +131,9 @@ int				check_tiles(char **lines, t_map *map);
 // check_tiles_after.c
 int				check_tiles_after(t_map *map);
 
-
-
 /******** ./fillscreen ******/
 // fillscreen.c
-void	fillscreen(t_img_data *img_data, t_rgb ceiling_color, t_rgb floor_color);
+void			fillscreen(t_img_data *img_data,
+					t_rgb ceiling_color, t_rgb floor_color);
 
 #endif /* CUBE3D_H */

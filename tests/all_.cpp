@@ -17,4 +17,5 @@ extern "C" {
 #include "../src/run/move_toward.c"
 #include "../src/run/run.c"
 #include "../src/utils.c"
+#include "../src/init.c"
 }

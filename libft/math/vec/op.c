@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_column.c                                      :+:      :+:    :+:   */
+/*   op.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/03 15:14:19 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/04 08:17:13 by qjungo           ###   ########.fr       */
+/*   Created: 2023/04/04 22:28:16 by qjungo            #+#    #+#             */
+/*   Updated: 2023/04/04 22:29:24 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../src/cube3D.h"
+#include "vec.h"
+#include <math.h>
 
-void	draw_column(t_program *program, t_direction dir, float tex_pourcentage, float distance)
+double	vec2_dist(t_vec2 a, t_vec2 b)
 {
-	t_texture	texture;
-	int			y_text_pos;
-
-	texture = program->map->textures[dir];
-	y_text_pos = (int)(tex_pourcentage * (float)texture.size.y);
+	return (sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2)));
 }
