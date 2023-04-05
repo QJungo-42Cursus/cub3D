@@ -6,7 +6,7 @@
 /*   By: agonelle <agonelle@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 13:11:13 by agonelle          #+#    #+#             */
-/*   Updated: 2023/04/05 22:38:22 by agonelle         ###   ########.fr       */
+/*   Updated: 2023/04/06 00:09:17 by agonelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,26 +82,52 @@ void	get_impact(t_ray *ray, t_map *map)
 		ray->dist_perp = (ray->pos_ray.y - ray->delta_dist.y);
 }
 
+void	get_texture_from_ray(t_ray *ray)
+{
+	if (ray->side == 0)
+	{
+		if (ray->dir.y > 0)
+			ray->side = SOUTH;
+		else
+			ray->side = NORTH;
+	}
+	else
+	{
+		if (ray->dir.x > 0)
+			ray->side = EAST;
+		else
+			ray->side = WEST;
+	}
+}
+
 void	ray_casting_loop2(t_program *prog)
 {
 	int		x;
 	t_ray	ray;
 	float	cam;
 	int		lineheight;
-
+	
 	x = 0;
 	while (x < prog->img_data.size.x)
 	{
 		cam = 2 * x / (double) prog->img_data.size.x - 1;
 		set_ray(prog->player, &ray, cam);
 		get_impact(&ray, &prog->map);
+		get_texture_from_ray(&ray);
 		lineheight = (int)(((float)prog->img_data.size.y / 2) / ray.dist_perp);
 		if (ray.side == 0)
 			draw_line(new_line(new_vec2(x, prog->img_data.size.y / 2. + lineheight / 2.),
-			new_vec2(x, prog->img_data.size.y / 2. - lineheight / 2.), C_BLUE), &prog->img_data);
-		else
-			draw_line(new_line(new_vec2(x, prog->img_data.size.y / 2. + lineheight / 2.),
 			new_vec2(x, prog->img_data.size.y / 2. - lineheight / 2.), C_RED), &prog->img_data);
+		else if (ray.side == 1)
+			draw_line(new_line(new_vec2(x, prog->img_data.size.y / 2. + lineheight / 2.),
+			new_vec2(x, prog->img_data.size.y / 2. - lineheight / 2.), C_GREEN), &prog->img_data);
+		else if (ray.side == 2)
+			draw_line(new_line(new_vec2(x, prog->img_data.size.y / 2. + lineheight / 2.),
+			new_vec2(x, prog->img_data.size.y / 2. - lineheight / 2.), C_BLUE), &prog->img_data);
+		else if (ray.side == 3)
+			draw_line(new_line(new_vec2(x, prog->img_data.size.y / 2. + lineheight / 2.),
+			new_vec2(x, prog->img_data.size.y / 2. - lineheight / 2.), C_BLACK), &prog->img_data);
 		x++;
 	}
 }
+
