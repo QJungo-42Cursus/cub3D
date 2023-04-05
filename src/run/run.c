@@ -62,6 +62,10 @@ int	key_hook(int key, void *data)
 		rotate_cam(&program->player, 0.1);
 	else if (key == KEY_LEFT)
 		rotate_cam(&program->player, -0.1);
+	else if (key == KEY_P && program->fov < 95)
+		program->fov += 5;
+	else if (key == KEY_O && program->fov > 30)
+		program->fov -= 5;
 	else
 		program->refresh = FALSE;
 	return (0);

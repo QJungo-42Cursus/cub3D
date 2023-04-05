@@ -78,6 +78,7 @@ typedef struct s_program {
 	t_map		map;
 	t_bool		refresh;
 	t_img_data	img_data;
+	float		fov;
 }	t_program;
 
 //	functions

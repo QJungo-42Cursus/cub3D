@@ -19,16 +19,22 @@ static void	draw_rayons(t_program *prog, t_img_data *img_data,
 	float		dir;
 	t_vec2		impact;
 
-	dir = rad_to_deg(vec2_to_angle(prog->player.dir_cam)) - FOV / 2;
-	while (dir <= rad_to_deg(vec2_to_angle(prog->player.dir_cam)) + FOV / 2)
+	dir = rad_to_deg(vec2_to_angle(prog->player.dir_cam)) - prog->fov / 2;
+	while (dir <= rad_to_deg(vec2_to_angle(prog->player.dir_cam)) + prog->fov / 2)
 	{
 		impact = get_impact_point(prog->player.pos, dir, prog->map);
 		draw_line(new_line(new_vec2(prog->player.pos.x * scale + start.x,
 					prog->player.pos.y * scale + start.y), new_vec2(impact.x
 					* scale + start.x, impact.y * scale + start.y), C_BLUE),
 			img_data);
-		dir += 5;
+		dir += 10;
 	}
+	dir = rad_to_deg(vec2_to_angle(prog->player.dir_cam)) + prog->fov / 2;
+	impact = get_impact_point(prog->player.pos, dir, prog->map);
+	draw_line(new_line(new_vec2(prog->player.pos.x * scale + start.x,
+				prog->player.pos.y * scale + start.y), new_vec2(impact.x
+				* scale + start.x, impact.y * scale + start.y), C_BLUE),
+		img_data);
 }
 
 static void	draw_player(t_img_data *img_data,
@@ -46,7 +52,6 @@ void	draw_minimap(t_program *program,
 			t_img_data *img_data, t_vec2i start, int scale)
 {
 	t_vec2i	index;
-	t_rgb	color;
 
 	index.y = 0;
 	while (index.y < program->map.size.y)
@@ -54,13 +59,10 @@ void	draw_minimap(t_program *program,
 		index.x = 0;
 		while (index.x < program->map.size.x)
 		{
-			color = C_BLACK;
-			if (program->map.tiles[index.y][index.x] == FLOOR)
-				color = C_GREEN;
-			if (program->map.tiles[index.y][index.x] != VOID)
+			if (program->map.tiles[index.y][index.x] == WALL)
 				draw_rect(new_rect(new_vec2(index.x * scale + start.x,
 							index.y * scale + start.y),
-						new_vec2(scale, scale), color),
+						new_vec2(scale, scale), program->map.floor_color),
 					img_data);
 			index.x++;
 		}

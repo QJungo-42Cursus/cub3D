@@ -36,6 +36,7 @@ void	init_program(t_program *program)
 	program->win = NULL;
 	init_map(&(program->map));
 	program->refresh = TRUE;
+	program->fov = FOV;
 }
 
 int	init_win(t_program *program)
