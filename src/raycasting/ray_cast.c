@@ -6,7 +6,7 @@
 /*   By: agonelle <agonelle@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 13:11:13 by agonelle          #+#    #+#             */
-/*   Updated: 2023/04/05 14:00:17 by agonelle         ###   ########.fr       */
+/*   Updated: 2023/04/05 22:38:22 by agonelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,90 +18,90 @@ static int	is_a_wall(t_vec2i coor, char **tiles)
 	return (tiles[coor.y][coor.x] == WALL);
 }
 
-void	get_impact(t_ray *ray, t_map *map)
-{
-	int		hit;
-	int		side;
-
-	hit = FALSE;
-	while (hit == FALSE)
-	{
-		if (ray->side_dist.x < ray->side_dist.y)
-		{
-			ray->side_dist.x += ray->delta_dist.x;
-			ray->pos_tile.x += ray->step.x;
-			side = FALSE;
-		}
-		else
-		{
-			ray->side_dist.x += ray->delta_dist.x;
-			ray->pos_tile.y += ray->step.y;
-			side = TRUE;
-		}
-		if (is_a_wall(ray->pos_tile, map->tiles))
-			hit = TRUE;
-	}
-	if (side == FALSE)
-		ray->perpWalldist = (ray->side_dist.x - ray->delta_dist.x);
-	else
-		ray->perpWalldist = (ray->side_dist.y - ray->delta_dist.y);
-}
-
 static void	init_ray(t_player player, t_ray *ray)
 {
 	ray->pos_tile.x = (int)player.pos.x;
 	ray->pos_tile.y = (int)player.pos.y;
+	ray->side = 0;
+	ray->dist_perp = 0;
 }
 
-void	set_ray(t_player play, t_ray *ray, t_vec2 cam)
+void	set_ray(t_player play, t_ray *ray, float cam)
 {
 	init_ray(play, ray);
-	ray->dir.x = play.dir_cam.x + play.cam_plan.x * cam.x;
-	ray->dir.y = play.dir_cam.y + play.cam_plan.y * cam.x;
-	if (ray->dir.x == 0)
-		ray->delta_dist.x = INFINITY;
-	else
+	ray->dir.x = play.dir_cam.x + play.cam_plan.x * cam;
+	ray->dir.y = play.dir_cam.y + play.cam_plan.y * cam;
+	ray->delta_dist.x = INFINITY;
+	ray->delta_dist.y = INFINITY;
+	if (ray->dir.x != 0)
 		ray->delta_dist.x
 			= sqrt(1 + (ray->dir.y * ray->dir.y) / (ray->dir.x * ray->dir.x));
-	if (ray->dir.y == 0)
-		ray->delta_dist.y = INFINITY;
-	else
+	if (ray->dir.y != 0)
 		ray->delta_dist.y
 			= sqrt(1 + (ray->dir.x * ray->dir.x) / (ray->dir.y * ray->dir.y));
 	ray->step = new_vec2(1, 1);
-	ray->side_dist.x = (ray->pos_tile.x + 1 - play.pos.x) * ray->delta_dist.x;
-	ray->side_dist.y = (ray->pos_tile.y + 1 - play.pos.y) * ray->delta_dist.y;
+	ray->pos_ray.x = (ray->pos_tile.x + 1.0 - play.pos.x) * ray->delta_dist.x;
+	ray->pos_ray.y = (ray->pos_tile.y + 1.0 - play.pos.y) * ray->delta_dist.y;
 	if (ray->dir.x < 0)
 	{
 		ray->step.x = -1;
-		ray->side_dist.x = (play.pos.x - ray->pos_tile.x) * ray->delta_dist.x;
+		ray->pos_ray.x = (play.pos.x - ray->pos_tile.x) * ray->delta_dist.x;
 	}
 	if (ray->dir.y < 0)
 	{
 		ray->step.y = -1;
-		ray->side_dist.y = (play.pos.y - ray->pos_tile.y) * ray->delta_dist.y;
+		ray->pos_ray.y = (play.pos.y - ray->pos_tile.y) * ray->delta_dist.y;
 	}
-	ray->perpWalldist = 0;
 }
 
-void	ray_casting_loop(t_program *prog, t_img_data *img_data)
+void	get_impact(t_ray *ray, t_map *map)
+{
+	int		hit;
+
+	hit = FALSE;
+	while (hit == FALSE)
+	{
+		if (ray->pos_ray.x < ray->pos_ray.y)
+		{
+			ray->pos_ray.x += ray->delta_dist.x;
+			ray->pos_tile.x += ray->step.x;
+			ray->side = 1;
+		}
+		else
+		{
+			ray->pos_ray.y += ray->delta_dist.y;
+			ray->pos_tile.y += ray->step.y;
+			ray->side = 0;
+		}
+		if (is_a_wall(ray->pos_tile, map->tiles))
+			hit = TRUE;
+	}
+	if (ray->side == 1)
+		ray->dist_perp = (ray->pos_ray.x - ray->delta_dist.x);
+	else
+		ray->dist_perp = (ray->pos_ray.y - ray->delta_dist.y);
+}
+
+void	ray_casting_loop2(t_program *prog)
 {
 	int		x;
 	t_ray	ray;
-	t_vec2	cam;
-	int h = 500;
-	int lineHeight;
+	float	cam;
+	int		lineheight;
 
 	x = 0;
-	while (x < img_data->size.x)
+	while (x < prog->img_data.size.x)
 	{
-		cam.x = 2 * x / (double) img_data->size.x + 1;
+		cam = 2 * x / (double) prog->img_data.size.x - 1;
 		set_ray(prog->player, &ray, cam);
 		get_impact(&ray, &prog->map);
-		/* draw */
-		lineHeight = (int)(h / ray.perpWalldist);
-		draw_line(new_line(new_vec2(x, img_data->size.y / 2. + lineHeight / 2.),
-			new_vec2(x, img_data->size.y / 2. - lineHeight / 2.), C_BLUE), img_data);
+		lineheight = (int)(((float)prog->img_data.size.y / 2) / ray.dist_perp);
+		if (ray.side == 0)
+			draw_line(new_line(new_vec2(x, prog->img_data.size.y / 2. + lineheight / 2.),
+			new_vec2(x, prog->img_data.size.y / 2. - lineheight / 2.), C_BLUE), &prog->img_data);
+		else
+			draw_line(new_line(new_vec2(x, prog->img_data.size.y / 2. + lineheight / 2.),
+			new_vec2(x, prog->img_data.size.y / 2. - lineheight / 2.), C_RED), &prog->img_data);
 		x++;
 	}
 }

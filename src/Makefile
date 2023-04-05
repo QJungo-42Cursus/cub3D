@@ -20,6 +20,7 @@ SRCS =		\
 			run/draw_minimap.c \
 			run/move_toward.c \
 			raycasting/player_action.c \
+			raycasting/ray_cast.c \
 			raycasting/ray_cast_loop.c \
 			raycasting/draw_column.c \
 
