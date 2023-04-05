@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../cube3D.h"
-#define MINIMAP_SCALE 15
 
 int	loop_hook(void *data)
 {
@@ -71,7 +70,7 @@ int	key_hook(int key, void *data)
 void	run(t_program *program)
 {
 	mlx_do_key_autorepeaton(program->mlx);
-	program->img_data = new_img_data(program->mlx, new_vec2i(1600, 900));
+	program->img_data = new_img_data(program->mlx, new_vec2i(X_SIZE, Y_SIZE));
 	mlx_hook(program->win, ON_DESTROY, 0, (int (*)())close_window, program);
 	mlx_hook(program->win, ON_KEYDOWN, 1, (int (*)())key_hook, program);
 	mlx_loop_hook(program->mlx, (int (*)())loop_hook, program);

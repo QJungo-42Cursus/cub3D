@@ -25,11 +25,14 @@
 # define C_BLUE		(t_rgb)0xff0000FF
 # define C_WHITE	(t_rgb)0xffFFFFFF
 # define C_BLACK	(t_rgb)0xff000000
+
 # define FOV 90.
+# define X_SIZE 1920
+# define Y_SIZE 1080
+# define MINIMAP_SCALE 15
+# define BUFF_SIZE 2048
 
 # include "../tests/debug_helper.hpp"
-
-# define BUFF_SIZE 2048
 
 enum e_tile {
 	VOID = ' ',
