@@ -63,26 +63,23 @@ void	ray_casting_loop(t_program *prog)
 	float		dist;
 	t_vec2		impact;
 	float		direction;
-	float		height;
 	t_direction	text_dir;
 	double		pourcent;
 
-	height = prog->img_data.size.y * 1.2;
 	x = 0;
 	while (x < prog->img_data.size.x)
 	{
 		direction = rad_to_deg(vec2_to_angle(prog->player.dir_cam)) - FOV
 			/ 2 + (float)x / prog->img_data.size.x * FOV;
 		impact = get_impact_point(prog->player.pos, direction, prog->map);
-
 		text_dir = get_text_dir(impact, prog->player.pos);
 		if (is_x_collision(impact))
 			pourcent = abs_diff_with_int(impact.y);
 		else
 			pourcent = abs_diff_with_int(impact.x);
-
-		dist = vec2_dist(prog->player.pos, impact);
-		draw_column(prog, x, pourcent, text_dir, height / dist);
+		dist = vec2_dist(prog->player.pos, impact) * cos(deg_to_rad(direction)
+			- vec2_to_angle(prog->player.dir_cam));
+		draw_column(prog, x, pourcent, text_dir, prog->img_data.size.y / dist);
 		x += 1;
 	}
 }
