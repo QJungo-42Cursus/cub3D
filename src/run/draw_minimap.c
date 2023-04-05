@@ -34,9 +34,12 @@ static void	draw_rayons(t_program *prog, t_img_data *img_data,
 static void	draw_player(t_img_data *img_data,
 			t_vec2i start, int scale, t_vec2 player_pos)
 {
-	draw_rect(new_rect(new_vec2(player_pos.x * scale + start.x,
-				player_pos.y * scale + start.y),
-			new_vec2(5, 5), C_RED), img_data);
+	t_vec2		size;
+
+	size = new_vec2(5, 5);
+	draw_rect(new_rect(new_vec2(player_pos.x * scale + start.x - size.x / 2,
+					player_pos.y * scale + start.y - size.y / 2), size, C_RED),
+			img_data);
 }
 
 void	draw_minimap(t_program *program,

@@ -1,7 +1,7 @@
 NO ../textures/wood.xpm
-SO ../textures/wood.xpm
-WE ../textures/wood.xpm
-EA ../textures/wood.xpm
+SO ../textures/greystone.xpm
+WE ../textures/planks.xpm
+EA ../textures/redbrick.xpm
 
 F 220,100,0
 C 225,30,0

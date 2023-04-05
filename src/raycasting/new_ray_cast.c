@@ -21,13 +21,58 @@ t_vec2	get_impact_point(t_vec2 start, float direction, t_map map)
 	while (is_in_map(start, map)
 		&& !(map.tiles[(int)start.y][(int)start.x] != FLOOR))
 	{
-		start.x += directeur.x / 100.;
-		start.y += directeur.y / 100.;
+		start.x += directeur.x / 1000.;
+		start.y += directeur.y / 1000.;
 	}
 	return (start);
 }
 
 # define PIXEL_RATIO 1
+
+double	abs_diff_with_int(double a)
+{
+	return (fabs(roundf(a) - a));
+}
+
+t_bool	is_x_collision(t_vec2 impact)
+{
+	return ((t_bool)(abs_diff_with_int(impact.x) < abs_diff_with_int(impact.y)));
+}
+
+t_direction get_text_dir(t_vec2 impact, t_vec2 player_pos)
+{
+	if (is_x_collision(impact))
+	{
+		if (impact.x > player_pos.x)
+			return (EAST);
+		else
+			return (WEST);
+	}
+	else
+	{
+		if (impact.y > player_pos.y)
+			return (SOUTH);
+		else
+			return (NORTH);
+	}
+}
+
+void	draw_column(t_program *prog, int x, double text_pourcentage, t_direction text_dir, double height)
+{
+	int			img_y;
+	t_texture	texture;
+
+	texture = prog->map.textures[text_dir];
+	img_y = prog->img_data.size.y / 2. - height / 2.;
+	while (img_y < prog->img_data.size.y / 2. + height / 2)
+	{
+		if (!(img_y < 0 || img_y >= prog->img_data.size.y))
+			pixel_to_image(&prog->img_data, new_vec2(x, img_y), texture.pixels[
+				(int)(text_pourcentage * texture.size.x) +
+				(int)(img_y / prog->img_data.size.y * texture.size.y)]);
+		img_y++;
+	}
+}
 
 void	ray_casting_loop(t_program *prog, t_img_data *img_data)
 {
@@ -36,11 +81,8 @@ void	ray_casting_loop(t_program *prog, t_img_data *img_data)
 	t_vec2		impact;
 	float		direction;
 	float		height = 400;
-
-	t_vec2		perp_dir = new_vec2(-prog->player.dir_cam.y, prog->player.dir_cam.x);
-	t_vec2		proj = prog->player.pos;
-	proj.x += perp_dir.x * PIXEL_RATIO * prog->img_data.size.x / 2;
-	proj.y += perp_dir.y * PIXEL_RATIO * prog->img_data.size.y / 2;
+	t_direction	text_dir;
+	double		pourcent;
 
 	x = 0;
 	while (x < img_data->size.x)
@@ -48,17 +90,16 @@ void	ray_casting_loop(t_program *prog, t_img_data *img_data)
 		direction = rad_to_deg(vec2_to_angle(prog->player.dir_cam)) - FOV
 			/ 2 + (float)x / (float)img_data->size.x * FOV;
 		impact = get_impact_point(prog->player.pos, direction, prog->map);
+
+		text_dir = get_text_dir(impact, prog->player.pos);
+		if (is_x_collision(impact))
+			pourcent = abs_diff_with_int(impact.y);
+		else
+			pourcent = abs_diff_with_int(impact.x);
+
 		dist = vec2_dist(prog->player.pos, impact);
 
-		/*
-		proj.x -= (perp_dir.x * PIXEL_RATIO);
-		proj.y -= (perp_dir.y * PIXEL_RATIO);
-		dist = vec2_dist(proj, impact);
-		*/
-
-		draw_line(new_line(new_vec2(x, img_data->size.y / 2. + height / dist),
-				new_vec2 (x, img_data->size.y
-					/ 2. - height / dist), C_BLUE), img_data);
+		draw_column(prog, x, pourcent, text_dir, height / dist);
 		x += 1;
 	}
 }
