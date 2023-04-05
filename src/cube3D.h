@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:23:14 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/04 17:54:57 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/05 11:43:17 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void			set_player_cam(t_player *player, char c);
 
 /******	./raycast ******/
 // ray_cast.c
-void			ray_casting_loop(t_program *prog, t_img_data *img_data);
+void			ray_casting_loop(t_program *prog);
 void			set_ray(t_player play, t_ray *ray, t_vec2 cam);
 void			get_impact(t_ray *ray, t_map *map);
 t_vec2			get_impact_point(t_vec2 start, float direction, t_map map);
