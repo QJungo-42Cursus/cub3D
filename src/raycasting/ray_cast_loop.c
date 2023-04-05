@@ -15,19 +15,6 @@
 
 #define PIXEL_RATIO 1
 
-t_vec2	get_impact_point(t_vec2 start, float direction, t_map map)
-{
-	t_vec2		directeur;
-
-	directeur = angle_to_vec2(deg_to_rad(direction));
-	while (is_in_map(start, map)
-		&& !(map.tiles[(int)start.y][(int)start.x] != FLOOR))
-	{
-		start.x += directeur.x / 1000.;
-		start.y += directeur.y / 1000.;
-	}
-	return (start);
-}
 
 double	abs_diff_with_int(double a)
 {

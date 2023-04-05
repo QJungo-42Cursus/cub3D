@@ -84,7 +84,7 @@ void	set_ray(t_player play, t_ray *ray, t_vec2 cam)
 	ray->perpWalldist = 0;
 }
 
-void	ray_casting_loop(t_program *prog, t_img_data *img_data)
+void	ray_casting_loop(t_program *prog)
 {
 	int		x;
 	t_ray	ray;
@@ -93,15 +93,15 @@ void	ray_casting_loop(t_program *prog, t_img_data *img_data)
 	int lineHeight;
 
 	x = 0;
-	while (x < img_data->size.x)
+	while (x < prog->img_data.size.x)
 	{
-		cam.x = 2 * x / (double) img_data->size.x + 1;
+		cam.x = 2 * x / (double) prog->img_data.size.x + 1;
 		set_ray(prog->player, &ray, cam);
 		get_impact(&ray, &prog->map);
 		/* draw */
 		lineHeight = (int)(h / ray.perpWalldist);
-		draw_line(new_line(new_vec2(x, img_data->size.y / 2. + lineHeight / 2.),
-			new_vec2(x, img_data->size.y / 2. - lineHeight / 2.), C_BLUE), img_data);
+		draw_line(new_line(new_vec2(x, prog->img_data.size.y / 2. + lineHeight / 2.),
+			new_vec2(x, prog->img_data.size.y / 2. - lineHeight / 2.), C_BLUE), &prog->img_data);
 		x++;
 	}
 }

@@ -20,8 +20,10 @@ SRCS =		\
 			run/draw_minimap.c \
 			run/move_toward.c \
 			raycasting/player_action.c \
-			raycasting/ray_cast_loop.c \
 			raycasting/draw_column.c \
+			raycasting/get_impact_point.c \
+			raycasting/ray_cast_loop.c \
+			#raycasting/ray_cast.c \
 
 OBJS =		$(SRCS:.c=.o)
 
