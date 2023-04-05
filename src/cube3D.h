@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:23:14 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/05 11:43:17 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/05 13:35:59 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define C_WHITE	(t_rgb)0xffFFFFFF
 # define C_BLACK	(t_rgb)0xff000000
 
-# define FOV 90.
+# define FOV 60.
 # define X_SIZE 1920
 # define Y_SIZE 1080
 # define MINIMAP_SCALE 15
@@ -102,6 +102,7 @@ void			ray_casting_loop(t_program *prog);
 void			set_ray(t_player play, t_ray *ray, t_vec2 cam);
 void			get_impact(t_ray *ray, t_map *map);
 t_vec2			get_impact_point(t_vec2 start, float direction, t_map map);
+void			draw_column(t_program *prog, int x, double text_pourcentage, t_direction text_dir, double height);
 
 /******	./run ******/
 // run.c
