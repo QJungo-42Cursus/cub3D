@@ -75,15 +75,6 @@ void	set_ray2(t_player p, t_ray2 *ray, float angle)
 		ray->step.y = -1;
 		ray->len.y = (p.pos.y - ray->tile_pos.y) * ray->delta_dist.y;
 	}
-	if (ray->dir.x < 0)
-	{
-		ray->step.x = -1;
-		ray->len.x = (p.pos.x - ray->tile_pos.x) * ray->delta_dist.x;
-	}
-	if (ray->dir.y < 0)
-	{
-		ray->step.y = -1;
-		ray->len.y = (p.pos.y - ray->tile_pos.y) * ray->delta_dist.y;
 	}
 }
 

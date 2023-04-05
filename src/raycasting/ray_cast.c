@@ -6,7 +6,7 @@
 /*   By: agonelle <agonelle@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 13:11:13 by agonelle          #+#    #+#             */
-/*   Updated: 2023/04/04 17:54:48 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/05 14:00:17 by agonelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ static int	is_a_wall(t_vec2i coor, char **tiles)
 	return (tiles[coor.y][coor.x] == WALL);
 }
 
-// TODO
-// - le faire sans les steps (avec round ?)
 void	get_impact(t_ray *ray, t_map *map)
 {
 	int		hit;
@@ -40,10 +38,6 @@ void	get_impact(t_ray *ray, t_map *map)
 			ray->pos_tile.y += ray->step.y;
 			side = TRUE;
 		}
-		if (ray->pos_tile.x < 0 || ray->pos_tile.y < 0)
-			break ;
-		if (ray->pos_tile.x >= map->size.x || ray->pos_tile.y >= map->size.y)
-			break ;
 		if (is_a_wall(ray->pos_tile, map->tiles))
 			hit = TRUE;
 	}
@@ -64,14 +58,19 @@ void	set_ray(t_player play, t_ray *ray, t_vec2 cam)
 	init_ray(play, ray);
 	ray->dir.x = play.dir_cam.x + play.cam_plan.x * cam.x;
 	ray->dir.y = play.dir_cam.y + play.cam_plan.y * cam.x;
-	ray->delta_dist.x
-		= sqrt(1 + (ray->dir.y * ray->dir.y) / (ray->dir.x * ray->dir.x));
-	ray->delta_dist.y
-		= sqrt(1 + (ray->dir.x * ray->dir.x) / (ray->dir.y * ray->dir.y));
+	if (ray->dir.x == 0)
+		ray->delta_dist.x = INFINITY;
+	else
+		ray->delta_dist.x
+			= sqrt(1 + (ray->dir.y * ray->dir.y) / (ray->dir.x * ray->dir.x));
+	if (ray->dir.y == 0)
+		ray->delta_dist.y = INFINITY;
+	else
+		ray->delta_dist.y
+			= sqrt(1 + (ray->dir.x * ray->dir.x) / (ray->dir.y * ray->dir.y));
 	ray->step = new_vec2(1, 1);
 	ray->side_dist.x = (ray->pos_tile.x + 1 - play.pos.x) * ray->delta_dist.x;
 	ray->side_dist.y = (ray->pos_tile.y + 1 - play.pos.y) * ray->delta_dist.y;
-
 	if (ray->dir.x < 0)
 	{
 		ray->step.x = -1;
