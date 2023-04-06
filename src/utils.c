@@ -12,9 +12,13 @@
 
 #include "cube3D.h"
 
+#include <errno.h>
+#include <string.h>
+
 void	error_print(const char *msg)
 {
-	ft_printf("Error\n%s\n", msg);
+	printf("Error\n%s\n", msg);
+	//strerror(errno);
 }
 
 void	free_map(t_map *map)
@@ -53,6 +57,6 @@ void	free_program(t_program *program)
 
 t_bool	is_in_map(t_vec2 pos, t_map map)
 {
-	return (t_bool)(pos.x >= 0 && pos.x < map.size.x
-		&& pos.y >= 0 && pos.y < map.size.y);
+	return ((t_bool)(pos.x >= 0 && pos.x < map.size.x
+		&& pos.y >= 0 && pos.y < map.size.y));
 }

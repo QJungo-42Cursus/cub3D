@@ -6,7 +6,7 @@
 /*   By: agonelle <agonelle@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 15:28:37 by agonelle          #+#    #+#             */
-/*   Updated: 2023/04/05 20:33:40 by agonelle         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:31:52 by agonelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,34 +35,25 @@ void	set_player_cam(t_player *player, char c)
 	if (c == 'N')
 	{
 		player->dir_cam = new_vec2(0, -1);
-		player->cam_plan.x = 1;
+		player->cam_plan.x = 0.66;
 		player->cam_plan.y = 0;
 	}
 	else if (c == 'S')
 	{
 		player->dir_cam = new_vec2(0, 1);
-		player->cam_plan.x = -1;
+		player->cam_plan.x = -0.66;
 		player->cam_plan.y = 0;
 	}
 	else if (c == 'E')
 	{
 		player->dir_cam = new_vec2(1, 0);
 		player->cam_plan.x = 0;
-		player->cam_plan.y = -1;
+		player->cam_plan.y = -0.66;
 	}
 	else
 	{
 		player->dir_cam = new_vec2(-1, 0);
 		player->cam_plan.x = 0;
-		player->cam_plan.y = 1;
+		player->cam_plan.y = 0.66;
 	}
-}
-
-t_vec2	vec2_from_angle(double angle)
-{
-	t_vec2	res;
-
-	res = new_vec2(0, 0);
-	(void)angle;
-	return (res);
 }

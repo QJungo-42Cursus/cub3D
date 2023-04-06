@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:23:14 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/05 22:40:32 by agonelle         ###   ########.fr       */
+/*   Updated: 2023/04/06 13:47:15 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 
-# define C_RED		(t_rgb)0xffFF0000
-# define C_GREEN	(t_rgb)0xff00FF00
-# define C_BLUE		(t_rgb)0xff0000FF
-# define C_WHITE	(t_rgb)0xffFFFFFF
-# define C_BLACK	(t_rgb)0xff000000
-
-# define FOV 60.
+# define FOV 66.
 # define X_SIZE 1920
 # define Y_SIZE 1080
 # define MINIMAP_SCALE 15
@@ -78,6 +72,7 @@ typedef struct s_program {
 	t_map		map;
 	t_bool		refresh;
 	t_img_data	img_data;
+	float		fov;
 }	t_program;
 
 //	functions
@@ -101,9 +96,12 @@ void			set_player_cam(t_player *player, char c);
 void			ray_casting_loop2(t_program *prog);
 void			ray_casting_loop(t_program *prog);
 void			set_ray(t_player play, t_ray *ray, float cam);
-void			get_impact(t_ray *ray, t_map *map);
+//void			get_impact(t_ray *ray, t_map *map);
+t_vec2			get_impact(t_ray *ray, t_map *map);
 t_vec2			get_impact_point(t_vec2 start, float direction, t_map map);
-void			draw_column(t_program *prog, int x, double text_pourcentage, t_direction text_dir, double height);
+void			draw_column(t_program *prog, int x,
+					double text_pourcentage,
+					t_direction text_dir, double height);
 
 /******	./run ******/
 // run.c
@@ -113,6 +111,8 @@ void			draw_minimap(t_program *program,
 					t_img_data *img_data, t_vec2i start, int scale);
 // move_toward.c
 void			move_toward(t_player *player, t_map map, t_vec2i dir);
+// hooks.
+int				key_hook(int key, t_program *program);
 
 /******	./parsing ******/
 //	parsing.c

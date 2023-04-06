@@ -40,14 +40,48 @@ static int	parse_lines(char **lines, t_program *program)
 		return (ERROR);
 	if (set_colors(lines, &program->map, first_line) == ERROR)
 		return (ERROR);
-#ifndef TEST
 	if (set_textures(lines, program, first_line) == ERROR)
 		return (ERROR);
-#endif
 	if (set_tiles(&lines[first_line], program) == ERROR)
 		return (ERROR);
 	return (SUCCESS);
 }
+
+/*
+static int is_map_compact(char *filename)
+{
+	char	*line;
+	int		fd;
+	int		is_in_map;
+	int		has_empty;
+	int i = 0;
+
+	has_empty = FALSE;
+	is_in_map = FALSE;
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+		return (FALSE);
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break;
+		else if (!is_in_map && is_in_charset(line[0], " 10"))
+			is_in_map = TRUE;
+		else if (line[0] == '\n' && is_in_map)
+			has_empty = TRUE;
+		else if (line[0] != '\n' && is_in_map && has_empty)
+		{
+			//printf("map has an empty line at line %d (%s) \n", i, line);
+			free(line);
+			return (FALSE);
+		}
+		free(line);
+		i++;
+	}
+	return (TRUE);
+}
+*/
 
 int	parse(char *filename, t_program *program)
 {
@@ -55,10 +89,16 @@ int	parse(char *filename, t_program *program)
 	char	**lines;
 	int		status;
 
+	/*
+	if (!is_map_compact(filename))
+	{
+		error_print("map has an empty line");
+		return (ERROR);
+	}
+	*/
 	file_content = get_all_file(filename);
 	if (file_content == NULL || ft_strlen(file_content) == 0)
 		return (ERROR);
-	// TODO check si la map n'est pas separee en 2 -> split efface la sep
 	lines = ft_split(file_content, '\n');
 	free(file_content);
 	if (lines == NULL)

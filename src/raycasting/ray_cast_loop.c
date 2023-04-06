@@ -13,22 +13,6 @@
 #include "../cube3D.h"
 #include <math.h>
 
-#define PIXEL_RATIO 1
-
-t_vec2	get_impact_point(t_vec2 start, float direction, t_map map)
-{
-	t_vec2		directeur;
-
-	directeur = angle_to_vec2(deg_to_rad(direction));
-	while (is_in_map(start, map)
-		&& !(map.tiles[(int)start.y][(int)start.x] != FLOOR))
-	{
-		start.x += directeur.x / 1000.;
-		start.y += directeur.y / 1000.;
-	}
-	return (start);
-}
-
 double	abs_diff_with_int(double a)
 {
 	return (fabs(roundf(a) - a));
@@ -65,12 +49,14 @@ void	ray_casting_loop(t_program *prog)
 	float		direction;
 	t_direction	text_dir;
 	double		pourcent;
+	float		height;
 
+	height = prog->img_data.size.y / prog->fov * 95;
 	x = 0;
 	while (x < prog->img_data.size.x)
 	{
-		direction = rad_to_deg(vec2_to_angle(prog->player.dir_cam)) - FOV
-			/ 2 + (float)x / prog->img_data.size.x * FOV;
+		direction = rad_to_deg(vec2_to_angle(prog->player.dir_cam)) - prog->fov
+			/ 2 + (float)x / prog->img_data.size.x * prog->fov;
 		impact = get_impact_point(prog->player.pos, direction, prog->map);
 		text_dir = get_text_dir(impact, prog->player.pos);
 		if (is_x_collision(impact))
@@ -79,7 +65,7 @@ void	ray_casting_loop(t_program *prog)
 			pourcent = abs_diff_with_int(impact.x);
 		dist = vec2_dist(prog->player.pos, impact) * cos(deg_to_rad(direction)
 			- vec2_to_angle(prog->player.dir_cam));
-		draw_column(prog, x, pourcent, text_dir, prog->img_data.size.y / dist);
+		draw_column(prog, x, pourcent, text_dir, height / dist);
 		x += 1;
 	}
 }

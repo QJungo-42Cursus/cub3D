@@ -11,17 +11,24 @@
 /* ************************************************************************** */
 
 #include "../cube3D.h"
+#define SPEED 0.1
 
 static t_vec2	get_new_pos(t_vec2 actual, t_vec2 dir)
 {
-	return (new_vec2(actual.x + dir.x, actual.y + dir.y));
+	return (new_vec2(actual.x + dir.x * SPEED, actual.y + dir.y * SPEED));
 }
 
 void	move_toward(t_player *player, t_map map, t_vec2i dir)
 {
-	t_vec2	new_pos;
+	t_vec2		new_pos;
+	float		cam_angle;
+	float		dir_angle;
+	float		angle;
 
-	new_pos = get_new_pos(player->pos, new_vec2(dir.x, dir.y));
+	cam_angle = vec2_to_angle(player->dir_cam) - deg_to_rad(90);
+	dir_angle = vec2_to_angle(new_vec2(dir.x, dir.y));
+	angle = cam_angle - dir_angle;
+	new_pos = get_new_pos(player->pos, angle_to_vec2(angle));
 	if (map.tiles[(int)new_pos.y][(int)new_pos.x] == FLOOR)
 		player->pos = new_pos;
 }
