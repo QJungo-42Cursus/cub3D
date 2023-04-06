@@ -109,6 +109,8 @@ void			draw_minimap(t_program *program,
 					t_img_data *img_data, t_vec2i start, int scale);
 // move_toward.c
 void			move_toward(t_player *player, t_map map, t_vec2i dir);
+// hooks.
+int				key_hook(int key, t_program *program);
 
 /******	./parsing ******/
 //	parsing.c

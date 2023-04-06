@@ -17,6 +17,7 @@ SRCS =		\
 			parsing/get_all_file.c \
 			fillscreen/fillscreen.c \
 			run/run.c \
+			run/hooks.c \
 			run/draw_minimap.c \
 			run/move_toward.c \
 			raycasting/player_action.c \

@@ -17,6 +17,7 @@ extern "C" {
 #include "../src/raycasting/player_action.c"
 #include "../src/raycasting/ray_cast_loop.c"
 #include "../src/run/draw_minimap.c"
+#include "../src/run/hooks.c"
 #include "../src/run/move_toward.c"
 #include "../src/run/run.c"
 #include "../src/utils.c"

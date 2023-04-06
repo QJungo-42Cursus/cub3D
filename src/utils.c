@@ -12,9 +12,13 @@
 
 #include "cube3D.h"
 
+#include <errno.h>
+#include <string.h>
+
 void	error_print(const char *msg)
 {
-	ft_printf("Error\n%s\n", msg);
+	printf("Error\n%s\n", msg);
+	//strerror(errno);
 }
 
 void	free_map(t_map *map)
