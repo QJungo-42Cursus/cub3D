@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:23:14 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/05 13:35:59 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/05 22:40:32 by agonelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ typedef struct s_player {
 }	t_player;
 
 typedef struct s_ray {
-	t_vec2i	pos_tile;
+	t_vec2	pos_ray;
 	t_vec2	dir;
-	t_vec2	delta_dir;
+	t_vec2i	pos_tile;
 	t_vec2	delta_dist;
-	t_vec2	side_dist;
 	t_vec2	step;
-	double	perpWalldist;
+	double	dist_perp;
+	int		side;
 }	t_ray;
 
 typedef struct s_program {
@@ -98,8 +98,9 @@ void			set_player_cam(t_player *player, char c);
 
 /******	./raycast ******/
 // ray_cast.c
+void			ray_casting_loop2(t_program *prog);
 void			ray_casting_loop(t_program *prog);
-void			set_ray(t_player play, t_ray *ray, t_vec2 cam);
+void			set_ray(t_player play, t_ray *ray, float cam);
 void			get_impact(t_ray *ray, t_map *map);
 t_vec2			get_impact_point(t_vec2 start, float direction, t_map map);
 void			draw_column(t_program *prog, int x, double text_pourcentage, t_direction text_dir, double height);
