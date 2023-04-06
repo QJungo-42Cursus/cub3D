@@ -18,8 +18,7 @@ static int	loop_hook(t_program *program)
 		return (0);
 	fillscreen(&program->img_data,
 		program->map.ceiling_color, program->map.floor_color);
-	ray_casting_loop2(program);
-	//ray_casting_loop(program);
+	ray_casting_loop(program);
 	draw_minimap(program, &program->img_data, new_vec2i(10, 10), MINIMAP_SCALE);
 	mlx_put_image_to_window(program->mlx,
 		program->win, program->img_data.img, 0, 0);

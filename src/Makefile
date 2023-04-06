@@ -23,8 +23,8 @@ SRCS =		\
 			raycasting/player_action.c \
 			raycasting/draw_column.c \
 			raycasting/get_impact_point.c \
-			raycasting/ray_cast.c \
-			#raycasting/ray_cast_loop.c \
+			raycasting/ray_cast_loop.c \
+			#raycasting/ray_cast.c \
 
 OBJS =		$(SRCS:.c=.o)
 
