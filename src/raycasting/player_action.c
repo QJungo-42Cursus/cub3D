@@ -35,26 +35,26 @@ void	set_player_cam(t_player *player, char c)
 	if (c == 'N')
 	{
 		player->dir_cam = new_vec2(0, -1);
-		player->cam_plan.x = 0;
-		player->cam_plan.y = 2 * atan(0.66 / 1.0);
+		player->cam_plan.x = 1;
+		player->cam_plan.y = 0;
 	}
 	else if (c == 'S')
 	{
-		player->dir_cam = new_vec2(-1, 0);
-		player->cam_plan.x = 0;
-		player->cam_plan.y = 2 * atan(0.66 / 1.0);
+		player->dir_cam = new_vec2(0, 1);
+		player->cam_plan.x = -1;
+		player->cam_plan.y = 0;
 	}
 	else if (c == 'E')
 	{
-		player->dir_cam = new_vec2(0, 1);
-		player->cam_plan.x = 2 * atan(0.66 / 1.0);
-		player->cam_plan.y = 0;
+		player->dir_cam = new_vec2(1, 0);
+		player->cam_plan.x = 0;
+		player->cam_plan.y = -1;
 	}
 	else
 	{
-		player->dir_cam = new_vec2(0, -1);
-		player->cam_plan.x = 2 * atan(0.66 / 1.0);
-		player->cam_plan.y = 0;
+		player->dir_cam = new_vec2(-1, 0);
+		player->cam_plan.x = 0;
+		player->cam_plan.y = 1;
 	}
 }
 
