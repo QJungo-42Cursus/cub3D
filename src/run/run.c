@@ -16,12 +16,26 @@ static int	loop_hook(t_program *program)
 {
 	if (!program->refresh)
 		return (0);
-	fillscreen(&program->img_data,
-		program->map.ceiling_color, program->map.floor_color);
+
+	long start = get_time();
+	printf(" ======== start ========== \n");
+
 	ray_casting_loop(program);
+
+	printf("ray_casting_loop time: %ld ms \n", get_time() - start);
+	//long start2 = get_time();
+
 	draw_minimap(program, &program->img_data, new_vec2i(10, 10), MINIMAP_SCALE);
+
+	//printf("draw_minimap time: %ld ms \n", get_time() - start2);
+	//long start3 = get_time();
+
 	mlx_put_image_to_window(program->mlx,
 		program->win, program->img_data.img, 0, 0);
+
+	//printf("mlx_put_image_to_window time: %ld ms \n", get_time() - start3);
+	printf(" ======== total render time: %ld ms ========== \n", get_time() - start);
+
 	program->refresh = FALSE;
 	return (0);
 }

@@ -24,13 +24,32 @@ void	draw_column(t_program *prog, int x, double text_pourcentage,
 	texture = prog->map.textures[text_dir];
 	img_y = prog->img_data.size.y / 2. - height / 2.;
 	texture_x = (int)(text_pourcentage * (double)texture.size.x);
+	if (img_y < 0)
+	{
+		texture_y = (float)texture.size.y / height * -img_y;
+		img_y = 0;
+	}
+	else
+	{
+		int y = 0;
+		while (y < img_y)
+		{
+			pixel_to_image(&prog->img_data, new_vec2(x, y), prog->map.ceiling_color);
+			y++;
+		}
+	}
 	while (img_y < prog->img_data.size.y / 2. + height / 2)
 	{
-		if (!(img_y < 0 || img_y >= prog->img_data.size.y)
-			&& texture_y + 1 < texture.size.y)
-			pixel_to_image(&prog->img_data, new_vec2(x, img_y), texture.pixels[
-				texture_x + (int)(texture_y)*(texture.size.y)]);
+		if (img_y >= prog->img_data.size.y || texture_y + 1 >= texture.size.y)
+			break;
+		pixel_to_image(&prog->img_data, new_vec2(x, img_y), texture.pixels[
+			texture_x + (int)(texture_y)*(texture.size.y)]);
 		texture_y += (float)texture.size.y / height;
+		img_y++;
+	}
+	while (img_y < prog->img_data.size.y)
+	{
+		pixel_to_image(&prog->img_data, new_vec2(x, img_y), prog->map.floor_color);
 		img_y++;
 	}
 }

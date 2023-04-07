@@ -138,4 +138,5 @@ int				check_tiles_after(t_map *map);
 void			fillscreen(t_img_data *img_data,
 					t_rgb ceiling_color, t_rgb floor_color);
 
+long	get_time(void);
 #endif /* CUBE3D_H */
