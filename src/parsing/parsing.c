@@ -47,17 +47,11 @@ static int	parse_lines(char **lines, t_program *program)
 	return (SUCCESS);
 }
 
-/*
 static int is_map_compact(char *filename)
 {
 	char	*line;
 	int		fd;
-	int		is_in_map;
-	int		has_empty;
-	int i = 0;
 
-	has_empty = FALSE;
-	is_in_map = FALSE;
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return (FALSE);
@@ -66,22 +60,35 @@ static int is_map_compact(char *filename)
 		line = get_next_line(fd);
 		if (line == NULL)
 			break;
-		else if (!is_in_map && is_in_charset(line[0], " 10"))
-			is_in_map = TRUE;
-		else if (line[0] == '\n' && is_in_map)
-			has_empty = TRUE;
-		else if (line[0] != '\n' && is_in_map && has_empty)
+		//printf("line: |%s|\n", line);
+		if (is_in_charset(line[0], " 01"))
 		{
-			//printf("map has an empty line at line %d (%s) \n", i, line);
+			free(line);
+			break;
+		}
+		free(line);
+	}
+
+	//printf("=====\n");
+	int has_empty_line = FALSE;
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break;
+		if (has_empty_line && line[0] != '\n' && line[1] != '\0')
+		{
 			free(line);
 			return (FALSE);
 		}
+		//printf("line: |%s|\n", line);
+		if (line[0] == '\n')
+			has_empty_line = TRUE;
 		free(line);
-		i++;
 	}
+	//exit(1);
 	return (TRUE);
 }
-*/
 
 int	parse(char *filename, t_program *program)
 {
@@ -89,16 +96,15 @@ int	parse(char *filename, t_program *program)
 	char	**lines;
 	int		status;
 
-	/*
-	if (!is_map_compact(filename))
-	{
-		error_print("map has an empty line");
-		return (ERROR);
-	}
-	*/
 	file_content = get_all_file(filename);
 	if (file_content == NULL || ft_strlen(file_content) == 0)
 		return (ERROR);
+	if (!is_map_compact(filename))
+	{
+		free(file_content);
+		error_print("map has an empty line");
+		return (ERROR);
+	}
 	lines = ft_split(file_content, '\n');
 	free(file_content);
 	if (lines == NULL)

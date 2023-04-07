@@ -60,3 +60,13 @@ t_bool	is_in_map(t_vec2 pos, t_map map)
 	return ((t_bool)(pos.x >= 0 && pos.x < map.size.x
 		&& pos.y >= 0 && pos.y < map.size.y));
 }
+
+#include <sys/time.h>
+long	get_time(void)
+{
+	// TODO remove this function
+	struct timeval	tv;
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
+

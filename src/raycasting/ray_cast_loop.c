@@ -51,13 +51,24 @@ void	ray_casting_loop(t_program *prog)
 	double		pourcent;
 	float		height;
 
+
+	int	iter_count = 0;
+	long total_time = 0;
+	long total_impact_time = 0;
+
+
+
 	height = prog->img_data.size.y / prog->fov * 95;
 	x = 0;
 	while (x < prog->img_data.size.x)
 	{
 		direction = rad_to_deg(vec2_to_angle(prog->player.dir_cam)) - prog->fov
 			/ 2 + (float)x / prog->img_data.size.x * prog->fov;
+
+		long start_impact = get_time();
 		impact = get_impact_point(prog->player.pos, direction, prog->map);
+		total_impact_time += get_time() - start_impact;
+
 		text_dir = get_text_dir(impact, prog->player.pos);
 		if (is_x_collision(impact))
 			pourcent = abs_diff_with_int(impact.y);
@@ -65,7 +76,20 @@ void	ray_casting_loop(t_program *prog)
 			pourcent = abs_diff_with_int(impact.x);
 		dist = vec2_dist(prog->player.pos, impact) * cos(deg_to_rad(direction)
 			- vec2_to_angle(prog->player.dir_cam));
+
+		long start_draw = get_time();
+
 		draw_column(prog, x, pourcent, text_dir, height / dist);
+
+		total_time += get_time() - start_draw;
+
+
 		x += 1;
+
+		{
+			iter_count++;
+		}
 	}
+	printf("Average time. drawing: %f impact: %f\n", (float)total_time / iter_count, (float)total_impact_time / iter_count);
+	printf("Total time. drawing: %ld ms impact: %ld ms (total: %ld ms)\n", total_time, total_impact_time, total_time + total_impact_time);
 }

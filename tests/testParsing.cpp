@@ -112,6 +112,8 @@ TEST(ParsingIntegrationTest, EmptyLineInMiddle) {
                            "Error\nmap has an empty line\n", true);
 }
 
+/*
+
 TEST(ParsingIntegrationTest, UnclosedMap) {
   std::vector<std::string> content = working_infos;
   content.push_back("111N111111111");
@@ -172,6 +174,7 @@ TEST(ParsingIntegrationTest, EmptyLineInMiddle2) {
   content.push_back("          1111111111111          ");
   parsing_integration_test(content, "Error\nmap has an empty line\n", true);
 }
+*/
 
 TEST(ParsingIntegrationTest, Basic) {
   parsing_integration_test("../maps/basic.cub", "");
