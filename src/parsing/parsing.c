@@ -60,6 +60,7 @@ static int is_map_compact(char *filename)
 		line = get_next_line(fd);
 		if (line == NULL)
 			break;
+		//printf("line: |%s|\n", line);
 		if (is_in_charset(line[0], " 01"))
 		{
 			free(line);
@@ -68,23 +69,24 @@ static int is_map_compact(char *filename)
 		free(line);
 	}
 
+	//printf("=====\n");
 	int has_empty_line = FALSE;
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
 			break;
-		if (line[0] == '\n')
+		if (has_empty_line && line[0] != '\n' && line[1] != '\0')
 		{
-			if (has_empty_line)
-			{
-				free(line);
-				return (FALSE);
-			}
-			has_empty_line = TRUE;
+			free(line);
+			return (FALSE);
 		}
+		//printf("line: |%s|\n", line);
+		if (line[0] == '\n')
+			has_empty_line = TRUE;
 		free(line);
 	}
+	//exit(1);
 	return (TRUE);
 }
 
