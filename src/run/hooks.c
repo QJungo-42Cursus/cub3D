@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 09:34:23 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/06 09:46:19 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/11 13:06:34 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	key_hook(int key, t_program *program)
 	if (key == KEY_ESC)
 	{
 		program->refresh = FALSE;
-		mlx_loop_end(program->mlx);
+		//mlx_loop_end(program->mlx);
+		//TODO marche pas sur macos :<
 	}
 	else if (key == KEY_W || key == KEY_S || key == KEY_A || key == KEY_D)
 		should_refresh = (t_bool)player_move(key, program);

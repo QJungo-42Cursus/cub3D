@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 11:12:22 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/05 19:54:22 by agonelle         ###   ########.fr       */
+/*   Updated: 2023/04/11 13:06:39 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	loop_hook(t_program *program)
 static int	close_window(t_program *program)
 {
 	program->refresh = FALSE;
-	mlx_loop_end(program->mlx);
+	//mlx_loop_end(program->mlx);
 	return (0);
 }
 

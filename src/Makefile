@@ -33,7 +33,7 @@ ifeq ($(shell uname), Linux)
 MLX =		-L./../mlx -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
 LEAKS =		valgrind -q --leak-check=full --track-origins=yes
 else
-MLX =		-L./../mlx -lmlx -framework OpenGL -framework AppKit -lz
+MLX =		-L../mlx -lmlx -framework OpenGL -framework AppKit -lz
 LEAKS =		leaks --atExit --
 endif
 

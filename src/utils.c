@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:16:25 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/04 23:51:00 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/11 13:05:58 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	free_program(t_program *program)
 		return ;
 	if (program->win != NULL)
 		mlx_destroy_window(program->mlx, program->win);
-	mlx_destroy_display(program->mlx);
+	//mlx_destroy_display(program->mlx);
 	free(program->mlx);
 }
 
