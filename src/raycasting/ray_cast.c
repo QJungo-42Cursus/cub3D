@@ -6,7 +6,7 @@
 /*   By: agonelle <agonelle@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 13:11:13 by agonelle          #+#    #+#             */
-/*   Updated: 2023/04/11 21:34:26 by agonelle         ###   ########.fr       */
+/*   Updated: 2023/04/11 21:45:53 by agonelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static float	get_pourcent(t_vec2 player_pos, t_ray ray)
 	}
 	else
 	{
-		impact.x = player_pos.x + ray.dist_final * (ray.dir.y
+		impact.x = player_pos.x + ray.dist_final * (ray.dir.x
 				* (1 / sqrt (ray.dir.x * ray.dir.x + ray.dir.y * ray.dir.y)));
 		pourcent = impact.x - ray.pos_tile.x;
 	}
@@ -75,8 +75,6 @@ void	ray_casting_loop(t_program *prog)
 	while (x < prog->img_data.size.x)
 	{
 		cam = 2 * x / (double) prog->img_data.size.x - 1;
-		ray.pos_tile.x = (int)prog->player.pos.x;
-		ray.pos_tile.y = (int)prog->player.pos.y;
 		ray.dir.x = prog->player.dir_cam.x + prog->player.cam_plan.x * cam;
 		ray.dir.y = prog->player.dir_cam.y + prog->player.cam_plan.y * cam;
 		set_ray(prog->player.pos, &ray);
