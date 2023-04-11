@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 13:06:46 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/03 13:25:09 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/11 13:59:17 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ unsigned int	color_from_rgb(unsigned char r,
 	t_rgb				color;
 	unsigned char		*ptr;
 
-	color = 0xFF000000;
+	color = 0x00000000;
 	ptr = (unsigned char *)&color;
 	ptr[2] = r;
 	ptr[1] = g;

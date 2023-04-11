@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:23:14 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/06 13:47:15 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/11 14:07:18 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void			set_player_cam(t_player *player, char c);
 void			ray_casting_loop2(t_program *prog);
 void			ray_casting_loop(t_program *prog);
 void			set_ray(t_player play, t_ray *ray, float cam);
-//void			get_impact(t_ray *ray, t_map *map);
 t_vec2			get_impact(t_ray *ray, t_map *map);
 t_vec2			get_impact_point(t_vec2 start, float direction, t_map map);
 void			draw_column(t_program *prog, int x,
@@ -132,11 +131,6 @@ int				set_tiles(char **lines, t_program *program);
 int				check_tiles(char **lines, t_map *map);
 // check_tiles_after.c
 int				check_tiles_after(t_map *map);
-
-/******** ./fillscreen ******/
-// fillscreen.c
-void			fillscreen(t_img_data *img_data,
-					t_rgb ceiling_color, t_rgb floor_color);
 
 long	get_time(void);
 #endif /* CUBE3D_H */

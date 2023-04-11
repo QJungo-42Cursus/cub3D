@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 11:12:22 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/11 13:06:39 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/11 14:06:40 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ static int	loop_hook(t_program *program)
 	ray_casting_loop(program);
 
 	printf("ray_casting_loop time: %ld ms \n", get_time() - start);
-	//long start2 = get_time();
+	long start2 = get_time();
 
 	draw_minimap(program, &program->img_data, new_vec2i(10, 10), MINIMAP_SCALE);
 
-	//printf("draw_minimap time: %ld ms \n", get_time() - start2);
-	//long start3 = get_time();
+	printf("draw_minimap time: %ld ms \n", get_time() - start2);
+	long start3 = get_time();
 
 	mlx_put_image_to_window(program->mlx,
 		program->win, program->img_data.img, 0, 0);
 
-	//printf("mlx_put_image_to_window time: %ld ms \n", get_time() - start3);
+	printf("mlx_put_image_to_window time: %ld ms \n", get_time() - start3);
 	printf(" ======== total render time: %ld ms ========== \n", get_time() - start);
 
 	program->refresh = FALSE;

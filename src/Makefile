@@ -15,7 +15,6 @@ SRCS =		\
 			parsing/check_tiles_after.c \
 			parsing/set_colors.c \
 			parsing/get_all_file.c \
-			fillscreen/fillscreen.c \
 			run/run.c \
 			run/hooks.c \
 			run/draw_minimap.c \
