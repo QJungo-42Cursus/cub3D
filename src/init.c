@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 23:46:10 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/11 14:43:30 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/11 15:08:26 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	init_program(t_program *program)
 	init_map(&(program->map));
 	program->refresh = TRUE;
 	program->fov = FOV;
+	program->minimap_scale = MINIMAP_SCALE;
 }
 
 int	init_win(t_program *program)

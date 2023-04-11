@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:23:14 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/11 14:47:28 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/11 15:08:12 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_program {
 	t_bool		refresh;
 	t_img_data	img_data;
 	float		fov;
+	int			minimap_scale;
 }	t_program;
 
 //	functions

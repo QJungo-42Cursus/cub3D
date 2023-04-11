@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 11:12:22 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/11 14:19:55 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/11 15:08:38 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ static int	loop_hook(t_program *program)
 	if (!program->refresh)
 		return (0);
 	ray_casting_loop(program);
-	draw_minimap(program, &program->img_data, new_vec2i(10, 10), MINIMAP_SCALE);
+	draw_minimap(program, &program->img_data,
+		new_vec2i(10, 10), program->minimap_scale);
 	mlx_put_image_to_window(program->mlx,
 		program->win, program->img_data.img, 0, 0);
 	program->refresh = FALSE;

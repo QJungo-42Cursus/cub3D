@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:05:12 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/04 23:48:43 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/11 15:19:14 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ void	draw_minimap(t_program *program,
 		index.x = 0;
 		while (index.x < program->map.size.x)
 		{
+			if (index.x * scale + start.x > program->img_data.size.x)
+				break ;
+			if (index.y * scale + start.y > program->img_data.size.y)
+				break ;
 			if (program->map.tiles[index.y][index.x] == WALL)
 				draw_rect(new_rect(new_vec2(index.x * scale + start.x,
 							index.y * scale + start.y),
