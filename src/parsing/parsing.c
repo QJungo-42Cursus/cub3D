@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:27:55 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/04 11:55:51 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/11 14:31:18 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,46 +47,49 @@ static int	parse_lines(char **lines, t_program *program)
 	return (SUCCESS);
 }
 
-static int is_map_compact(char *filename)
+static int	open_goto_map_start(char *filename, char **line, int *fd)
+{
+	*fd = open(filename, O_RDONLY);
+	if (*fd == -1)
+		return (ERROR);
+	while (1)
+	{
+		*line = get_next_line(*fd);
+		if (*line == NULL)
+			break ;
+		if (is_in_charset((*line)[0], " 01"))
+		{
+			free(*line);
+			break ;
+		}
+		free(*line);
+	}
+	return (SUCCESS);
+}
+
+static int	is_map_compact(char *filename)
 {
 	char	*line;
+	int		has_empty_line;
 	int		fd;
 
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
+	if (open_goto_map_start(filename, &line, &fd) == ERROR)
 		return (FALSE);
+	has_empty_line = FALSE;
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
-			break;
-		//printf("line: |%s|\n", line);
-		if (is_in_charset(line[0], " 01"))
-		{
-			free(line);
-			break;
-		}
-		free(line);
-	}
-
-	//printf("=====\n");
-	int has_empty_line = FALSE;
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (line == NULL)
-			break;
+			break ;
 		if (has_empty_line && line[0] != '\n' && line[1] != '\0')
 		{
 			free(line);
 			return (FALSE);
 		}
-		//printf("line: |%s|\n", line);
 		if (line[0] == '\n')
 			has_empty_line = TRUE;
 		free(line);
 	}
-	//exit(1);
 	return (TRUE);
 }
 

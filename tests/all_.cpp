@@ -1,7 +1,6 @@
 #define TEST
 extern "C" {
 #include "../src/cube3D.h"
-#include "../src/fillscreen/fillscreen.c"
 #include "../src/init.c"
 #include "../src/main.c"
 #include "../src/parsing/check_tiles.c"

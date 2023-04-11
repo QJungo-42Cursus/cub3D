@@ -15,7 +15,6 @@ SRCS =		\
 			parsing/check_tiles_after.c \
 			parsing/set_colors.c \
 			parsing/get_all_file.c \
-			fillscreen/fillscreen.c \
 			run/run.c \
 			run/hooks.c \
 			run/draw_minimap.c \
@@ -34,7 +33,7 @@ ifeq ($(shell uname), Linux)
 MLX =		-L./../mlx -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
 LEAKS =		valgrind -q --leak-check=full --track-origins=yes
 else
-MLX =		-L./../mlx -lmlx -framework OpenGL -framework AppKit -lz
+MLX =		-L../mlx -lmlx -framework OpenGL -framework AppKit -lz
 LEAKS =		leaks --atExit --
 endif
 

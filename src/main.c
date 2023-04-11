@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:22:39 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/04 17:40:33 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/11 14:10:45 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	main_(int argc, char **argv)
 		return (1);
 	}
 	run(&program);
-	free_program(&program);
 	return (0);
 }
 

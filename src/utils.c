@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:16:25 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/04 23:51:00 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/11 14:46:11 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 void	error_print(const char *msg)
 {
 	printf("Error\n%s\n", msg);
-	//strerror(errno);
 }
 
 void	free_map(t_map *map)
@@ -51,7 +50,6 @@ void	free_program(t_program *program)
 		return ;
 	if (program->win != NULL)
 		mlx_destroy_window(program->mlx, program->win);
-	mlx_destroy_display(program->mlx);
 	free(program->mlx);
 }
 
@@ -69,4 +67,3 @@ long	get_time(void)
 	gettimeofday(&tv, NULL);
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
-
