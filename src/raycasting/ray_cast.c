@@ -6,7 +6,7 @@
 /*   By: agonelle <agonelle@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 13:11:13 by agonelle          #+#    #+#             */
-/*   Updated: 2023/04/11 19:53:33 by agonelle         ###   ########.fr       */
+/*   Updated: 2023/04/11 21:34:26 by agonelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,20 @@ static int	is_a_wall(t_vec2i coor, char **tiles)
 static float	get_pourcent(t_vec2 player_pos, t_ray ray)
 {
 	float	pourcent;
-	float	norm;
 	t_vec2	impact;
 
-	norm = 1 / sqrt (ray.dir.x * ray.dir.x + ray.dir.y * ray.dir.y);
-	impact.x = player_pos.x + ray.dist_final * (ray.dir.x * norm);
-	impact.y = player_pos.y + ray.dist_final * (ray.dir.y * norm);
 	if (ray.side == 1)
+	{
+		impact.y = player_pos.y + ray.dist_final * (ray.dir.y
+				* (1 / sqrt (ray.dir.x * ray.dir.x + ray.dir.y * ray.dir.y)));
 		pourcent = impact.y - ray.pos_tile.y;
+	}
 	else
+	{
+		impact.x = player_pos.x + ray.dist_final * (ray.dir.y
+				* (1 / sqrt (ray.dir.x * ray.dir.x + ray.dir.y * ray.dir.y)));
 		pourcent = impact.x - ray.pos_tile.x;
+	}
 	return (pourcent);
 }
 
