@@ -6,12 +6,13 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 11:12:22 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/11 14:06:40 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/11 14:19:55 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube3D.h"
 
+/*
 static int	loop_hook(t_program *program)
 {
 	if (!program->refresh)
@@ -34,8 +35,21 @@ static int	loop_hook(t_program *program)
 		program->win, program->img_data.img, 0, 0);
 
 	printf("mlx_put_image_to_window time: %ld ms \n", get_time() - start3);
-	printf(" ======== total render time: %ld ms ========== \n", get_time() - start);
+	printf(" ====== total render time: %ld ms ======== \n", get_time() - start);
 
+	program->refresh = FALSE;
+	return (0);
+}
+*/
+
+static int	loop_hook(t_program *program)
+{
+	if (!program->refresh)
+		return (0);
+	ray_casting_loop(program);
+	draw_minimap(program, &program->img_data, new_vec2i(10, 10), MINIMAP_SCALE);
+	mlx_put_image_to_window(program->mlx,
+		program->win, program->img_data.img, 0, 0);
 	program->refresh = FALSE;
 	return (0);
 }
@@ -43,7 +57,8 @@ static int	loop_hook(t_program *program)
 static int	close_window(t_program *program)
 {
 	program->refresh = FALSE;
-	//mlx_loop_end(program->mlx);
+	free_program(program);
+	exit(0);
 	return (0);
 }
 

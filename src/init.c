@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 23:46:10 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/11 13:06:16 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/11 14:43:30 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	init_win(t_program *program)
 	if (program->win == NULL)
 	{
 		error_print("mlx_new_window error");
-		//mlx_destroy_display(program->mlx);
 		free(program->mlx);
 		return (ERROR);
 	}
