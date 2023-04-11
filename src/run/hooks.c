@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 09:34:23 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/11 14:19:07 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/11 14:56:44 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static int	player_move(int key, t_program *program)
 	else if (key == KEY_S)
 		move_toward(&program->player, program->map, new_vec2i(0, 1));
 	else if (key == KEY_A)
-		move_toward(&program->player, program->map, new_vec2i(-1, 0));
-	else if (key == KEY_D)
 		move_toward(&program->player, program->map, new_vec2i(1, 0));
+	else if (key == KEY_D)
+		move_toward(&program->player, program->map, new_vec2i(-1, 0));
 	else
 		return (FALSE);
 	return (TRUE);
