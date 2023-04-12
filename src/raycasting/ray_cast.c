@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_cast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agonelle <agonelle@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: qjungo <qjungo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 13:11:13 by agonelle          #+#    #+#             */
-/*   Updated: 2023/04/11 21:45:53 by agonelle         ###   ########.fr       */
+/*   Updated: 2023/04/12 10:57:47 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,16 @@ void	ray_casting_loop(t_program *prog)
 		get_impact2(&ray, &prog->map);
 		pourcent = get_pourcent(prog->player.pos, ray);
 		get_texture_from_ray(&ray);
+
+
+		// correction fish eye 
+		float direction = vec2_to_angle(ray.dir);
+		float dist = ray.dist_final * cos(direction - vec2_to_angle(prog->player.dir_cam));
+		float height = prog->img_data.size.y / dist * 1.4;
+
+
 		lineheight = prog->img_data.size.y / ray.dist_final * 1.4;
-		draw_column(prog, x, pourcent, ray.side, lineheight);
+		draw_column(prog, x, pourcent, ray.side, height);
 		x++;
 	}
 }
