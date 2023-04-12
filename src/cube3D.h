@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:23:14 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/12 13:57:03 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/12 21:07:11 by agonelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,9 @@ void			ray_casting_loop(t_program *prog);
 void			get_impact2(t_ray *ray, t_map *map);
 t_vec2			get_impact(t_ray *ray, t_map *map);
 t_vec2			get_impact_point(t_vec2 start, float direction, t_map map);
-void			draw_column(t_program *prog, int x,
-					double text_pourcentage,
-					t_direction text_dir, double height);
+void			draw_column(t_program *prog, int x, double *tab,
+					t_direction text_dir);
+
 //init_and_set_ray.c
 void			set_ray(t_vec2 play_pos, t_ray *ray);
 void			get_texture_from_ray(t_ray *ray);

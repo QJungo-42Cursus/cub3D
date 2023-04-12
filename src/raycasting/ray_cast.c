@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 13:11:13 by agonelle          #+#    #+#             */
-/*   Updated: 2023/04/12 13:55:13 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/12 21:08:01 by agonelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ray_casting_loop(t_program *prog)
 	int		x;
 	t_ray	ray;
 	float	cam;
-	double	pourcent;
+	double	tab[2];
 
 	x = 0;
 	while (x < prog->img_data.size.x)
@@ -73,12 +73,12 @@ void	ray_casting_loop(t_program *prog)
 		ray.dir.y = prog->player.dir_cam.y + prog->player.cam_plan.y * cam;
 		set_ray(prog->player.pos, &ray);
 		get_impact2(&ray, &prog->map);
-		pourcent = get_pourcent(prog->player.pos, ray);
+		tab[0] = get_pourcent(prog->player.pos, ray);
 		get_texture_from_ray(&ray);
 		ray.dist_perp = ray.dist_final * cos(vec2_to_angle(ray.dir)
 				- vec2_to_angle(prog->player.dir_cam));
-		draw_column(prog, x, pourcent, ray.side, prog->img_data.size.y
-			/ ray.dist_perp * 1.34);
+		tab[1] = prog->img_data.size.y / ray.dist_perp * 1.34;
+		draw_column(prog, x, tab, ray.side);
 		x++;
 	}
 }

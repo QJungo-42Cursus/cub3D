@@ -2,7 +2,7 @@ NAME =		cube3D
 CC =		gcc
 CFLAGS =	-Wall -Wextra -Werror -O2
 RM =		rm -f
-LIBFT =		-L./../libft -lft
+LIBFT =		-L./libft -lft
 SRCS =		\
 			src/main.c \
 			src/utils.c \
@@ -41,11 +41,11 @@ endif
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	make -C ../libft
+	make -C ./libft
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX) -o $(NAME)
 
 clean:
-	@make clean -C ../libft
+	@make clean -C ./libft
 	$(RM) $(OBJS)
 
 fclean: clean
@@ -57,9 +57,9 @@ re: fclean all
 ###
 
 ulibft:
-	$(RM) -r ../libft/.git
-	cp -r ../../libft ../
-	$(RM) -r ../libft/.git
+	$(RM) -r ./libft/.git
+	cp -r ./libft ./
+	$(RM) -r ./libft/.git
 	make re
 
 SAN =	-fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all \
@@ -67,7 +67,7 @@ SAN =	-fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all \
 		-fno-sanitize=null -fno-sanitize=alignment
 
 san:
-	@make -C ../libft
+	@make -C ./libft
 	$(CC) $(CFLAGS) $(SAN) $(SRCS) $(LIBFT) $(MLX) -o $(NAME) 
 
 t:
