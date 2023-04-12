@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 09:50:07 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/04 09:51:47 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/12 13:15:24 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,13 @@ void	draw_rect(t_rect rect, t_img_data *img_data)
 	y = rect.position.y;
 	while (y < rect.position.y + rect.size.y)
 	{
+		if (y >= img_data->size.y)
+			break ;
 		x = rect.position.x;
 		while (x < rect.position.x + rect.size.x)
 		{
+			if (x >= img_data->size.x)
+				break ;
 			pixel_to_image(img_data, new_vec2(x, y), rect.color);
 			x++;
 		}

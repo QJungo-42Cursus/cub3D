@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   move_toward.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
+/*   By: qjungo <qjungo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 12:42:45 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/04 23:44:27 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/12 13:36:06 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube3D.h"
-#define SPEED 0.1
+#define SPEED 0.3
 
 static t_vec2	get_new_pos(t_vec2 actual, t_vec2 dir)
 {

@@ -6,7 +6,7 @@
 /*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 12:26:39 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/11 14:42:44 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/12 13:25:55 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	texture_x(double text_pourcentage, t_texture texture)
 	return ((int)(text_pourcentage * (double)texture.size.x));
 }
 
-void	draw_column(t_program *prog, int x, double text_pourcentage,
+void	draw_column(t_program *prog, int x, double text_pourcentage, // t_ray
 			t_direction text_dir, double height)
 {
 	int			img_y;

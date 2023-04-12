@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_textures_path.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
+/*   By: qjungo <qjungo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:52:59 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/04 10:53:05 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/12 13:53:28 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,32 +78,18 @@ int	set_textures(char **lines, t_program *program, int first_line)
 
 	if (set_textures_path(lines, first_line, &t) == ERROR)
 		return (ERROR);
-#ifndef TEST // on ne peut pas tester car il faut mlx_init (donc un serveur X)
 	program->map.textures[NORTH] = new_text(program->mlx, t.no_path);
-	if (program->map.textures[NORTH].pixels == NULL)
-	{
-		error_print("malloc error");
-		return (ERROR);
-	}
 	program->map.textures[SOUTH] = new_text(program->mlx, t.so_path);
-	if (program->map.textures[SOUTH].pixels == NULL)
-	{
-		error_print("malloc error");
-		return (ERROR);
-	}
-	program->map.textures[WEST] = new_text(program->mlx, t.we_path);
-	if (program->map.textures[WEST].pixels == NULL)
-	{
-		error_print("malloc error");
-		return (ERROR);
-	}
 	program->map.textures[EAST] = new_text(program->mlx, t.ea_path);
-	if (program->map.textures[EAST].pixels == NULL)
+	program->map.textures[WEST] = new_text(program->mlx, t.we_path);
+	if (program->map.textures[NORTH].pixels == NULL
+		|| program->map.textures[SOUTH].pixels == NULL
+		|| program->map.textures[EAST].pixels == NULL
+		|| program->map.textures[WEST].pixels == NULL)
 	{
 		error_print("malloc error");
 		return (ERROR);
 	}
-#endif
 	free(t.no_path);
 	free(t.so_path);
 	free(t.we_path);

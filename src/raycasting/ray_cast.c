@@ -6,17 +6,12 @@
 /*   By: qjungo <qjungo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 13:11:13 by agonelle          #+#    #+#             */
-/*   Updated: 2023/04/12 10:57:47 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/12 13:55:13 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube3D.h"
 #include <math.h>
-
-static int	is_a_wall(t_vec2i coor, char **tiles)
-{
-	return (tiles[coor.y][coor.x] == WALL);
-}
 
 static float	get_pourcent(t_vec2 player_pos, t_ray ray)
 {
@@ -54,7 +49,7 @@ void	get_impact2(t_ray *ray, t_map *map)
 			ray->pos_tile.y += ray->step.y;
 			ray->side = 0;
 		}
-		if (is_a_wall(ray->pos_tile, map->tiles))
+		if (map->tiles[ray->pos_tile.y][ray->pos_tile.x] == WALL)
 			break ;
 	}
 	if (ray->side == 1)
@@ -68,7 +63,6 @@ void	ray_casting_loop(t_program *prog)
 	int		x;
 	t_ray	ray;
 	float	cam;
-	int		lineheight;
 	double	pourcent;
 
 	x = 0;
@@ -81,16 +75,10 @@ void	ray_casting_loop(t_program *prog)
 		get_impact2(&ray, &prog->map);
 		pourcent = get_pourcent(prog->player.pos, ray);
 		get_texture_from_ray(&ray);
-
-
-		// correction fish eye 
-		float direction = vec2_to_angle(ray.dir);
-		float dist = ray.dist_final * cos(direction - vec2_to_angle(prog->player.dir_cam));
-		float height = prog->img_data.size.y / dist * 1.4;
-
-
-		lineheight = prog->img_data.size.y / ray.dist_final * 1.4;
-		draw_column(prog, x, pourcent, ray.side, height);
+		ray.dist_perp = ray.dist_final * cos(vec2_to_angle(ray.dir)
+				- vec2_to_angle(prog->player.dir_cam));
+		draw_column(prog, x, pourcent, ray.side, prog->img_data.size.y
+			/ ray.dist_perp * 1.34);
 		x++;
 	}
 }

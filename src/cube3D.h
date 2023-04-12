@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3D.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
+/*   By: qjungo <qjungo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 00:23:14 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/11 19:53:19 by agonelle         ###   ########.fr       */
+/*   Updated: 2023/04/12 13:57:03 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 # define Y_SIZE 1080
 # define MINIMAP_SCALE 15
 # define BUFF_SIZE 2048
-
-# include "../tests/debug_helper.hpp"
 
 enum e_tile {
 	VOID = ' ',
@@ -56,12 +54,13 @@ typedef struct s_player {
 }	t_player;
 
 typedef struct s_ray {
-	t_vec2	dist_next;
 	t_vec2	dir;
-	t_vec2i	pos_tile;
 	t_vec2	delta_dist;
+	t_vec2	dist_next;
 	t_vec2	step;
+	t_vec2i	pos_tile;
 	double	dist_final;
+	double	dist_perp;
 	int		side;
 }	t_ray;
 
@@ -134,6 +133,4 @@ int				set_tiles(char **lines, t_program *program);
 int				check_tiles(char **lines, t_map *map);
 // check_tiles_after.c
 int				check_tiles_after(t_map *map);
-
-long	get_time(void);
 #endif /* CUBE3D_H */

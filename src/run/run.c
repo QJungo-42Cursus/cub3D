@@ -3,44 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qjungo <qjungo@student.42lausanne.ch>      +#+  +:+       +#+        */
+/*   By: qjungo <qjungo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 11:12:22 by qjungo            #+#    #+#             */
-/*   Updated: 2023/04/11 15:08:38 by qjungo           ###   ########.fr       */
+/*   Updated: 2023/04/12 13:49:32 by qjungo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube3D.h"
-
-/*
-static int	loop_hook(t_program *program)
-{
-	if (!program->refresh)
-		return (0);
-
-	long start = get_time();
-	printf(" ======== start ========== \n");
-
-	ray_casting_loop(program);
-
-	printf("ray_casting_loop time: %ld ms \n", get_time() - start);
-	long start2 = get_time();
-
-	draw_minimap(program, &program->img_data, new_vec2i(10, 10), MINIMAP_SCALE);
-
-	printf("draw_minimap time: %ld ms \n", get_time() - start2);
-	long start3 = get_time();
-
-	mlx_put_image_to_window(program->mlx,
-		program->win, program->img_data.img, 0, 0);
-
-	printf("mlx_put_image_to_window time: %ld ms \n", get_time() - start3);
-	printf(" ====== total render time: %ld ms ======== \n", get_time() - start);
-
-	program->refresh = FALSE;
-	return (0);
-}
-*/
 
 static int	loop_hook(t_program *program)
 {
