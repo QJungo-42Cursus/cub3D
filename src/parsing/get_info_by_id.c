@@ -18,7 +18,7 @@ static char	*return_value(const char *id, char **lines, int found_i)
 
 	if (found_i == -1)
 		return (NULL);
-	value = ft_strdup(&lines[found_i][ft_strlen(id)]);
+	value = ft_strtrim(&lines[found_i][ft_strlen(id)], " ");
 	if (value == NULL)
 	{
 		error_print("malloc error");
