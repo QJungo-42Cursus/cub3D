@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube3D.h"
+#include "../cub3D.h"
 
 static int	set_into_color(char *color_str, unsigned int *rgb)
 {

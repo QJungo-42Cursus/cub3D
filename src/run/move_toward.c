@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube3D.h"
+#include "../cub3D.h"
 #define SPEED 0.3
 
 static t_vec2	get_new_pos(t_vec2 actual, t_vec2 dir)

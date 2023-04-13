@@ -10,8 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../src/cube3D.h"
+#include "../cub3D.h"
 #include <math.h>
+
+static t_vec2	get_impact_point(t_vec2 start, float direction, t_map map)
+{
+	t_vec2		directeur;
+
+	directeur = angle_to_vec2(deg_to_rad(direction));
+	while (is_in_map(start, map)
+		&& !(map.tiles[(int)start.y][(int)start.x] != FLOOR))
+	{
+		start.x += directeur.x / 10;
+		start.y += directeur.y / 10;
+	}
+	return (start);
+}
 
 static void	draw_rayons(t_program *prog, t_img_data *img_data,
 			t_vec2i start, int scale)

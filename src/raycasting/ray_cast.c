@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube3D.h"
+#include "../cub3D.h"
 #include <math.h>
 
 static float	get_pourcent(t_vec2 player_pos, t_ray ray)

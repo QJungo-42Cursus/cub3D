@@ -14,7 +14,7 @@
 // 2. separer la map du reste
 // 3. verifier s'il y a des mauvais character dans la map
 
-#include "../cube3D.h"
+#include "../cub3D.h"
 
 static int	find_map_first_line(char **lines)
 {

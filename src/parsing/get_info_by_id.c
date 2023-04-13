@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube3D.h"
+#include "../cub3D.h"
 
 static char	*return_value(const char *id, char **lines, int found_i)
 {

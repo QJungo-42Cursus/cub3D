@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube3D.h"
+#include "../cub3D.h"
 #include <math.h>
 
 void	set_ray(t_vec2 play_pos, t_ray *ray)

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cube3D.h                                           :+:      :+:    :+:   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qjungo <qjungo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBE3D_H
-# define CUBE3D_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
@@ -80,14 +80,11 @@ typedef struct s_program {
 // utils.c
 void			error_print(const char *msg);
 void			free_program(t_program *program);
-int				init_win(t_program *program);
-void			init_program(t_program *program);
 t_bool			is_in_map(t_vec2 pos, t_map map);
 
-// player_action.c
-t_vec2			vec2_from_angle(double angle);
-void			set_player_cam(t_player *player, char c);
-void			rotate_cam(t_player *player, double angle);
+// init.c
+int				init_win(t_program *program);
+void			init_program(t_program *program);
 void			set_player_cam(t_player *player, char c);
 
 /******	./raycast ******/
@@ -95,7 +92,6 @@ void			set_player_cam(t_player *player, char c);
 void			ray_casting_loop(t_program *prog);
 void			get_impact2(t_ray *ray, t_map *map);
 t_vec2			get_impact(t_ray *ray, t_map *map);
-t_vec2			get_impact_point(t_vec2 start, float direction, t_map map);
 void			draw_column(t_program *prog, int x, double *tab,
 					t_direction text_dir);
 
@@ -132,4 +128,4 @@ int				set_tiles(char **lines, t_program *program);
 int				check_tiles(char **lines, t_map *map);
 // check_tiles_after.c
 int				check_tiles_after(t_map *map);
-#endif /* CUBE3D_H */
+#endif /* CUB3D_H */

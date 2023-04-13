@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube3D.h"
+#include "../cub3D.h"
+#include <math.h>
 
 static int	player_move(int key, t_program *program)
 {
@@ -25,6 +26,23 @@ static int	player_move(int key, t_program *program)
 	else
 		return (FALSE);
 	return (TRUE);
+}
+
+static void	rotate_cam(t_player *player, double angle)
+{
+	double	old_dir_cam;
+	double	old_cam_planx;
+
+	old_dir_cam = player->dir_cam.x;
+	player->dir_cam.x = player->dir_cam.x * cos(angle)
+		- player->dir_cam.y * sin(angle);
+	player->dir_cam.y = old_dir_cam * sin(angle)
+		+ player->dir_cam.y * cos(angle);
+	old_cam_planx = player->cam_plan.x;
+	player->cam_plan.x = player->cam_plan.x * cos(angle)
+		- player->cam_plan.y * sin(angle);
+	player->cam_plan.y = old_cam_planx * sin(angle)
+		+ player->cam_plan.y * cos(angle);
 }
 
 static int	cam_move(int key, t_program *program)
