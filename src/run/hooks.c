@@ -33,10 +33,6 @@ static int	cam_move(int key, t_program *program)
 		rotate_cam(&program->player, 0.1);
 	else if (key == KEY_LEFT)
 		rotate_cam(&program->player, -0.1);
-	else if (key == KEY_P && program->fov < 95)
-		program->fov += 5;
-	else if (key == KEY_O && program->fov > 30)
-		program->fov -= 5;
 	else
 		return (FALSE);
 	return (TRUE);

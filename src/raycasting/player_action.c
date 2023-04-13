@@ -48,12 +48,12 @@ void	set_player_cam(t_player *player, char c)
 	{
 		player->dir_cam = new_vec2(1, 0);
 		player->cam_plan.x = 0;
-		player->cam_plan.y = -0.66;
+		player->cam_plan.y = 0.66;
 	}
 	else
 	{
 		player->dir_cam = new_vec2(-1, 0);
 		player->cam_plan.x = 0;
-		player->cam_plan.y = 0.66;
+		player->cam_plan.y = -0.66;
 	}
 }

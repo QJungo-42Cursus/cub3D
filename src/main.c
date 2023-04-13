@@ -26,7 +26,7 @@ static int	is_arg_name_valid(int argc, char **argv)
 	return (TRUE);
 }
 
-int	main_(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_program	program;
 
@@ -50,12 +50,3 @@ int	main_(int argc, char **argv)
 	run(&program);
 	return (0);
 }
-
-#ifndef TEST
-
-int	main(int argc, char **argv)
-{
-	main_(argc, argv);
-}
-
-#endif

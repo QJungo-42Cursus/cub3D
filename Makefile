@@ -70,6 +70,9 @@ san:
 	@make -C ./libft
 	$(CC) $(CFLAGS) $(SAN) $(SRCS) $(LIBFT) $(MLX) -o $(NAME) 
 
+leaks: all
+	$(LEAKS) ./$(NAME) maps/basic.cub
+
 t:
 	make san
 	./$(NAME) maps/basic.cub

@@ -21,16 +21,16 @@ static void	draw_rayons(t_program *prog, t_img_data *img_data,
 	t_rgb		color;
 
 	color = color_from_rgb(0, 0, 255);
-	dir = rad_to_deg(vec2_to_angle(prog->player.dir_cam)) - prog->fov / 2;
+	dir = rad_to_deg(vec2_to_angle(prog->player.dir_cam)) - FOV / 2;
 	while (dir <= rad_to_deg(vec2_to_angle(prog->player.dir_cam))
-		+ prog->fov / 2 + 1)
+		+ FOV / 2 + 1)
 	{
 		impact = get_impact_point(prog->player.pos, dir, prog->map);
 		draw_line(new_line(new_vec2(prog->player.pos.x * scale + start.x,
 					prog->player.pos.y * scale + start.y), new_vec2(impact.x
 					* scale + start.x, impact.y * scale + start.y), color),
 			img_data);
-		dir += prog->fov / 6;
+		dir += FOV / 6;
 	}
 }
 
